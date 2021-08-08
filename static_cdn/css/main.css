@@ -1,0 +1,21 @@
+
+.sidenav {
+    height: 100%;
+    width: 300px;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #191919;
+    overflow-x: hidden;
+    padding-top: 10px;
+    color: white;
+}
+
+.main-content {
+    margin-left: 300px;
+}
+
+.title-menu{
+    padding-left: 1em !important;
+}

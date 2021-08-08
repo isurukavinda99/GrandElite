@@ -1,0 +1,43 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <div>
+
+        <!--side nav start -->
+        <div class="sidenav">
+            <div class="container text-warning">
+
+                <img src="{% static 'images/logo.png' %}" class="img-thumbnail p-0 border-0" alt="...">
+
+                <hr>
+
+                {% block side_nav_menu %}
+                {% endblock %}
+
+            </div>
+
+        </div>
+        <!-- side nav end-->
+
+        <!-- main content start-->
+        <div class="main-content" >
+
+            <div class="">
+
+                <nav class="navbar  bg-dark text-warning title-menu mt-2 text-warning" style="background-color: #191919 !important;">
+                    <h3 class="navbar-brand" >{% block nav_title %}{% endblock %}</h3>
+                </nav>
+
+                {% block main_content %}
+                {% endblock %}
+
+            </div>
+
+        </div>
+        <!-- main content end-->
+
+    </div>
+
+{% endblock %}
