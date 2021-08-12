@@ -1,0 +1,17 @@
+
+.nav-block{
+    background: transparent !important;
+}
+
+.nav-card-body{
+    margin-left: 2em;
+}
+
+.link-btn{
+    text-decoration: none;
+    color: #191919;
+}
+
+.link-btn:hover{
+    color: #f0ad4e;
+}
