@@ -32,7 +32,7 @@ def new_category(request):
 
         if(createForm_request.is_valid()):
             createForm_request.save()
-            messages.success(request, 'Profile created success !')
+            messages.success(request, 'Category created success !')
         else:
             createForm_request.errors
             context['category_form'] = createForm_request
@@ -86,11 +86,17 @@ def update_category(request , id):
 
 def item_dashboard(request):
 
-    return render(request , 'ISMS/inventory/item_dashboard.html')
+    items = Item.objects.all()
+
+    context = {
+        'items' : items
+    }
+
+    return render(request , 'ISMS/inventory/item_dashboard.html' , context)
 
 def new_item(request):
 
-    item_form = ItemForm();
+    item_form = ItemForm(prefix='itemForm');
 
     suppliers = Supplier.objects.all()
 
@@ -100,6 +106,18 @@ def new_item(request):
     }
 
     if request.method == 'POST':
-        print(request.POST)
+        item_request_form = ItemForm(request.POST , prefix='itemForm')
+        if(item_request_form.is_valid()):
+            item = item_request_form.save()
+            allocated = request.POST.getlist('allocated')
+            supplier_list = []
+            for allocate in allocated:
+                supplier_list.append(int(allocate))
+
+            item.suppliers.add(*supplier_list)
+            item.save()
+            messages.success(request, 'Item Create success !')
+        else:
+            context['item_form'] = item_request_form
 
     return render(request , 'ISMS/inventory/new_item.html' , context)

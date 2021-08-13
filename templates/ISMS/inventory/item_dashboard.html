@@ -5,9 +5,57 @@
 {% endblock %}
 
 {% block nav_title %}
-    Item Dashboard
+    Item Dashboard Find Your Item
 {%  endblock %}
 
 {% block main_content %}
-    asdas
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <div style="text-align: right ; font-size: 1.2em">
+                <a href="{% url 'new_item' %}" class="link-btn"><i class="fas fa-cog p-2"></i></a>
+                <a href="" class="link-btn"><i class="fas fa-print p-2"></i></a>
+            </div>
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Item Name</th>
+                            <th scope="col">Current Quantity</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for item in items %}
+                            <tr>
+                                <th scope="row">{{ item.id }}</th>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.quantity }}</td>
+                                <td>{{ item.category }}</td>
+                                <td>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <button type="button" class="btn w-100 btn-warning"><i class="far fa-eye"></i></button>
+                                        </div>
+                                        <div class="col">
+                                            <button type="button" class="btn btn-outline-warning w-100" style="color: #191919"><i class="far fa-edit"></i></button>
+                                        </div>
+                                    </div>
+
+
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}

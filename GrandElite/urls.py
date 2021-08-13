@@ -11,7 +11,7 @@ urlpatterns = [
 
     #shalitha
     #kavinda
-    path('isms' , include('ISMS.urls')),
+    path('isms/' , include('ISMS.urls')),
     #himasha
     #mihara
 

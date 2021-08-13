@@ -15,3 +15,9 @@
 .link-btn:hover{
     color: #f0ad4e;
 }
+
+.suppler-box{
+    max-height: 500px !important;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
