@@ -9,5 +9,65 @@
 {% endblock %}
 
 {% block main_content %}
-    dashboard tiles
+
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4">
+
+{#            category#}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Categories</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_category }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            item#}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Items</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_items }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            supplers#}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Suppliers</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_supplers }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            getting low#}
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Low Quantity Items</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+{#                            {% for r in t %}#}
+{#                                {{ r }}#}
+{#                            {% endfor %}#}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
 {% endblock %}

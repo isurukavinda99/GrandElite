@@ -1,0 +1,103 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    View Item
+{% endblock %}
+
+{% block nav_title %}
+    View Item : {{ item_name }}
+{% endblock %}
+
+
+{% block main_content %}
+    <!--message window-->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div style="text-align: right ; font-size: 1.2em">
+        <a href="{% url 'update_item' id=item_id %}" class="link-btn"><i class="far fa-edit p-2"></i></a>
+        <button type="button" class="btn btn-link" style="font-size: 1em" data-bs-toggle="modal" data-bs-target="#exampleModal"><i class="far fa-trash-alt p-2 text-danger"></i></button>
+    </div>
+
+    {% if item_form %}
+        <div class="card mt-3">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-8">
+                           <div class="form-group">
+                                {{ item_form.name | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.description | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.quantity | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.notify_level | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.category | as_crispy_field}}
+                            </div>
+                    </div>
+                    <div class="col-4">
+                        <span>Suppliers</span>
+                        <hr>
+                        {% for suppler in suppler_list %}
+                            <div class="card">
+                                <div class="card-body">
+
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <input type="text" name="not_assign"  class="form-control form-control-sm" value="{{ suppler.name }}" readonly>
+                                            <input type="hidden" name = "not_assign" id="item_value_{{ suppler.id }}" value="{{ suppler.id }}">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger" id="exampleModalLabel"><i class="fas fa-exclamation-triangle"></i> Do you want to delete this item</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body">
+                    If you press <span class="text-danger">yes</span> it will delete this item permanently.
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-bs-dismiss="modal">No</button>
+                    <a type="button" href="{% url 'delete_item' id=item_id %}" class="btn btn btn-outline-danger">Yes</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+{% endblock %}

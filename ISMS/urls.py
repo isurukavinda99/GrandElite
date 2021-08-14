@@ -14,6 +14,9 @@ urlpatterns = [
     # item
     path('item_dashboard' , item_dashboard , name = 'item_dashboard'),
     path('new_item' , new_item , name = 'new_item'),
+    path('view_item/<int:id>' , view_item , name = 'view_item'),
+    path('update_item/<int:id>' , update_item , name = 'update_item'),
+    path('delete_item/<int:id>', delete_item , name='delete_item'),
 ]
 
 

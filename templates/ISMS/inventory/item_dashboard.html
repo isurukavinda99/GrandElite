@@ -30,27 +30,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for item in items %}
-                            <tr>
-                                <th scope="row">{{ item.id }}</th>
-                                <td>{{ item.name }}</td>
-                                <td>{{ item.quantity }}</td>
-                                <td>{{ item.category }}</td>
-                                <td>
+                        {% if items %}
+                            {% for item in items %}
+                                <tr>
+                                    <th scope="row">{{ item.id }}</th>
+                                    <td>{{ item.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.category }}</td>
+                                    <td>
 
-                                    <div class="row">
-                                        <div class="col">
-                                            <button type="button" class="btn w-100 btn-warning"><i class="far fa-eye"></i></button>
+                                        <div class="row">
+                                            <div class="col">
+                                                <a type="button" href="{% url 'view_item' id=item.id %}" class="btn w-100 btn-warning"><i class="far fa-eye"></i></a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="{% url 'update_item' id=item.id %}" type="button" class="btn btn-outline-warning w-100" style="color: #191919"><i class="far fa-edit"></i></a>
+                                            </div>
                                         </div>
-                                        <div class="col">
-                                            <button type="button" class="btn btn-outline-warning w-100" style="color: #191919"><i class="far fa-edit"></i></button>
-                                        </div>
-                                    </div>
 
 
-                                </td>
-                            </tr>
-                        {% endfor %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </div>

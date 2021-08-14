@@ -1,10 +1,21 @@
 from django.contrib import messages
-from django.shortcuts import render , Http404 , redirect
+from django.db.models import Case, When
+from django.shortcuts import render , Http404 , redirect , get_object_or_404
+from  django.db import transaction
 from . forms import *
 # Create your views here.
 
 def home(request):
-    return render(request , 'ISMS/isms_dashboard.html')
+
+    context = {}
+
+    context['total_category'] = Category.objects.count()
+    context['total_items'] = Item.objects.count()
+    context['total_supplers'] = Supplier.objects.count()
+
+    lowCountObj = Item.objects.annotate()
+
+    return render(request , 'ISMS/isms_dashboard.html' , context)
 
 
 def category_dashboard(request):
@@ -14,6 +25,26 @@ def category_dashboard(request):
     context = {
         'category_list' : category_list,
     }
+
+    #handal search requests
+    if request.method == 'POST':
+
+        search_key = request.POST.get('search_key')
+
+        try:
+            category_list = Category.objects.filter(name = search_key)
+
+            if not category_list:
+                category_list = Category.objects.filter(id=int(search_key))
+
+            if not category_list:
+                messages.warning(request, 'Search key does not match with any entry')
+
+            context['category_list'] = category_list
+
+        except:
+            messages.warning(request, 'Search key does not match with any entry')
+
 
     return render(request , 'ISMS/inventory/category_dashboard.html' , context)
 
@@ -121,3 +152,79 @@ def new_item(request):
             context['item_form'] = item_request_form
 
     return render(request , 'ISMS/inventory/new_item.html' , context)
+
+
+def view_item(request , id):
+
+    context = {}
+    try:
+        item = Item.objects.get(id=id)
+        itemForm = ItemForm(instance=item)
+        for field in itemForm.fields:
+            itemForm.fields[field].disabled = True
+        context['item_form'] = itemForm
+        context['item_name'] = item.name
+        context['suppler_list'] = item.suppliers.all()
+        context['item_id'] = item.id
+    except:
+        messages.warning(request, 'Item Not Found !')
+
+    return render(request , 'ISMS/inventory/view_item.html' ,context)
+
+def update_item(request , id):
+    context = {}
+    try:
+        item = Item.objects.get(id=id)
+        itemForm = ItemForm(instance=item , prefix='item_update_form')
+        context['item_form'] = itemForm
+        context['item_name'] = item.name
+        context['suppler_list'] = item.suppliers.all()
+
+        allocated_list = item.suppliers.all()
+
+        unallocated_list = Supplier.objects.exclude(id__in= item.suppliers.all())
+        context['unallocated_list'] = unallocated_list
+        context['item_id'] = item.id
+    except:
+        messages.warning(request, 'Item Not Found !')
+
+
+    #handla update post request
+    if request.method == 'POST':
+        item_request_from = ItemForm(request.POST, prefix='item_update_form' , instance=item)
+
+        if item_request_from.is_valid():
+
+            try:
+                with transaction.atomic():
+
+                    item_update = item_request_from.save()
+                    allocated = request.POST.getlist('allocated')
+                    supplier_list = []
+                    for allocate in allocated:
+                        supplier_list.append(int(allocate))
+
+                    item_update.suppliers.clear()
+                    item_update.suppliers.add(*supplier_list)
+                    item_update.save()
+                    context['item_form'] = ItemForm(instance=item_update, prefix='item_update_form')
+                    context['item_name'] = item_update.name
+                    messages.success(request, 'Item Update Success!')
+            except:
+                messages.warning(request, 'Item Update Unsuccess!')
+        else:
+            context['item_form'] = item_request_from
+
+    return render(request , 'ISMS/inventory/update_item.html' , context)
+
+
+def delete_item(request , id):
+
+    item = Item.objects.filter(id=id)
+
+    item.delete()
+
+    return redirect('item_dashboard')
+
+
+
