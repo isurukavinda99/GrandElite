@@ -11,6 +11,8 @@ urlpatterns = [
     #kavinda
     #himasha
     #mihara
+    path('rae/', include('RAE.urls')),
+
 
     path('demo' , include('demo.urls')),
 
