@@ -1,0 +1,91 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} add rooms {% endblock %}
+
+
+{% block side_nav_menu %}
+         <div class="accordion-body">
+            <div class="list-group" >
+                <a href="{% url 'RAE:roomList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Rooms List</a><br/>
+                <a href="{% url 'RAE:createRoom'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i> Add Rooms</a><br/>
+                <a href="{% url 'RAE:roomBookingList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Room Reservation List</a><br/>
+                <a href="{% url 'RAE:createRoomBooking'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i>Add Room Reservation</a><br/>
+            </div>
+        </div>
+{% endblock %}
+
+{% block nav_title %}
+    ADD ROOM
+{% endblock %}
+
+{%  block main_content %}
+    <br/>
+
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-1 pt-6">
+            <div class="col-md-9 mt-1" style="border:1px solid #80808029; margin-left:10%; padding:15px;background-color:#ffffffde;">
+<!--            <form method="post" novalidate>-->
+<!--                {% csrf_token %}-->
+                <form method="post" style="display:block" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="room_id" class="form-label">{{roomform.room_id.label}}</label>
+                    {{roomform.room_id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="type" class="form-label">{{roomform.type.label}}</label>
+                        {{roomform.type}}
+                    </div>
+                     <div class="mb-4">
+                         <label for="price" class="form-label">{{roomform.price.label}}</label>
+                        {{roomform.price}}
+                    </div>
+                     <div class="mb-4">
+                         <label class="form-label">{{roomform.description.label}}</label>
+                         {{roomform.description}}
+                     </div>
+                    <div class="mb-4">
+                        <label for="status" class="form-label">{{roomform.status.label}}</label>
+                        {% for radio in roomform.status %}
+                            <div class="form-check form-check-inline">
+                                {{radio.tag}}
+                                <label class="form-check-label">{{radio.choice_label}}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                 <div class="mb-4" style="margin-left:60%">
+                     <button type="reset" class="btn btn-primary">Reset</button>
+                     <button type="submit" class="btn btn-warning">Save</button>
+                     <a class="btn btn-danger" href="{% url 'RAE:roomList' %}" role="button">Cancel</a>
+
+                 </div>
+            </form>
+
+            {% if roomform.errors %}
+                {% for field in roomform %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
