@@ -1,0 +1,94 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} add room bookings {% endblock %}
+
+
+{% block side_nav_menu %}
+         <div class="accordion-body">
+            <div class="list-group" >
+                <a href="{% url 'RAE:roomList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Rooms List</a><br/>
+                <a href="{% url 'RAE:createRoom'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i> Add Rooms</a><br/>
+                <a href="{% url 'RAE:roomBookingList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Room Reservation List</a><br/>
+                <a href="{% url 'RAE:createRoomBooking'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i>Add Room Reservation</a><br/>
+            </div>
+        </div>
+{% endblock %}
+
+{% block nav_title %}
+    ADD ROOM RESERVATION
+{% endblock %}
+
+{%  block main_content %}
+    <br/>
+
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-1 pt-6">
+            <div class="col-md-9 mt-1" style="border:1px solid #80808029; margin-left:10%; padding:15px;background-color:#ffffffde;">
+
+                <form method="post" style="display:block" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="reserve_id" class="form-label">{{roombookingform.reserve_id.label}}</label>
+                    {{roombookingform.reserve_id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="room_Id" class="form-label">{{roombookingform.room_Id.label}}</label>
+                    {{roombookingform.room_Id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_name" class="form-label">{{roombookingform.customer_name.label}}</label>
+                        {{roombookingform.customer_name}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_phone" class="form-label">{{roombookingform.customer_phone.label}}</label>
+                        {{roombookingform.customer_phone}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_email" class="form-label">{{roombookingform.customer_email.label}}</label>
+                        {{roombookingform.customer_email}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="check_in" class="form-label">{{roombookingform.check_in.label}}</label>
+                        {{roombookingform.check_in}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="check_out" class="form-label">{{roombookingform.check_out.label}}</label>
+                        {{roombookingform.check_out}}
+                    </div>
+
+                 <div class="mb-4" style="margin-left:60%">
+                     <button type="reset" class="btn btn-primary">Reset</button>
+                     <button type="submit" class="btn btn-warning">Save</button>
+                     <a class="btn btn-danger" href="{% url 'RAE:roomBookingList' %}" role="button">Cancel</a>
+
+                 </div>
+            </form>
+
+            {% if roombookingform.errors %}
+                {% for field in roombookingform %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}
