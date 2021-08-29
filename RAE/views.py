@@ -7,8 +7,8 @@ from .forms import RoomForm, RoomBookingForm, EventBookingForm
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
-from .forms import AvailabilityForm
-from RAE.RBooking_functions.availability import check_availability
+# from .forms import AvailabilityForm
+# from RAE.RBooking_functions.availability import check_availability
 
 # Create your views here.
 

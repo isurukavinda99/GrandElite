@@ -1,12 +1,12 @@
 from django import forms
 from .models import Room, RoomBooking, EventBooking
 
-#Room
+# Room
 class RoomForm(forms.ModelForm):
-    room_id = forms.CharField(label='Room ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Enter Room ID'}),
-    required = True, error_messages={'required': 'Must Enter a correct Room ID'})
-    price = forms.FloatField(label='Price (Rs.)', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Enter Room Price'}),
-    required = True, error_messages={'required': 'Must Enter a valid price in Rupees'})
+    room_id = forms.CharField(label='Room ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Room ID'}),
+    required=True, error_messages={'required': 'Must Enter a correct Room ID'})
+    price = forms.FloatField(label='Price (Rs.)', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Room Price'}),
+    required=True, error_messages={'required': 'Must Enter a valid price in Rupees'})
     description = forms.CharField(label='Description', widget=forms.Textarea(attrs={'class': 'form-control', 'placeholder': 'Enter Room Description'}),
     required=True, error_messages={'required': 'Must Enter a room description'})
 
@@ -22,9 +22,9 @@ class RoomForm(forms.ModelForm):
             'status': {'required': 'Must Select a room status'}
         }
 
-################################################################
+# ###############################################################
 
-#RoomBooking
+# RoomBooking
 class RoomBookingForm(forms.ModelForm):
     # reserve_id = forms.CharField(label='Reservation ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Enter Room Reservation ID'}),
     # required = True, error_messages={'required': 'Must Enter a correct Room Reservation ID'})
@@ -39,21 +39,31 @@ class RoomBookingForm(forms.ModelForm):
     # check_in = forms.DateTimeField(label='Check-in', required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
     # error_messages={'required': 'Must Select check-in date and time'})
     # check_out = forms.DateTimeField(label='Check-out', required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
-    # error_messages={'required': 'Must Select check-in date and time'})
+    # error_messages={'required': 'Must Select check-out date and time'})
 
     class Meta:
         model = RoomBooking
         fields = '__all__'
 
+        error_messages = {
+            'reserve_id': {'required': 'Must Enter a correct Room Reservation ID'},
+            'room_Id': {'required': 'Must Enter a correct Room ID'},
+            'customer_name': {'required': 'Must Enter a customer name'},
+            'customer_phone': {'required': 'Must Enter a customer phone number'},
+            'customer_email': {'required': 'Must Enter a customer email'},
+            'check_in': {'required': 'Must Select check-in date and time'},
+            'check_out': {'required': 'Must Select check-out date and time'},
+        }
 
-################################################################
 
-#EventBooking
+# ###############################################################
+
+# EventBooking
 class EventBookingForm(forms.ModelForm):
     event_id = forms.CharField(label='Event ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Event ID'}),
-    required = True, error_messages={'required': 'Must Enter a correct Event ID'})
+    required=True, error_messages={'required': 'Must Enter a correct Event ID'})
     price = forms.FloatField(label='Price (Rs.)', widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Room Price'}),
-    required = True, error_messages={'required': 'Must Enter a valid price in Rupees'})
+    required=True, error_messages={'required': 'Must Enter a valid price in Rupees'})
     customer_name = forms.CharField(label='Customer Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Name'}),
     required=True, error_messages={'required': 'Must Enter a customer name'})
     customer_phone = forms.CharField(label='Customer Phone', widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Phone Number'}),
@@ -80,17 +90,18 @@ class EventBookingForm(forms.ModelForm):
             'package': {'required': 'Must Select an event package'}
         }
 
-################################################################
+# ###############################################################
 
 
-class AvailabilityForm(forms.Form):
-    ROOM_TYPES = (
-        ('YAC', 'AC'),
-        ('NAC', 'NON-AC'),
-        ('DEL', 'DELUXE'),
-        ('KIN', 'KING'),
-    )
-    room_type = forms.ChoiceField(choices=ROOM_TYPES, required=True)
-    check_in = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
-    check_out = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
-
+# class AvailabilityForm(forms.Form):
+#     ROOM_TYPES = (
+#         ('YAC', 'AC'),
+#         ('NAC', 'NON-AC'),
+#         ('DEL', 'DELUXE'),
+#         ('KIN', 'KING'),
+#     )
+#     room_type = forms.ChoiceField(choices=ROOM_TYPES, required=True)
+#     check_in = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"],
+#     widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+#     check_out = forms.DateTimeField(required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"],
+#     widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
