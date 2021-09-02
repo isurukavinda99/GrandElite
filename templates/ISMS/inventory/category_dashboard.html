@@ -50,7 +50,7 @@
                     {% for category in category_list %}
                         <div class="col">
                             <center>
-                                <a href="{% url 'view_category' category.id %}"><img src="{{ category.thumbnail.url }}" alt="..." class="img-thumbnail" style="width: 8em ; height: 8em ; border: none ; border-radius: 20% 0 20% 0" ></a><br>
+                                <a href="{% url 'view_category' category.id %}"><img src="{{ category.thumbnail.url }}" alt="..." class="img-thumbnail" style="width: 8em ; height: 8em  ; border-radius: 20% 0 20% 0" ></a><br>
                                 <span style="font-size: .75em">{{ category.name }}</span>
                             </center>
                         </div>

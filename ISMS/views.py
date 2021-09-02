@@ -1,8 +1,13 @@
 from django.contrib import messages
 from django.db.models import Case, When
-from django.shortcuts import render , Http404 , redirect , get_object_or_404
+from django.shortcuts import render , Http404 , redirect , get_object_or_404 , HttpResponse
 from  django.db import transaction
+from django.template.loader import get_template
+from datetime import date
+
 from . forms import *
+from .util import render_to_pdf
+from django.views.generic import View
 # Create your views here.
 
 def home(request):
@@ -13,7 +18,13 @@ def home(request):
     context['total_items'] = Item.objects.count()
     context['total_supplers'] = Supplier.objects.count()
 
-    lowCountObj = Item.objects.annotate()
+    lowQuantity = Item.objects.all()
+    lowItems = []
+    for item in lowQuantity:
+        if item.quantity < item.notify_level:
+            lowItems.append(item)
+
+    context['low_quantity'] = len(lowItems)
 
     return render(request , 'ISMS/isms_dashboard.html' , context)
 
@@ -226,5 +237,103 @@ def delete_item(request , id):
 
     return redirect('item_dashboard')
 
+def generate_item_pdf(request):
+
+    template = get_template('ISMS/inventory/item_report.html')
+    item_list = Item.objects.all()
+    today = today = date.today()
+
+    context = {
+        'items' : item_list,
+        'today' : today
+    }
+
+    # html = template.render(context)
+    pdf = render_to_pdf('ISMS/inventory/item_report.html' , context)
+    return HttpResponse(pdf , content_type='application/pdf')
 
 
+# sprint 02 suppler management
+
+def suppler_list(request):
+
+    suppler_list = Supplier.objects.all()
+    context = {
+        'suppler_list' : suppler_list
+    }
+
+    return render(request , 'ISMS/suppler/suppler_list.html' , context)
+
+def new_suppler(request):
+
+    suppler_form = SupplerForm()
+
+    context = {
+        'suppler_form' : suppler_form
+    }
+
+    if request.method == 'POST':
+
+        suppler_request_form = SupplerForm(request.POST)
+
+        if suppler_request_form.is_valid():
+            suppler_request_form.save()
+            messages.success(request, 'New suppler was registered')
+        else:
+            context['suppler_form'] = suppler_request_form
+
+    return render(request , 'ISMS/suppler/new_suppler.html' , context)
+
+def view_suppler(request , id):
+
+    context = {}
+
+    try:
+        suppler = Supplier.objects.get(id=id)
+        suppler_form = SupplerForm(instance=suppler)
+        for field in suppler_form.fields:
+            suppler_form.fields[field].disabled = True
+        context['suppler_form'] = suppler_form
+        context['suppler_name'] = suppler.name
+        context['suppler_id'] = suppler.id
+
+    except:
+        messages.warning(request, 'Suppler not found !')
+
+    return  render(request , 'ISMS/suppler/view_suppler.html' , context)
+
+def update_suppler(request, id):
+
+    context = {}
+
+    try:
+        suppler = Supplier.objects.get(id=id)
+        suppler_form = SupplerForm(instance=suppler)
+        context['suppler_form'] = suppler_form
+        context['suppler_name'] = suppler.name
+        context['suppler_id'] = suppler.id
+
+        if request.method == 'POST':
+            suppler_request_form = SupplerForm(request.POST , instance= suppler)
+            if suppler_request_form.is_valid():
+                updated = suppler_request_form.save()
+                context['suppler_form'] = SupplerForm(instance=updated)
+                context['suppler_name'] = updated.name
+            else:
+                context['suppler_form'] = suppler_request_form
+
+    except:
+        messages.warning(request, 'Suppler not found !')
+
+
+    return  render(request , 'ISMS/suppler/update_suppler.html' , context)
+
+def delete_suppler(request , id):
+    try:
+        suppler = Supplier.objects.get(id=id)
+        suppler.delete()
+    except:
+        messages.warning(request, 'Suppler not found !')
+
+    messages.success(request, 'Delete success !')
+    return redirect('suppler_list')

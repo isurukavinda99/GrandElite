@@ -17,6 +17,14 @@ urlpatterns = [
     path('view_item/<int:id>' , view_item , name = 'view_item'),
     path('update_item/<int:id>' , update_item , name = 'update_item'),
     path('delete_item/<int:id>', delete_item , name='delete_item'),
+    path('generate_item_report', generate_item_pdf, name ='generate_item_pdf'),
+
+    #suppler
+    path('suppler_dashboard' , suppler_list , name='suppler_list'),
+    path('new_suppler' , new_suppler , name = 'new_suppler'),
+    path('view_suppler/<int:id>' , view_suppler , name = 'view_suppler'),
+    path('update_suppler/<int:id>' , update_suppler , name = 'update_suppler'),
+    path('delete_suppler/<int:id>' , delete_suppler , name = 'delete_suppler'),
 ]
 
 

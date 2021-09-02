@@ -18,7 +18,8 @@ class Supplier(models.Model):
     name = models.CharField(max_length=200 , null=False , blank=False)
     email = models.EmailField(max_length=200 , null=False , blank=False , unique=True)
     phone = models.CharField(max_length=10 , null=False , blank=False , validators=[MinLengthValidator(10)])
-    nic = models.CharField(max_length=9 , unique=True , blank=False , null=False)
+    address = models.TextField(null=False , blank=False)
+    nic = models.CharField(max_length=9 , unique=True , blank=False , null=False , validators=[MinLengthValidator(9)])
     br_number = models.CharField(max_length=5 , unique=True , null=False , blank=False)
 
     # items = models.ManyToManyField(Item , null=True , blank=True)

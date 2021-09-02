@@ -1,0 +1,79 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Update Suppler
+{% endblock %}
+
+{% block nav_title %}
+    Update Suppler : {{ suppler_name }}
+{% endblock %}
+
+
+{% block main_content %}
+    <!--message window-->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    {% if suppler_form %}
+        <div class="mt-5 mb-3">
+
+        <center>
+
+            <div class="card w-75" style="text-align: left">
+                <div class="card-body">
+
+                    <h4>Update Suppler Form</h4>
+                    <hr>
+
+                    <form method="post" action="" enctype="">
+
+                        {% csrf_token %}
+
+                        <div class="form-group">
+                             {{ suppler_form.name | as_crispy_field}}
+                        </div>
+
+                        <div class="form-group">
+                             {{ suppler_form.email| as_crispy_field}}
+                        </div>
+
+                        <div class="form-group">
+                             {{ suppler_form.phone | as_crispy_field}}
+                        </div>
+
+                        <div class="form-group">
+                             {{ suppler_form.address | as_crispy_field}}
+                        </div>
+
+                        <div class="form-group">
+                             {{ suppler_form.nic | as_crispy_field}}
+                        </div>
+
+                        <div class="form-group">
+                             {{ suppler_form.br_number | as_crispy_field}}
+                        </div>
+
+                        <div class="form-group mt-3">
+                             <button type="submit" class="btn btn-success">Update</button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+
+        </center>
+
+    </div>
+    {% endif %}
+
+
+
+{% endblock %}

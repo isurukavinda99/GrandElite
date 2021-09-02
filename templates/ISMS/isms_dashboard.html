@@ -15,7 +15,7 @@
 
 {#            category#}
             <div class="col">
-                <div class="card">
+                <div class="card dashboar_card_odd" >
                     <div class="card-body">
                         <h5 class="card-title">My Total Categories</h5>
                         <hr>
@@ -28,7 +28,7 @@
 
 {#            item#}
             <div class="col">
-                <div class="card">
+                <div class="card dashboar_card_even">
                     <div class="card-body">
                         <h5 class="card-title">My Total Items</h5>
                         <hr>
@@ -41,7 +41,7 @@
 
 {#            supplers#}
             <div class="col">
-                <div class="card">
+                <div class="card dashboar_card_odd">
                     <div class="card-body">
                         <h5 class="card-title">My Total Suppliers</h5>
                         <hr>
@@ -54,14 +54,12 @@
 
 {#            getting low#}
             <div class="col">
-                <div class="card">
+                <div class="card dashboar_card_even">
                     <div class="card-body">
                         <h5 class="card-title">Low Quantity Items</h5>
                         <hr>
-                        <div style="text-align: center; font-size: 2.5em">
-{#                            {% for r in t %}#}
-{#                                {{ r }}#}
-{#                            {% endfor %}#}
+                        <div style="text-align: center; font-size: 2.5em" class="text-danger">
+                            {{ low_quantity }}
                         </div>
                     </div>
                 </div>

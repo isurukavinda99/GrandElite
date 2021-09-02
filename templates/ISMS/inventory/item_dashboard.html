@@ -15,7 +15,7 @@
 
             <div style="text-align: right ; font-size: 1.2em">
                 <a href="{% url 'new_item' %}" class="link-btn"><i class="fas fa-cog p-2"></i></a>
-                <a href="" class="link-btn"><i class="fas fa-print p-2"></i></a>
+                <a href="{% url 'generate_item_pdf' %}" target="_blank" class="link-btn"><i class="fas fa-print p-2"></i></a>
             </div>
 
             <div>
@@ -33,8 +33,8 @@
                         {% if items %}
                             {% for item in items %}
                                 <tr>
-                                    <th scope="row">{{ item.id }}</th>
-                                    <td>{{ item.name }}</td>
+                                    <th scope="row" {% if item.quantity < item.notify_level %} class = "text-danger" {% endif %}>{{ item.id }}</th>
+                                    <td {% if item.quantity < item.notify_level %} class = "text-danger" {% endif %} >{{ item.name }}</td>
                                     <td>{{ item.quantity }}</td>
                                     <td>{{ item.category }}</td>
                                     <td>

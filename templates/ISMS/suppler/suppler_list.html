@@ -1,0 +1,75 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% block title %}
+    Suppler Dashboard
+{% endblock %}
+
+{% block nav_title %}
+    Suppler List
+{%  endblock %}
+
+{% block main_content %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <div style="text-align: right ; font-size: 1.2em">
+                <a href="{% url 'new_suppler' %}" class="link-btn"><i class="fas fa-cog p-2"></i></a>
+                <a href="" class="link-btn"><i class="fas fa-print p-2"></i></a>
+            </div>
+
+            <!--message window-->
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Suppler Name</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% if suppler_list %}
+                            {% for suppler in suppler_list %}
+                                <tr>
+                                    <th scope="row">{{ suppler.id }}</th>
+                                    <td>{{ suppler.name }}</td>
+                                    <td>{{ suppler.email }}</td>
+                                    <td>{{ suppler.phone }}</td>
+                                    <td>{{ suppler.address}}</td>
+                                    <td>
+
+                                        <div class="row">
+                                            <div class="col">
+                                                <a type="button" href="{% url 'view_suppler' id=suppler.id %}" class="btn w-100 btn-warning"><i class="far fa-eye"></i></a>
+                                            </div>
+                                            <div class="col">
+                                                <a href="{% url 'update_suppler' id=suppler.id %}" type="button" class="btn btn-outline-warning w-100" style="color: #191919"><i class="far fa-edit"></i></a>
+                                            </div>
+                                        </div>
+
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}

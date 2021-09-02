@@ -92,7 +92,11 @@
         </h2>
         <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
         <div class="accordion-body">
-            asdasd
+            <div class="list-group" >
+                <a href="{% url 'suppler_list' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-tachometer-alt"></i>  Suppler Dashboard</a>
+                <a href="{% url 'new_suppler' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-cube"></i> New Suppler</a>
+                <a href="" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-at"></i> Request By Email</a>
+            </div>
         </div>
         </div>
     </div>
