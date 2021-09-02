@@ -304,8 +304,8 @@ def view_suppler(request , id):
 
 def update_suppler(request, id):
 
-    context = {}
 
+    context = {}
     try:
         suppler = Supplier.objects.get(id=id)
         suppler_form = SupplerForm(instance=suppler)
