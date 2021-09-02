@@ -257,7 +257,9 @@ def generate_item_pdf(request):
 
 def suppler_list(request):
 
+
     suppler_list = Supplier.objects.all()
+
     context = {
         'suppler_list' : suppler_list
     }
