@@ -271,7 +271,7 @@ def new_suppler(request):
     suppler_form = SupplerForm()
 
     context = {
-        'suppler_form' : suppler_form
+        'suppler_form': suppler_form
     }
 
     if request.method == 'POST':
@@ -280,11 +280,11 @@ def new_suppler(request):
 
         if suppler_request_form.is_valid():
             suppler_request_form.save()
-            messages.success(request, 'New suppler was registered')
+            messages.success(request, 'New suppler was registered !')
         else:
             context['suppler_form'] = suppler_request_form
 
-    return render(request , 'ISMS/suppler/new_suppler.html' , context)
+    return render(request , 'ISMS/suppler/new_suppler.html', context)
 
 def view_suppler(request , id):
 

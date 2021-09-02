@@ -33,8 +33,6 @@
 
                     <form method="post" action="" enctype="multipart/form-data">
 
-                        {% csrf_token %}
-
                         <div class="form-group">
                              {{ suppler_form.name | as_crispy_field}}
                         </div>
@@ -63,7 +61,7 @@
                             <button type="submit" class="btn btn-success"><i class="far fa-save"></i>  Save</button>
                             <button type="reset" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i> Reset</button>
                         </div>
-
+                        {% csrf_token %}
                     </form>
                 </div>
             </div>
