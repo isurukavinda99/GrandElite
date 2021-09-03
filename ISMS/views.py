@@ -335,7 +335,7 @@ def delete_suppler(request , id):
         suppler = Supplier.objects.get(id=id)
         suppler.delete()
     except:
-        messages.warning(request, 'Suppler not found !')
+        messages.warning(request, 'Suppler not found ! please check suppler id')
 
     messages.success(request, 'Delete success !')
     return redirect('suppler_list')
