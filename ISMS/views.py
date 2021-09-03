@@ -302,7 +302,7 @@ def view_suppler(request , id):
     except:
         messages.warning(request, 'Suppler not found !')
 
-    return  render(request , 'ISMS/suppler/view_suppler.html' , context)
+    return  render(request , 'ISMS/suppler/view_suppler.html', context)
 
 def update_suppler(request, id):
 
