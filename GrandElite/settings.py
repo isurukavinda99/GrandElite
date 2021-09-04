@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     #kavinda
     #himasha
     #mihara
+    'RAE',
+    'RAE.RBooking_functions',
 
     'demo',
 ]
