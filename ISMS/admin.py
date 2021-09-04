@@ -7,3 +7,4 @@ from . models import *
 admin.site.register(Category)
 admin.site.register(Item)
 admin.site.register(Supplier)
+admin.site.register(SendMail)
