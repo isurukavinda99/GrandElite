@@ -45,3 +45,12 @@ class Item(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class SendMail(models.Model):
+
+    email_body = models.TextField()
+    items = models.ManyToManyField(Item , related_name="ordered_items")
+    suppliers = models.ManyToManyField(Supplier , related_name="request_suppliers")
+    quantity = models.ImageField()
+    request_date = models.DateTimeField(auto_now_add=True)
