@@ -14,6 +14,8 @@ urlpatterns = [
     path('isms/' , include('ISMS.urls')),
     #himasha
     #mihara
+    path('rae/', include('RAE.urls')),
+
 
     path('demo' , include('demo.urls')),
 

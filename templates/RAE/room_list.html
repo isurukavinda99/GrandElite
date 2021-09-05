@@ -1,0 +1,90 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} rooms list {% endblock %}
+
+
+{% block side_nav_menu %}
+        <div class="accordion-body">
+            <div class="list-group" >
+                <a href="{% url 'RAE:roomList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Rooms List</a><br/>
+                <a href="{% url 'RAE:createRoom'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i> Add Rooms</a><br/>
+                <a href="{% url 'RAE:roomBookingList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Room Reservation List</a><br/>
+                <a href="{% url 'RAE:createRoomBooking'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i>Add Room Reservation</a><br/>
+            </div>
+        </div>
+{% endblock %}
+
+{% block nav_title %}
+    ROOMS LIST
+{% endblock %}
+
+{%  block main_content %}
+    <br/>
+    <form action="{% url 'RAE:searchRoom' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="searchRoom" placeholder="Enter Room Type" style="margin-left:73%">
+        <button class="btn btn-warning"  type="submit" ><i class="fas fa-search"></i></button>
+    </form>
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-8 pt-5">
+            <div class="col-md-10 mt-1" style="border:1px solid #80808029; margin-left:5%; padding:15px;background-color:#ffffffde;">
+
+
+               <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Room ID</th>
+                            <th scope="col">Type</th>
+                            <th scope="col">Price (Rs.)</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for data in room_data %}
+                        <tr>
+                            <td>{{data.room_id}}</td>
+                            <td>{{data.type}}</td>
+                            <td>{{data.price}}</td>
+                            <td>{{data.description}}
+<!--                            {%if data.status%}-->
+<!--                            <td> <span class="label label-primary">Available</span></td>-->
+<!--                            {% else %}-->
+<!--                            <td> <span class="label label-success">Reserved</span></td>-->
+<!--                            {% endif %}-->
+                            <td><span class="btn btn-success">{{data.status}}</span></td>
+                            <td>
+                                <a class="btn btn-warning" href="{% url 'RAE:updateRoom' room_id=data.room_id %}"><i class="fas fa-edit"></i></a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not  room_data %}
+                            <tr>
+                                <td colspan="10" class="text-center">No data available</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

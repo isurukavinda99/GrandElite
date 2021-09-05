@@ -44,6 +44,8 @@ INSTALLED_APPS = [
     'ISMS',
     #himasha
     #mihara
+    'RAE',
+    'RAE.RBooking_functions',
 
     'demo',
 ]
