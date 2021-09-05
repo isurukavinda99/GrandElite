@@ -51,6 +51,7 @@ def delete_record(request, pk):
     record = Deductions.objects.get(id=pk)
 
     if request.method == 'POST':
+        print(pk)
         record.delete()
 
         return HttpResponseRedirect("/deductions")

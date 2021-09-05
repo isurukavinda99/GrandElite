@@ -13,25 +13,25 @@
 {% endblock %}
 
 {% block nav_title %}
-        Deductions
-    {% endblock %}
+    Deductions
+{% endblock %}
 
 {% block main_content %}
 
 
 
     <div class="card mt-4">
-          <div class="card-header">
-           <div class="row">
-               <div class="col">
+        <div class="card-header">
+            <div class="row">
+                <div class="col">
 
-                   <a class="btn btn-warning" href="{% url 'deductions:deductions-create' %}">
-                       <i class="fas fa-plus"></i> Add
-                   </a>
+                    <a class="btn btn-warning" href="{% url 'deductions:deductions-create' %}">
+                        <i class="fas fa-plus"></i> Add
+                    </a>
 
-               </div>
+                </div>
 
-                   <!--SEARCH-->
+                <!--SEARCH-->
                 <div class="col-md-5">
                     <form action="{% url 'deductions:deductions-list' %}" method="GET" id="form_search">
                         <input type="text" placeholder="Search allowance" name="search" id="search" class="form-control col xs-3">
@@ -42,24 +42,24 @@
                     <button value="Submit" id="btnSearch" onclick="Search();" class="btn btn-warning"><i class="fas fa-search"></i> </button>
                 </div>
 
-           </div>
-          </div>
+            </div>
+        </div>
 
 
-          <div class="card-body">
+        <div class="card-body">
 
-             <!-- LIST VIEW -->
+            <!-- LIST VIEW -->
             <table class="table table-sm">
                 <thead>
                 <tr>
-                    <th scope="col">Deduction ID</th>
-                    <th scope="col">Description</th>
-                    <th scope="col">Amount</th>
-                     <th scope="col">Tools</th>
+                    <th scope="col">Deduction ID </th>
+                    <th scope="col">Description </th>
+                    <th scope="col">Amount </th>
+                    <th scope="col">Tools </th>
                 </tr>
                 </thead>
 
-                 <tbody>
+                <tbody>
 
 
                 {% for object in  object_list %}
@@ -71,7 +71,7 @@
                         <td>
 
 
-                       <!--UPDATE-->
+                            <!--UPDATE-->
                             <div>
                                 <a href="{% url 'deductions:deductions-update' object.id %}" role="button"
                                    class="btn  edit-btn" style="padding: 0 0 0 0"><i class="fas fa-edit fa-lg" style="color: #fdd600"></i>
@@ -79,17 +79,17 @@
 
 
 
-                            <!--DELETE-->
-{#                                <a href="{% url 'deductions:deductions-delete' object.id %}" role="button"#}
-{#                                   class="btn  delete-btn" type="submit"#}
-{#                                   onclick="return confirm('Do you want to delete this?')" style="padding: 0 0 0 0"><i class="far fa-trash-alt" style="color: red"></i>#}
-{#                                </a>#}
+                                <!--DELETE-->
+                                {#                                <a href="{% url 'deductions:deductions-delete' object.id %}" role="button"#}
+                                {#                                   class="btn  delete-btn" type="submit"#}
+                                {#                                   onclick="return confirm('Do you want to delete this?')" style="padding: 0 0 0 0"><i class="far fa-trash-alt" style="color: red"></i>#}
+                                {#                                </a>#}
                                 <div>
-                                    <form method="POST" action="{% url 'deductions:deductionDelete' object.id %}" id="dform">
+                                    <form method="POST" action="{% url 'deductions:deductionDelete' pk=object.id %}" id="dform{{ object.id }}" >
 
-                                       {% csrf_token %}
+                                        {% csrf_token %}
 
-                                        <button style="border: none;background-color:transparent;transform: translate(40px,-25px)" type="submit" value="Delete" form="dform"><i class="far fa-trash-alt" style="color: red"></i></button>
+                                        <button id="" style="border: none;background-color:transparent;transform: translate(40px,-25px)" type="submit" value="Delete" form="dform{{ object.id }}"><i class="far fa-trash-alt" style="color: red"></i></button>
                                     </form>
                                 </div>
 
@@ -104,7 +104,7 @@
 
             </table>
 
-          </div>
+        </div>
 
     </div>
 
