@@ -1,0 +1,70 @@
+{% extends 'layout/dashboard.html' %}
+
+<!--Title-->
+{% block title %}
+    Allowances
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+    {% include 'pms/nav_bar.html' %}
+{% endblock %}
+
+
+
+{% load crispy_forms_tags %}
+
+
+{% block nav_title %}
+    Update Allowance
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <!--messages-->
+    {% if messages %}
+        {% for message in messages %}
+            <div class="text-center alert alert-{{ message.tags }}">
+                {{ message|safe }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <!--form-->
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="card mt-4">
+            <div class="card-header">
+                <div class="row">
+                    <div class="col">
+                        <a style="color: #fdd600" href="{% url 'allowances:allowances-list' %}"><i class="fas fa-arrow-left"></i></a>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card-body">
+
+                {{form|crispy}}
+                <div class="d-flex align-items-end justify-content-center mt-5">
+                    <input type="submit" value="Update" style="background-color: #fdd600; border: none; width: 100px; height: 30px">
+                </div>
+
+
+
+
+
+
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+{% endblock %}

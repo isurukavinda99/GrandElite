@@ -42,6 +42,9 @@ INSTALLED_APPS = [
     #shalitha
     #kavinda
     #himasha
+    'allowances',
+    'deductions',
+    'employeePayments',
     #mihara
 
     'demo',

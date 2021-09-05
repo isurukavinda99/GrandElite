@@ -1,0 +1,46 @@
+{% extends 'layout/dashboard.html' %}
+
+<!--Title-->
+{% block title %}
+    Salary calculator
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+
+    {% include 'pms/nav_bar.html' %}
+
+{% endblock %}
+
+{% block nav_title %}
+    Salary Calculator
+{% endblock %}
+
+{% block main_content %}
+
+    {% load crispy_forms_tags %}
+
+     <form>
+
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Employee Name</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value="{{ empName }}"  id="inputEmpName">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Basic Wage</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="inputBasicWage" value="{{ émpBasic }}">
+            </div>
+
+        </div>
+
+     {% csrf_token %}
+     {{ form|crispy }}
+
+     </form>
+
+{% endblock %}
