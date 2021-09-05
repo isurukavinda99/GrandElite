@@ -1,0 +1,38 @@
+{% extends 'layout/dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Salary Group{% endblock %}
+
+
+{% block nav_title %}Update Salary Group{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+
+
+
+        <form method="POST" >
+
+        {% csrf_token %}
+
+        {{ updtSal|crispy }}
+
+            <br>
+
+        <input type="submit" value="save Salary Group" name="save" style="background-color: #006b1b; color: white; border-radius: 20px; font-size:20px; float: right; border-color: transparent; width:240px; margin-left: 100px; margin-right: 300px">
+
+
+
+
+
+
+    </form>
+
+            <a href="{% url 'eams-salaryList' %}"><button style="background-color: #CC3434; color: white; border-radius: 20px; font-size:20px; float: right; border-color: transparent; width:240px">Cancel</button></a>
+
+
+{% endblock %}

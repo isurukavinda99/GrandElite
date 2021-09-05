@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Data Profile</title>
+
+    <style>
+
+
+        td{
+            font-weight: bolder;
+        }
+
+        th{
+            background-color: #e2f3f9;
+        }
+
+    </style>
+
+
+
+</head>
+<body>
+
+<hr>
+
+<h1 style="text-align: center">Grand Elite Hotels (pvt) Ltd  </h1>
+
+
+
+<h3 style="text-align: center"> <p>
+    Address:  	No. 33, Canal Row, Fort, Colombo 01,Sri Lanka.
+    <br>
+    Tel:  	+94 (0) 11 5341962-63, +94 (0) 11 5341965-66
+    <br>
+    Fax: 	+94 (0) 11 2432480
+    <br>
+    E-Mail: grandelitecolombo@gmail.com
+</p></h3>
+
+
+
+<hr>
+
+<h1 style="text-align: center">Employee Bio Data Document</h1>
+
+
+
+
+<table border="1" cellpadding="10" bordercolor = "black">
+    <tr>
+        <td rowspan="6"><img src="{{ empData.profile_pic.path }}" style="width: 300px"></td>
+    </tr>
+
+    <tr>
+        <th>Position</th>
+        <td>{{ empData.position}}</td>
+
+    </tr>
+
+    <tr>
+        <th>Employee ID</th>
+        <td>{{ empData.id}}</td>
+
+    </tr>
+
+    <tr>
+        <th>Employee Name</th>
+        <td>{{ empData.firstName}}  {{ empData.lastName}}</td>
+
+    </tr>
+
+    <tr>
+        <th>NIC Number</th>
+        <td>{{ empData.nic}}</td>
+
+    </tr>
+
+      <tr>
+        <th>Salary Grade</th>
+        <td>{{ empData.basicSalary}}</td>
+
+    </tr>
+
+
+
+
+
+</table>
+
+<table border="1" cellpadding="10" bordercolor = "black">
+
+    <tr>
+        <th colspan="2" style="background-color: #FFF76A">Contact Information</th>
+    </tr>
+    <tr>
+
+        <th>Telephone</th>
+        <td>{{ empData.telephone}}</td>
+    </tr>
+    <tr>
+
+        <th>Email </th>
+        <td>{{ empData.email}}</td>
+    </tr>
+    <tr>
+
+        <th>Address</th>
+        <td>{{ empData.empAdrs }}</td>
+    </tr>
+
+
+</table>
+
+<table border="1" cellpadding="10" bordercolor = "black">
+
+    <tr>
+        <th colspan="2" style="background-color: #FFF76A">Status</th>
+    </tr>
+    <tr>
+
+        <th>Gender</th>
+        <td>{{ empData.gender}}</td>
+    </tr>
+    <tr>
+
+        <th>Marital Status</th>
+        <td>{{ empData.maritalStatus}}</td>
+    </tr>
+    <tr>
+
+        <th>Date of Birth</th>
+        <td>{{ empData.dob}}</td>
+    </tr>
+
+
+</table>
+
+
+
+
+
+
+</body>
+</html>
