@@ -55,6 +55,9 @@ INSTALLED_APPS = [
     #kavinda
     'ISMS',
     #himasha
+    'allowances',
+    'deductions',
+    'employeePayments',
     #mihara
     'RAE',
     'RAE.RBooking_functions',

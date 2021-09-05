@@ -1,0 +1,149 @@
+{% extends 'layout/dashboard.html' %}
+
+<!--Title-->
+{% block title %}
+    Salary calculator
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+
+    {% include 'pms/nav_bar.html' %}
+
+{% endblock %}
+
+{% block nav_title %}
+    Salary Calculator
+{% endblock %}
+
+{% block main_content %}
+
+    {% load crispy_forms_tags %}
+
+
+    <form action="{% url 'employeePayments:findEmpData' %}" method="POST" class="mt-4">
+
+        {% csrf_token %}
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Search employee by ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" name="empID" id="inputEmpId" >
+            </div>
+
+        </div>
+    </form>
+
+
+
+
+
+
+
+    <form action="{% url 'employeePayments:calculate' %}" method="POST">
+    {% csrf_token %}
+
+     <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Employee ID</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value="{{ empDataKey }}"  id="inputEmpID" name="eID">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Employee Name</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" value="{{ empName }}"  id="inputEmpName" name="eName">
+            </div>
+        </div>
+
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Basic Wage</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="inputBasicWage" value="{{ émpBasic }}" name="basic">
+            </div>
+
+        </div>
+
+{#    date picker#}
+     <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Month</label>
+            <div class="col-sm-8">
+                <input type="text" class="form-control" id="currentDate"  name="date">
+            </div>
+
+        </div>
+
+
+
+
+
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Allowances</label>
+            <div class="col-sm-8">
+
+                <select name="allo" class="form-select" aria-label="Default select example">
+
+                    {% for a in allowanceFF %}
+
+                        <option value="{{ a.amount }}">{{ a.description }}</option>
+
+
+                    {% endfor %}
+
+
+                </select>
+            </div>
+        </div>
+
+        <!--deduction select-->
+        <div class="mb-3 row">
+            <label  class="col-sm-2 col-form-label">Deductions</label>
+            <div class="col-sm-8">
+
+                <select name="ded" class="form-select" aria-label="Default select example">
+
+                    {% for d in ded %}
+
+                        <option value="{{ d.amount }}">{{ d.description }}</option>
+
+
+                    {% endfor %}
+
+
+                </select>
+            </div>
+
+        </div>
+
+
+    <!--calculate button-->
+        <div class="d-flex align-items-end justify-content-center mt-5">
+            <input type="submit" value="Calculate" style="background-color: #fdd600; border: none; width: 100px; height: 30px">
+        </div>
+
+    </form>
+
+
+
+
+    <script>
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1);
+        document.getElementById("currentDate").value = date;
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

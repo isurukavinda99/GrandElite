@@ -13,6 +13,11 @@ urlpatterns = [
     #kavinda
     path('isms/' , include('ISMS.urls')),
     #himasha
+
+    path('pms/', include('employeePayments.urls')),
+
+    path('allowances/', include('allowances.urls')),
+    path('deductions', include('deductions.urls')),
     #mihara
     path('rae/', include('RAE.urls')),
 
@@ -20,9 +25,6 @@ urlpatterns = [
     path('demo' , include('demo.urls')),
 
 ]
-
-urlpatterns += static(settings.MEDIA_URL,document_root = settings.MEDIA_ROOT)
-
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
