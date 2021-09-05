@@ -1,0 +1,287 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %}Employee User Profile{% endblock %}
+
+
+{% block nav_title %}Employee | {{ userData.firstName }} {{ userData.lastName }}{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+    <style>
+        ::placeholder{
+            color: black;
+            font-weight: bolder;
+        }
+    </style>
+
+{#    <div class="card">#}
+{#        <div class="card-body">#}
+{#            {{ userData.firstName }}#}
+{#        </div>#}
+{#    </div>#}
+
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card" >
+
+                {% if userData.profile_pic %}
+
+                    <img src="{{userData.profile_pic.url}}" class="card-img-top" alt="...">
+
+                {% endif %}
+
+                <div class="card-header" style="background-color: #191919; color: gold">
+                        Employee ID
+                </div>
+
+                <div class="card-body" style="background-color: gold">
+
+
+                    <h5 class="card-title" style="text-align: center"> {{ userData.id }}</h5>
+                </div>
+
+               <div class="card-header" style="background-color: #191919; color: gold">
+                        Employee Position
+                </div>
+
+                <div class="card-body" style="background-color: gold">
+
+
+                    <h5 class="card-title" style="text-align: center"> {{ userData.position}}</h5>
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header" style="background-color: #191919; color: gold">
+                        Employee Status
+                    </div>
+
+
+
+                    {% if userData.empStatus == 1 %}
+
+
+                        <div class="card-body" style="background-color: #00ff7f">
+
+                            <h2><i class="fas fa-user-check"></i> Employeed</h2>
+
+                        </div>
+
+
+
+
+
+                    {% else %}
+
+                        <div class="card-body" style="background-color: #FF5A5F">
+
+
+                            <h2 style="margin-left: 40px"><i class="fas fa-user-slash"></i> Retired</h2>
+
+
+
+                        </div>
+
+
+
+                    {% endif %}
+
+
+
+
+
+
+
+
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header" style="background-color: #191919; color: gold">
+                        Salary Group
+                    </div>
+
+                    <div class="card-body">
+                        <h6>{{ userData.basicSalary }}</h6>
+                    </div>
+
+
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="card-header" style="background-color: #191919; color: gold">
+                        Recruited Date
+                    </div>
+
+                    <div class="card-body">
+                        <h6>{{ userData.lastUpdated }}</h6>
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div class="card-body" style="background-color: #191919" >
+                    <p style="text-align: center">
+                        <a href="{% url 'updateEmployee' userData.id %}" class="card-link"><button type="button" class="btn btn-warning"><i class="fas fa-user-edit"></i></button></a>
+                        <a href="{% url 'userPdf' userData.id %}" class="card-link"><button type="button" class="btn btn-danger"><i class="fas fa-file-pdf"></i></button></a>
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Right column -->
+        <div class="col-sm-9">
+            <div class="card">
+
+                <div class="card-header" style="background-color: #191919; color: whitesmoke">
+                    Personal Information
+                </div>
+
+
+                <div class="card-body">
+
+
+
+
+
+                    <form class="row g-3">
+
+
+                        <div class="col-md-6">
+                            <label for="First Name" class="form-label" >First Name</label>
+                            <input type="" class="form-control" id="" placeholder="{{ userData.firstName }}" >
+
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="Last Name" class="form-label">Last Name</label>
+                            <input type="" class="form-control" id="" placeholder="{{ userData.lastName }}">
+
+                        </div>
+
+                        <div class="col-12">
+                            <label for="nic" class="form-label">NIC</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.nic}}">
+                        </div>
+
+
+
+                    </form>
+                </div>
+
+
+
+
+
+
+            </div>
+
+
+
+            <div class="card" >
+
+
+                <div class="card-header" style="background-color: #191919; color: whitesmoke">
+                    Contact Information
+                </div>
+
+                <div class="card-body">
+
+
+                    <form class="row g-3">
+
+
+                        <div class="col-12">
+                            <label for="Telephone" class="form-label">Telephone</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.telephone}}">
+                        </div>
+
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.email}}">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="email" class="form-label">Address</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.empAdrs}}">
+                        </div>
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+
+
+
+
+            <div class="card" >
+
+
+                <div class="card-header" style="background-color: #191919; color: whitesmoke">
+                    Status
+                </div>
+
+                <div class="card-body">
+
+
+                    <form class="row g-3">
+
+
+                        <div class="col-12">
+                            <label for="Gender" class="form-label">Gender</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.gender}}">
+                        </div>
+
+
+                        <div class="col-12">
+                            <label for="mary" class="form-label">Marital Status</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.maritalStatus}}">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="dob" class="form-label">Date Of Birth</label>
+                            <input type="text" class="form-control" id="inputAddress" placeholder="{{ userData.dob}}">
+                        </div>
+
+
+
+                    </form>
+
+
+                </div>
+            </div>
+
+
+
+
+
+
+        </div>
+    </div>
+
+
+
+
+
+{% endblock %}

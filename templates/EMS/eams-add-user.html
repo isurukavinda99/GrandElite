@@ -1,0 +1,67 @@
+{% extends 'layout/dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Add Employee{% endblock %}
+
+
+{% block nav_title %}Add Employee{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <div class="card mb-3" >
+
+                <div class="card-body">
+
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ addEmp|crispy }}
+
+
+
+
+                        <br>
+
+
+                        <input type="submit" name="save" value="Save Employee Data" style="background-color: #006b1b; color: white; border-radius: 20px; font-size:20px; float: right; border-color: transparent; width:240px; margin-left: 100px; margin-right: 300px">
+
+
+
+
+
+
+
+
+                    </form>
+
+
+                        <a href="{% url 'eams-empList' %}"><button style="background-color: #CC3434; color: white; border-radius: 20px; font-size:20px; float: right; border-color: transparent; width:240px"><i class="far fa-times-circle"></i> Cancel</button></a>
+
+
+                </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

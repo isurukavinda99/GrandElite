@@ -1,0 +1,98 @@
+
+
+
+
+<div class="list-group" >
+
+    <!--List item- Dashboard -->
+    <a href="{% url 'eams-dashboard' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: gold; background-color: #191919; border-color: transparent;">
+        <i class="fas fa-th-large"></i> Dashboard
+    </a>
+
+
+
+    <!--List item - employee -->
+    <a class="list-group-item list-group-item-action active" data-bs-toggle="collapse" href="#collapseEmployee" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: gold; background-color: #191919; border-color: transparent;border-bottom-color: gold;border-top-color: gold">
+        <i class="fas fa-users"></i> Employee</li> <i class="fas fa-caret-down"></i>
+    </a>
+
+    <div class="collapse" id="collapseEmployee">
+
+        <div class="list-group">
+            <!--Employee List-->
+            <a href="{% url 'eams-empList' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-address-book"></i> Employee List</li>
+            </a>
+
+            <!--Add Employee-->
+            <a href="{%  url 'addEmployee' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-user-plus"></i> Add Employee</li>
+            </a>
+
+            <!--Salary groups-->
+            <a href="{% url 'eams-salaryList' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-coins"></i> Employee Salary Groups</li>
+            </a>
+
+        </div>
+
+
+
+    </div>
+
+
+
+    <!--List item - Attendance -->
+    <a class="list-group-item list-group-item-action active" data-bs-toggle="collapse" href="#collapseAttendance" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: gold; background-color: #191919; border-color: transparent;border-bottom-color: gold">
+        <i class="fas fa-fingerprint"></i> Attendance</li> <i class="fas fa-caret-down"></i>
+    </a>
+
+    <div class="collapse" id="collapseAttendance">
+
+        <div class="list-group">
+            <!--In time-->
+            <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-sign-in-alt"></i> Mark in time</li>
+            </a>
+
+            <!--attendance list-->
+            <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="far fa-file-alt"></i> Attendance List</li>
+            </a>
+
+        </div>
+
+
+
+    </div>
+
+
+    <!--List item- Reports-->
+
+    <a class="list-group-item list-group-item-action active" data-bs-toggle="collapse" href="#collapseReports" role="button" aria-expanded="false" aria-controls="collapseExample" style="color: gold; background-color: #191919; border-color: transparent">
+        <i class="fas fa-file-alt"></i> Reports</li> <i class="fas fa-caret-down"></i>
+    </a>
+
+    <div class="collapse" id="collapseReports">
+
+        <div class="list-group">
+            <!--Employee List-->
+            <a href="{% url 'userListPdf' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-address-book"></i> Employee List</li>
+            </a>
+
+            <!--attendance list-->
+            <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="far fa-file-alt"></i> Attendance List</li>
+            </a>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</div>
+

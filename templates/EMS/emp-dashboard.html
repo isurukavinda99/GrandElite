@@ -1,0 +1,191 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+
+{% block title %}EAMS-Home {% endblock %}
+
+{% block nav_title %}EAMS|Home{% endblock %}
+
+{% block main_content %}
+
+    <!--Dashboard starts -->
+
+    <div class="container">
+        <div class="row">
+
+            <!--Ems subsystem dashboard starts-->
+            <div class="col">
+                <div class="card" style="background-color: gold">
+                    <div class="card-header"><h3 style="text-align: center"><i class="fas fa-users" ></i> <br> Employee Management</h3></div>
+                    <div class="card-body">
+
+
+                        <!--employee count -->
+
+                        <div class="card" style="background-color: #191919;">
+                            <div class="card-header"><h3 style="text-align: center; color: gold"><i class="fas fa-chalkboard-teacher"></i> Current Employees</h3></div>
+                            <div class="card-body">
+
+                                <h1 style="text-align: center;color: gold">{{ activeEmpCount }}</h1>
+
+                            </div>
+
+
+
+                            {#                            <ul class="list-group list-group-flush" >#}
+                            {##}
+                            {#                                <li class="list-group-item" style="background-color: #191919; color: gold">:</li>#}
+                            {#                                <li class="list-group-item">:</li>#}
+                            {#                                <li class="list-group-item">:</li>#}
+                            {#                                <li class="list-group-item">:</li>#}
+                            {#                                <li class="list-group-item">:</li>#}
+                            {#                            </ul>#}
+
+
+                            <hr style="color: gold">
+
+                            <ul class="list-group">
+
+                                <h3 style="color: gold;text-align: center;background-color: black"><i class="fas fa-user-tie"></i> Job Roles</h3>
+
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                    Hotel Receptionists
+                                    <span class="badge rounded-pill bg-warning text-dark" >{{ foa }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                    Store Keepers
+                                    <span class="badge rounded-pill bg-warning text-dark">{{ stk }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                    Chef
+                                    <span class="badge rounded-pill bg-warning text-dark">{{ chef }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                    Maid
+                                    <span class="badge rounded-pill bg-warning text-dark">{{ maid }}</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                    Waiter/Waitress
+                                    <span class="badge rounded-pill bg-warning text-dark">{{ waiter }}</span>
+                                </li>
+                            </ul>
+
+
+                        </div>
+
+                        <br>
+
+                        <a href="{% url 'eams-empList' %}">
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-users" ></i> Employee List <i class="fas fa-arrow-circle-right" style="float: right"></i></button>
+
+                        </a>
+
+
+
+                        <br>
+                        <br>
+
+
+                        <a href="{% url 'addEmployee' %}">
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-user-plus"></i> Add Employee  <i class="fas fa-arrow-circle-right" style="float: right"></i></button>
+
+                        </a>
+
+
+                        <br>
+                        <br>
+
+
+                        <a href="{% url 'eams-salaryList' %}">
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-user-plus"></i> Salary Group List  <i class="fas fa-arrow-circle-right" style="float: right"></i></button>
+
+                        </a>
+
+                        <br>
+                        <br>
+
+
+                        <a href="{% url 'salaryInsert' %}">
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-user-plus"></i> Add Salary Group  <i class="fas fa-arrow-circle-right" style="float: right"></i></button>
+
+                        </a>
+
+
+                        <br>
+                        <br>
+
+                        <a href="{% url 'csvEmp' %}">
+
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-file-csv"></i> Employee List Report CSV  <i class="fas fa-arrow-circle-down" style="float: right"></i></button>
+
+
+                        </a>
+
+
+
+                        <br>
+                        <br>
+
+                        <a href="{% url 'userListPdf' %}">
+
+                            <button type="button" class="btn btn-dark" style="width: 550px"><i class="fas fa-file-pdf"></i> Employee List Report Pdf  <i class="fas fa-arrow-circle-down" style="float: right"></i></button>
+
+
+                        </a>
+
+
+
+
+                    </div>
+                </div>
+            </div>
+
+            <!--Ems subsystem dashboard ends-->
+
+            <!--Ams subsystem dashboard starts-->
+            <div class="col">
+                <div class="card " style="background-color: #191919">
+                    <div class="card-header"><h3 style="text-align: center; color: gold"><i class="fas fa-fingerprint"></i> <br> Attendance Management</h3></div>
+                    <div class="card-body">
+                        <h5 class="card-title">Primary card title</h5>
+                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                </div>
+            </div>
+            <!--Ams subsystem dashboard ends-->
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <table>
+
+
+
+
+    </table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

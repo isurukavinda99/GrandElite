@@ -1,0 +1,95 @@
+{% extends 'layout/dashboard.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Update Employee{% endblock %}
+
+
+{% block nav_title %}Update Employee{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <div class="card mb-3" >
+        <div class="row g-0">
+            <div class="col-md-4">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+
+
+
+
+
+
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <img src="{{empRecord.profile_pic.url}}" class="img-fluid rounded-start" alt="...">
+
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9">
+            <div class="card">
+                <div class="card-body">
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        {% csrf_token %}
+
+                        {{ addEmp|crispy }}
+
+
+
+
+                        <br>
+
+
+
+                        <input type="submit" name="save" value="Save Employee Data" style="background-color: #006b1b; color: white; border-radius: 20px; font-size:20px; float: right; border-color: transparent; width:240px;  margin-right: 100px; margin-left: 100px">
+
+
+
+
+
+
+
+
+
+                    </form>
+
+                    <a href="{% url 'eams-empList' %}"><button style="background-color: #CC3434; color: white; border-radius: 20px; font-size:20px; float: right;  border-color: transparent; width:240px"><i class="far fa-times-circle"></i> Cancel</button></a>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

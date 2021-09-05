@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Grand Elite|User List Employees</title>
+
+
+    <style>
+
+
+        td{
+            font-weight: bolder;
+            text-align: center;
+        }
+
+        th{
+            background-color: #e2f3f9;
+        }
+
+    </style>
+
+
+</head>
+<body>
+
+
+<hr>
+
+<h1 style="text-align: center">Grand Elite Hotels (pvt) Ltd  </h1>
+
+
+
+<h3 style="text-align: center"> <p>
+    Address:  	No. 33, Canal Row, Fort, Colombo 01,Sri Lanka.
+    <br>
+    Tel:  	+94 (0) 11 5341962-63, +94 (0) 11 5341965-66
+    <br>
+    Fax: 	+94 (0) 11 2432480
+    <br>
+    E-Mail: grandelitecolombo@gmail.com
+</p></h3>
+
+
+
+<hr>
+
+<h1 style="text-align: center">Grand Elite Employee List</h1>
+
+
+<table border="1" cellpadding="10" bordercolor = "black">
+
+    <tr>
+        <th>Employee Id</th>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>NIC</th>
+        <th>Status</th>
+
+
+
+    </tr>
+
+    {% for users in empList %}
+
+        <tr>
+            <td>{{ users.id }}</td>
+            <td>{{ users.firstName }}</td>
+            <td>{{ users.lastName }}</td>
+
+            <td>{{ users.nic }}</td>
+
+
+
+            {% if users.empStatus == 1 %}
+
+                <td style="background-color:#00ff7f">Employeed</td>
+
+
+
+            {% else %}
+
+                <td style="background-color: #FF5A5F">Retired</td>
+
+
+            {% endif %}
+
+            </td>
+
+        </tr>
+
+
+    {% endfor %}
+
+
+
+</table>
+
+
+
+<script>
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    document.getElementById("currentDate").value = date;
+</script>
+
+
+</body>
+</html>
