@@ -16,3 +16,9 @@ class SupplerForm(ModelForm):
     class Meta:
         model= Supplier
         exclude = ('created_at' , 'updated_at' ,)
+
+
+class SendEmailForm(ModelForm):
+    class Meta:
+        model = SendMail
+        exclude = ('request_date' , )
