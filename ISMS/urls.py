@@ -25,6 +25,7 @@ urlpatterns = [
     path('view_suppler/<int:id>' , view_suppler , name = 'view_suppler'),
     path('update_suppler/<int:id>' , update_suppler , name = 'update_suppler'),
     path('delete_suppler/<int:id>' , delete_suppler , name = 'delete_suppler'),
+    path('send_email' , send_email_to_suppler , name ='send_email'),
 ]
 
 

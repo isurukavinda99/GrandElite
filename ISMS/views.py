@@ -339,3 +339,13 @@ def delete_suppler(request , id):
 
     messages.success(request, 'Delete success !')
     return redirect('suppler_list')
+
+def send_email_to_suppler(request):
+
+    send_email_form = SendEmailForm(prefix='send_email')
+
+    context = {
+        'form' : send_email_form
+    }
+
+    return render(request, template_name= 'ISMS/suppler/send_email_to_suppler.html' , context=context)
