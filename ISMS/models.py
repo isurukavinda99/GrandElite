@@ -54,3 +54,6 @@ class SendMail(models.Model):
     suppliers = models.ManyToManyField(Supplier , related_name="request_suppliers")
     quantity = models.IntegerField()
     request_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return  str(self.id)

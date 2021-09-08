@@ -344,8 +344,19 @@ def send_email_to_suppler(request):
 
     send_email_form = SendEmailForm(prefix='send_email')
 
-    context = {
-        'form' : send_email_form
-    }
 
+
+    if request.method == 'POST':
+        send_email_form = SendEmailForm(request.POST , prefix='send_email')
+
+        if send_email_form.is_valid():
+
+           send_email_form.save()
+           messages.success(request, 'Email send success !')
+        else:
+            send_email_form.errors
+
+    context = {
+        'form': send_email_form
+    }
     return render(request, template_name= 'ISMS/suppler/send_email_to_suppler.html' , context=context)
