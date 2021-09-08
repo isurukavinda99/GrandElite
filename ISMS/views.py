@@ -360,3 +360,11 @@ def send_email_to_suppler(request):
         'form': send_email_form
     }
     return render(request, template_name= 'ISMS/suppler/send_email_to_suppler.html' , context=context)
+
+def sent_email_list(request):
+
+    email_list = SendMail.objects.all().order_by('request_date')
+    context = {
+        'email_list' : email_list
+    }
+    return render(request , 'ISMS/suppler/send_email_list.html' , context)
