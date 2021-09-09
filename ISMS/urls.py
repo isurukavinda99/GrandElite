@@ -27,6 +27,7 @@ urlpatterns = [
     path('delete_suppler/<int:id>' , delete_suppler , name = 'delete_suppler'),
     path('send_email' , send_email_to_suppler , name ='send_email'),
     path('sent_emails' , sent_email_list , name ='sent_email_list'),
+    path('view_sent_email/<int:id>' , view_sent_email , name = 'view_sent_email'),
 ]
 
 

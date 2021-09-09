@@ -39,7 +39,7 @@
                             {% endfor %}
                         </td>
                         <td>
-                            <button type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></button>
+                            <a href="{% url 'view_sent_email' id=email.id %}" type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

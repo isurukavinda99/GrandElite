@@ -368,3 +368,21 @@ def sent_email_list(request):
         'email_list' : email_list
     }
     return render(request , 'ISMS/suppler/send_email_list.html' , context)
+
+
+def view_sent_email(request , id):
+    context = {
+
+    }
+
+    try:
+        sent_email = SendMail.objects.get(id=id)
+        sent_mail_form = SendEmailForm(instance=sent_email)
+        for field in sent_mail_form.fields:
+            sent_mail_form.fields[field].disabled = True
+
+        context['form'] = sent_mail_form
+    except:
+        messages.warning(request, 'Email not found !')
+
+    return render(request , 'ISMS/suppler/view_send_email_to_suppler.html' , context)
