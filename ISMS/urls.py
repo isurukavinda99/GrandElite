@@ -18,6 +18,8 @@ urlpatterns = [
     path('update_item/<int:id>' , update_item , name = 'update_item'),
     path('delete_item/<int:id>', delete_item , name='delete_item'),
     path('generate_item_report', generate_item_pdf, name ='generate_item_pdf'),
+    # added in sprint 2
+    path('item_relase' , release_items , name = 'item_relase'),
 
     #suppler
     path('suppler_dashboard' , suppler_list , name='suppler_list'),

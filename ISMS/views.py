@@ -252,6 +252,51 @@ def generate_item_pdf(request):
     pdf = render_to_pdf('ISMS/inventory/item_report.html' , context)
     return HttpResponse(pdf , content_type='application/pdf')
 
+# this function related to sprint 2 in inventory section
+def release_items(request):
+
+    release_item_form = ReleaseItemForm()
+    context = {
+        'form' : release_item_form
+    }
+
+    # post request
+    if request.method == 'POST':
+        release_item_form = ReleaseItemForm(request.POST)
+
+        if release_item_form.is_valid():
+
+            item = release_item_form.cleaned_data.get('item')
+            requested_qty = release_item_form.cleaned_data.get('released_quantity')
+            # check if can release item quantity
+            if requested_qty <= item.quantity:
+
+                try:
+                    with transaction.atomic():
+
+                        ticket = release_item_form.save(commit=False)
+                        item_obj = Item.objects.get(id=item.id)
+                        ticket.current_quantity =item_obj.quantity
+                        ticket.save()
+
+                        item_obj.quantity = item_obj.quantity - requested_qty
+                        item_obj.save()
+
+                        messages.success(request, 'Item release ticket is generated ')
+                except:
+                    transaction.rollback()
+                    messages.warning(request, 'Item request is denied !')
+
+            else:
+                messages.warning(request, 'Requested item quantity is grater than current quantity!')
+
+        else:
+            release_item_form.errors
+            context['form'] = release_item_form
+
+
+    return render(request , 'ISMS/inventory/item_relase_form.html' , context)
+
 
 # sprint 02 suppler management
 

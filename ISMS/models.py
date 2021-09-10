@@ -61,7 +61,11 @@ class SendMail(models.Model):
 class ItemReleaseTicket(models.Model):
 
     item = models.ForeignKey(Item , related_name='release_item' , on_delete=models.DO_NOTHING , null=False)
+    released_to = models.CharField(max_length=100 , null=False , blank=False)
     released_quantity = models.IntegerField(null=False , blank=False)
     current_quantity = models.IntegerField(null=False , blank=False)
     released_date = models.DateTimeField(auto_now_add=True)
     comment = models.TextField()
+
+    def __str__(self):
+        return self.item.name + ' - ' + self.released_to + ' - ' + str(self.released_quantity) + ' - ' + str(self.released_date)

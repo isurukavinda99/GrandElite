@@ -22,3 +22,9 @@ class SendEmailForm(ModelForm):
     class Meta:
         model = SendMail
         exclude = ('request_date' , )
+
+class ReleaseItemForm(ModelForm):
+    class Meta:
+        model = ItemReleaseTicket
+        fields = ['item', 'released_quantity' , 'comment' , 'released_to']
+
