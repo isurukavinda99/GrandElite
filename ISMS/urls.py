@@ -20,6 +20,7 @@ urlpatterns = [
     path('generate_item_report', generate_item_pdf, name ='generate_item_pdf'),
     # added in sprint 2
     path('item_relase' , release_items , name = 'item_relase'),
+    path('released_itme_list' , release_items_list , name = 'released_itme_list'),
 
     #suppler
     path('suppler_dashboard' , suppler_list , name='suppler_list'),

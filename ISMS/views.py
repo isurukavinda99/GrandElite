@@ -297,6 +297,15 @@ def release_items(request):
 
     return render(request , 'ISMS/inventory/item_relase_form.html' , context)
 
+def release_items_list(request):
+
+    item_release = ItemReleaseTicket.objects.all().order_by('released_date')
+
+    context = {
+        'item_list' : item_release
+    }
+
+    return render(request , template_name='ISMS/inventory/relesed_item_list.html' , context=context)
 
 # sprint 02 suppler management
 
