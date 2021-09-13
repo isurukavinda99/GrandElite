@@ -39,7 +39,7 @@
                             {{ item.released_quantity }}
                         </td>
                         <td>
-                            <a href="" type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></a>
+                            <a href="{% url 'view_released_item_ticket' id=item.id %}" type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></a>
                         </td>
                     </tr>
                 {% endfor %}

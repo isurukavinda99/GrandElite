@@ -21,6 +21,7 @@ urlpatterns = [
     # added in sprint 2
     path('item_relase' , release_items , name = 'item_relase'),
     path('released_itme_list' , release_items_list , name = 'released_itme_list'),
+    path('view_released_item_ticket/<int:id>' , view_release_item_ticket , name = 'view_released_item_ticket'),
 
     #suppler
     path('suppler_dashboard' , suppler_list , name='suppler_list'),

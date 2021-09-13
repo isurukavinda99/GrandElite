@@ -307,6 +307,16 @@ def release_items_list(request):
 
     return render(request , template_name='ISMS/inventory/relesed_item_list.html' , context=context)
 
+def view_release_item_ticket(request , id):
+
+    ticket = ItemReleaseTicket.objects.get(id=id)
+
+    context = {
+        'ticket' : ticket
+    }
+
+    return render(request , template_name='ISMS/inventory/view_released_ticket.html' , context=context)
+
 # sprint 02 suppler management
 
 def suppler_list(request):
