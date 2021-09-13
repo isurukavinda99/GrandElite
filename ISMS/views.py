@@ -450,3 +450,13 @@ def view_sent_email(request , id):
         messages.warning(request, 'Email not found !')
 
     return render(request , 'ISMS/suppler/view_send_email_to_suppler.html' , context)
+
+def generate_suppler_report(request):
+
+    supplers = Supplier.objects.all()
+
+    context = {
+        'supplers' : supplers
+    }
+
+    return render(request , 'ISMS/suppler/suppler_report.html' , context)

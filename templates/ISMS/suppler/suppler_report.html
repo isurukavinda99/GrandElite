@@ -1,0 +1,97 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+    <head>
+
+        <title>Item Report</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+        <style type="text/css">
+            .container {
+            width: 100%;
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto; }
+            .table {
+            width: 100%;
+            max-width: 100%;
+            margin-bottom: 1rem;
+            background-color: transparent; }
+            .table th,
+            .table td {
+            padding: 0.75rem;
+            vertical-align: top;
+            border-top: 1px solid #626E82; }
+            .table thead th {
+            vertical-align: bottom;
+            border-bottom: 2px solid #626E82; }
+            .table tbody + tbody {
+            border-top: 2px solid #626E82; }
+            .table .table {
+            background-color: #F9FAFD; }
+            .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(245, 247, 250, 0.5); }
+            h1, h2, h3, h4, h5, h6 {
+            margin-top: 0;
+            margin-bottom: 0.5rem; }
+            .img-thumbnail {
+            padding: 0.25rem;
+            background-color: #F9FAFD;
+            border: 1px solid #626E82;
+            border-radius: 0.25rem;
+            max-width: 100%;
+            height: auto; }
+            .table-sm th,
+            .table-sm td {
+            padding: 0.3rem; }
+
+            .warning_color{
+                background-color: #FF4961;
+            }
+        </style>
+
+    </head>
+
+    <body>
+        <div class="container">
+            <h2 style="text-align: center">Item Report</h2>
+            <p style="text-align: center"><strong>Grand Elite Hotel Inventory Suppler Report</strong> <br> this is online generated report no need signature to authorized
+                <br>{{ today }}</p>
+            <table class="table table-striped">
+                <thead>
+
+                    <tr>
+                        <th scope="col">Suppler number</th>
+                        <th scope="col">Suppler name</th>
+                        <th scope="col">Suppler email</th>
+                        <th scope="col">Suppler phone</th>
+                        <th scope="col">Suppler address</th>
+                        <th scope="col">Suppler NIC</th>
+                        <th scope="col">Br number</th>
+                        <th scope="col">Delivering items</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for suppler in supplers %}
+                        <tr>
+                            <th scope="row">{{ suppler.id }}</th>
+                            <td>{{ suppler.name }}</td>
+                            <td>{{ suppler.email }}</td>
+                            <td>{{ suppler.phone }}</td>
+                            <td>{{ suppler.address }}</td>
+                            <td>{{ suppler.nic }}</td>
+                            <td>{{ suppler.br_number }}</td>
+                            <td>
+                                {% for item in  suppler.item_set.all%}
+                                    * {{ item.name }} <br>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+
+            </table>
+        </div>
+    </body>
+</html>

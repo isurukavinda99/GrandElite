@@ -32,6 +32,7 @@ urlpatterns = [
     path('send_email' , send_email_to_suppler , name ='send_email'),
     path('sent_emails' , sent_email_list , name ='sent_email_list'),
     path('view_sent_email/<int:id>' , view_sent_email , name = 'view_sent_email'),
+    path('generate_suppler_report' , generate_suppler_report , name='generate_suppler_report')
 ]
 
 
