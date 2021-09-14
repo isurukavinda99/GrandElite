@@ -1,8 +1,9 @@
+from django.contrib import messages
+
 from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
 import django.views.generic
 from django.http import HttpResponseRedirect, HttpResponse
-
 
 from django.urls import reverse_lazy, reverse
 import csv
@@ -13,8 +14,6 @@ from allowances.models import Allowances
 from deductions.models import Deductions
 from employeePayments.forms import PaymentForm
 from employeePayments.models import *
-
-
 
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -68,6 +67,7 @@ def delete_record(request, pk):
 
     if request.method == 'POST':
         record.delete()
+        messages.warning(request, 'Record deleted')
 
         return HttpResponseRedirect("/pms/")
 
@@ -77,10 +77,10 @@ def delete_record(request, pk):
 #####################################################################################################################
 
 # pdf generation
-def render_pdf_view(request,pk):
+def render_pdf_view(request, pk):
     payslipData = PaySlip.objects.get(id=pk)
     template_path = 'ePayments/paySlip.html'
-    context = {'ps':payslipData}
+    context = {'ps': payslipData}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="paySlip.pdf"'
@@ -90,11 +90,12 @@ def render_pdf_view(request,pk):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
 
 #########################################################################################################
 
