@@ -19,7 +19,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Sent date</th>
                     <th scope="col">Suppliers</th>
-                    <th scope="col">Items</th>
+                    <th scope="col">Item</th>
                     <th scope="col">View</th>
                 </tr>
                 </thead>
@@ -34,9 +34,7 @@
                             {% endfor %}
                         </td>
                         <td>
-                            {% for item in email.items.all %}
-                                {{ item.name }} ,
-                            {% endfor %}
+                            {{ email.items.name }}
                         </td>
                         <td>
                             <a href="{% url 'view_sent_email' id=email.id %}" type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></a>

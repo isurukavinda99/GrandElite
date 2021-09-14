@@ -22,6 +22,7 @@ urlpatterns = [
     path('item_relase' , release_items , name = 'item_relase'),
     path('released_itme_list' , release_items_list , name = 'released_itme_list'),
     path('view_released_item_ticket/<int:id>' , view_release_item_ticket , name = 'view_released_item_ticket'),
+    path('generate_invoice' , generate_invoice , name = 'generate_invoice'),
 
     #suppler
     path('suppler_dashboard' , suppler_list , name='suppler_list'),

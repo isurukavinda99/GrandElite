@@ -1,5 +1,7 @@
 from django.forms import ModelForm
 from .models import *
+from django import forms
+
 
 class CategoryForm(ModelForm):
     class Meta:
@@ -27,4 +29,13 @@ class ReleaseItemForm(ModelForm):
     class Meta:
         model = ItemReleaseTicket
         fields = ['item', 'released_quantity' , 'comment' , 'released_to']
+
+
+class GenerateInvoice(ModelForm):
+
+    emailRequest = forms.ModelChoiceField(queryset=SendMail.objects.filter(status="requested"))
+
+    class Meta:
+        model = ConfirmedInvoice
+        fields = ['emailRequest' , 'offered_price']
 

@@ -317,6 +317,39 @@ def view_release_item_ticket(request , id):
 
     return render(request , template_name='ISMS/inventory/view_released_ticket.html' , context=context)
 
+def generate_invoice(request):
+
+    invoice_form = GenerateInvoice()
+    invoice_form.fields['emailRequest'].label = "Requested email"
+
+    context = {
+        'invoice_form' : invoice_form
+    }
+
+    if request.method == 'POST':
+
+        invoice_form_request = GenerateInvoice(request.POST)
+        invoice_form_request.fields['emailRequest'].label = "Requested email"
+
+        print(request.POST)
+        if invoice_form_request.is_valid():
+            try:
+                with transaction.atomic():
+                    send_email = invoice_form_request.cleaned_data.get('emailRequest')
+                    invoice_form_request.save()
+                    email = SendMail.objects.filter(id=send_email.id).get()
+                    email.status = "suppler_confirmed"
+                    email.save()
+                    messages.success(request, 'Invoice was generated !')
+            except:
+                transaction.rollback()
+                messages.warning(request , 'Invoice generation failed')
+        else:
+            context['invoice_form'] = invoice_form_request
+
+    return render(request , 'ISMS/inventory/generate_invoice.html' , context)
+
+
 # sprint 02 suppler management
 
 def suppler_list(request):
