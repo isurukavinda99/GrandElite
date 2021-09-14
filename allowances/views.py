@@ -1,4 +1,5 @@
 import django.views.generic
+from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -57,6 +58,7 @@ def delete_record(request, pk):
 
     if request.method == 'POST':
         record.delete()
+        messages.warning(request, 'Record deleted')
 
         return HttpResponseRedirect("/allowances/")
 

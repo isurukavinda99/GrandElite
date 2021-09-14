@@ -16,6 +16,6 @@ urlpatterns = [
     path('deleteRecord/<int:pk>', views.delete_record, name="deleteRecord"),
 
     path('csv/', views.export_csv, name="csv"),
-    path('pdf/<int:pk>', views.render_pdf_view, name ="test"),
+    path('pdf/<int:pk>', views.render_pdf_view, name ="pdf"),
 
 ]

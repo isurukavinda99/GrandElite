@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'allowances',
     'deductions',
     'employeePayments',
+    'supplierPayments',
     #mihara
 
     'demo',

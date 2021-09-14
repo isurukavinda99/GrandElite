@@ -1,0 +1,66 @@
+{% extends 'layout/dashboard.html' %}
+
+<!--Title-->
+{% block title %}
+    View Payment
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+    {% include 'pms/nav_bar.html' %}
+
+{% endblock %}
+
+<!-- nav title-->
+{% block nav_title %}
+    View Payment
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <div class="card mt-4">
+
+
+        <div class="card-body">
+            <div class="container">
+                  <div class="row">
+                    <div class="col">
+                      <h5 style="font-weight: bold">Supplier ID :</h5>
+                        <h5 style="font-weight: bold">Supplier Name :</h5>
+                        <h5 style="font-weight: bold">Email :</h5>
+                        <h5 style="font-weight: bold">Phone :</h5>
+                        <h5 style="font-weight: bold">Product :</h5>
+                        <h5 style="font-weight: bold">Amount :</h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{ object.id  }}</h5>
+                        <h5>{{ object.supName }}</h5>
+                        <h5>{{ object.supEmail }}</h5>
+                        <h5>{{ object.supPhone  }}</h5>
+                        <h5>{{ object.product  }}</h5>
+                        <h5>{{ object.amount  }}</h5>
+                    </div>
+                  </div>
+            </div>
+
+            <!--Pay button -->
+            <div class="d-flex align-items-end justify-content-right mt-5">
+            <input type="submit" value="Pay" style="background-color: #fdd600; border: none; width: 100px; height: 30px">
+        </div>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}
