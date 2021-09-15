@@ -1,0 +1,60 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Send email
+{% endblock %}
+
+{% block nav_title %}
+    Send email to suppler
+{% endblock %}
+
+
+{% block main_content %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <!--message window-->
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form action="" method="post">
+
+                {% csrf_token %}
+
+                <div class="form-group">
+                    {{ form.email_body | as_crispy_field}}
+                </div>
+
+                <div class="form-group">
+                    {{ form.items | as_crispy_field}}
+                </div>
+
+                <div class="form-group">
+                    {{ form.suppliers | as_crispy_field}}
+                </div>
+
+                <div class="form-group">
+                    {{ form.quantity | as_crispy_field}}
+                </div>
+
+                <div class="form-group mt-3">
+                    <button type="" class="btn btn-success">Send Email</button>
+                    <button type="reset" class="btn btn-danger">Reset Form</button>
+                </div>
+
+            </form>
+
+
+        </div>
+    </div>
+
+{% endblock %}

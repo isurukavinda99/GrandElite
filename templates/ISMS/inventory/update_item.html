@@ -1,0 +1,155 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+{% load crispy_forms_tags %}
+
+
+{% block title %}
+    Update Item
+{% endblock %}
+
+{% block nav_title %}
+    Update Item : {{ item_name }}
+{% endblock %}
+
+{% block main_content %}
+    <div class="card mt-3 mb-2">
+        <div class="card-body">
+
+            <!--message window-->
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+            {% endif %}
+
+            <form action="" method="post">
+                <div class="row">
+
+                    <div class="col-8">
+
+
+                            {% csrf_token %}
+                            <div class="form-group">
+                                {{ item_form.name | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.description | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.quantity | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.notify_level | as_crispy_field}}
+                            </div>
+
+                            <div class="form-group">
+                                {{ item_form.category | as_crispy_field}}
+                            </div>
+
+                            <!--suppler list-->
+                            <div class="form-group mt-3 mb-3">
+                                <div class="row">
+                                    <div class="col-9">
+                                        <div class="suppler-box">
+                                            <ul class="list-group" id="unallocate_list">
+                                                {% for suppler in unallocated_list %}
+                                                    <li class="list-group-item" id="item_{{ suppler.id }}">
+                                                        <div class="card">
+                                                            <div class="card-body">
+
+                                                                <div class="row">
+                                                                    <div class="col-9">
+                                                                        <input type="text" name=""  class="form-control form-control-sm" value="{{ suppler.name }}" readonly>
+                                                                        <input type="hidden" name = "not_assign" id="item_value_{{ suppler.id }}" value="{{ suppler.id }}">
+                                                                    </div>
+                                                                    <div class="col-3">
+                                                                        <button type="button" onclick="allocate({{ suppler.id }})" class="btn btn-sm w-100 btn-warning"><i id = 'icon_{{ suppler.id }}' class="far fa-paper-plane"></i></button>
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group float-left">
+                                <button type="submit" class="btn btn-success">Update</button>
+                            </div>
+
+                    </div>
+                    <div class="col-4">
+                        <div class="card">
+                            <div class="card-body" style="background-color: #d0d8d2">
+
+                                <div class="suppler-box">
+                                    <ul class="list-group" id="allocate_list" style="background-color: transparent">
+                                        {% for suppler in suppler_list %}
+                                            <li class="list-group-item" id="item_{{ suppler.id }}">
+                                                <div class="card">
+                                                    <div class="card-body">
+
+                                                        <div class="row">
+                                                            <div class="col-9">
+                                                                <input type="text" name=""  class="form-control form-control-sm" value="{{ suppler.name }}" readonly>
+                                                                <input type="hidden" name = "allocated" id="item_value_{{ suppler.id }}" value="{{ suppler.id }}">
+                                                            </div>
+                                                            <div class="col-3">
+                                                                <button type="button" onclick="allocate({{ suppler.id }})" class="btn btn-sm w-100 btn-warning"><i id = 'icon_{{ suppler.id }}' class="far fa-minus-square"></i></button>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+
+    <script>
+        function allocate(id){
+
+            var li = document.getElementById('item_'+id)
+            var input = document.getElementById('item_value_'+id)
+
+            if (input.name == 'not_assign'){
+                var list = document.getElementById('allocate_list')
+                var icon = document.getElementById('icon_'+id)
+                icon.classList = 'far fa-minus-square'
+                input.name ='allocated'
+                console.log(input)
+                li.remove()
+                list.append(li)
+            }else if(input.name == 'allocated'){
+                var list = document.getElementById('unallocate_list')
+                var icon = document.getElementById('icon_'+id)
+                icon.classList = 'far fa-paper-plane'
+                input.name ='not_assign'
+                console.log(input)
+                li.remove()
+                list.append(li)
+            }
+        }
+
+    </script>
+{% endblock %}

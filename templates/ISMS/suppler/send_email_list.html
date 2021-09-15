@@ -1,0 +1,50 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+    Sent emails
+{% endblock %}
+
+{% block nav_title %}
+    Sent emails
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Sent date</th>
+                    <th scope="col">Suppliers</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">View</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for email in email_list %}
+                    <tr>
+                        <th scope="row">{{ email.id }}</th>
+                        <td>{{ email.request_date }}</td>
+                        <td>
+                            {% for suppler in email.suppliers.all %}
+                                {{ suppler.name }} ,
+                            {% endfor %}
+                        </td>
+                        <td>
+                            {{ email.items.name }}
+                        </td>
+                        <td>
+                            <a href="{% url 'view_sent_email' id=email.id %}" type="button" class="btn btn-sm btn-secondary"><i class="far fa-eye"></i></a>
+                        </td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

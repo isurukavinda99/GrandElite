@@ -1,0 +1,67 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% block title %}
+    View Category
+{% endblock %}
+
+{% block nav_title %}
+    Category : {{ category.name }} <span style="margin-left: 5em">Category Id: {{ category.id }}</span>
+{% endblock %}
+
+{% block main_content %}
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <div style="text-align: right">
+                <a class="link-btn" href="{% url 'update_category' id=category.id %}" style="font-size: 2rem ;"><i class="far fa-edit"></i></a>
+            </div>
+
+            <div style="text-align: right">
+                <img src="{{ category.thumbnail.url }}" class="rounded" alt="..." style="width: 8em ; height: 8em ; border: none ; border-radius: 20% 0 20% 0">
+            </div>
+
+            <br>
+
+            <div>
+                <div class="row">
+                    <div class="col-sm-8">
+
+                        <div class="card">
+                            <div class="card-body">
+                                {% for item in category.item_set.all %}
+
+                                    <div class="row">
+
+                                        <div class="col-8">
+                                            {{ item.name }}
+                                        </div>
+
+                                        <div class="col-2">
+                                            <span class="{% if item.quantity <= item.notify_level %}text-danger{% else %}text-primary{% endif %}">{{ item.quantity }} KG</span>
+                                        </div>
+
+                                        <div class="col-2">
+                                            <a href="{% url 'view_item' id=item.id %}"  type="button" class="btn btn-sm w-100 btn-outline-secondary"><i class="far fa-folder-open"></i></a>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                {% endfor %}
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="card">
+                            <div class="card-body">
+                                {{ category.description }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+{% endblock %}

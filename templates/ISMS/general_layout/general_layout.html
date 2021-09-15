@@ -1,0 +1,111 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block side_nav_menu %}
+
+{#<div class="accordion" id="accordionExample">#}
+{#    <div class="card nav-block">#}
+{#        <div class="card-header" id="headingOne">#}
+{##}
+{#            <h2 class="mb-0">#}
+{#                <button class="btn btn-outline-warning w-100 btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">#}
+{#                    Inventory#}
+{#                </button>#}
+{#            </h2>#}
+{##}
+{#        </div>#}
+{##}
+{#        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">#}
+{#            <div class="card-body nav-card-body">#}
+{##}
+{#                <div class="list-group" >#}
+{#                    <a href="{% url 'category_dashboard' %}" class="list-group-item text-warning list-group-item-action nav-block">Category Dashboard</a>#}
+{#                    <a href="{% url 'new_category' %}" class="list-group-item text-warning list-group-item-action nav-block">New Category</a>#}
+{#                    <a href="{% url 'item_dashboard' %}" class="list-group-item text-warning list-group-item-action nav-block">Item Dashboard</a>#}
+{#                    <a href="{% url 'new_item' %}" class="list-group-item text-warning list-group-item-action nav-block">New Item</a>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#    <div class="card nav-block">#}
+{##}
+{#        <div class="card-header" id="headingTwo">#}
+{#            <h2 class="mb-0">#}
+{#                <button class="btn btn-outline-warning btn-block w-100 text-left collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">#}
+{#                    Supplier#}
+{#                </button>#}
+{#            </h2>#}
+{#        </div>#}
+{##}
+{#        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">#}
+{#            <div class="card-body nav-card-body">#}
+{##}
+{#                <div class="list-group" >#}
+{#                    <a href="#" class="list-group-item text-warning list-group-item-action nav-block">Dapibus ac facilisis in</a>#}
+{#                    <a href="#" class="list-group-item text-warning list-group-item-action nav-block">Morbi leo risus</a>#}
+{#                    <a href="#" class="list-group-item text-warning list-group-item-action nav-block">Porta ac consectetur ac</a>#}
+{#                </div>#}
+{##}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{##}
+{#</div>#}
+
+<div class="accordion" id="accordionExample">
+
+    <div class="accordion-item nav-block" onclick="window.location.href = '{% url 'isms_dashboard' %}'">
+
+        <h2 class="accordion-header" id="headingThree">
+            <a href="{% url 'isms_dashboard' %}" class="btn btn-outline-warning btn-block w-100 text-left collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                ISMS Dashboard
+            </a>
+        </h2>
+
+    </div>
+
+    <div class="accordion-item nav-block">
+
+        <h2 class="accordion-header" id="headingOne">
+            <button class="btn btn-outline-warning btn-block w-100 text-left collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                Inventory
+            </button>
+        </h2>
+
+        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+                <div class="list-group" >
+                    <a href="{% url 'category_dashboard' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-tachometer-alt"></i>  Category Dashboard</a>
+                    <a href="{% url 'new_category' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-cube"></i> New Category</a>
+                    <a href="{% url 'item_dashboard' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-chart-line"></i> Item Dashboard</a>
+                    <a href="{% url 'new_item' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-hockey-puck"></i> New Item</a>
+                    <a href="{% url 'item_relase' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-code-branch"></i> Release Item</a>
+                    <a href="{% url 'released_itme_list' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-box-open"></i> Released Item List</a>
+                    <a href="{% url 'generate_invoice' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-file-invoice-dollar"></i> Generate Invoice</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="accordion-item nav-block">
+        <h2 class="accordion-header" id="headingTwo">
+        <button class="btn btn-outline-warning btn-block w-100 text-left collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            Suppliers
+        </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <div class="list-group" >
+                <a href="{% url 'suppler_list' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-tachometer-alt"></i>  Suppler Dashboard</a>
+                <a href="{% url 'new_suppler' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-cube"></i> New Suppler</a>
+                <a href="{% url 'send_email' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-at"></i> Request By Email</a>
+                <a href="{% url 'sent_email_list' %}" class="list-group-item text-warning list-group-item-action nav-block"><i class="fas fa-clipboard-list"></i> Send Email list</a>
+            </div>
+        </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+

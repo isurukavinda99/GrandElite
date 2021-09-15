@@ -1,0 +1,39 @@
+
+.nav-block{
+    background: transparent !important;
+}
+
+.nav-card-body{
+    margin-left: 2em;
+}
+
+.link-btn{
+    text-decoration: none;
+    color: #191919;
+}
+
+.link-btn:hover{
+    color: #f0ad4e;
+}
+
+.suppler-box{
+    max-height: 500px !important;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
+
+
+.dashboar_card_odd{
+    border-width: 10px !important;
+    border-bottom-color: #f0ad4e !important;
+    border-left-color: #f0ad4e !important;
+    border-right-color: #191919 !important;
+    border-top-color: #191919 !important;
+}
+.dashboar_card_even{
+    border-width: 10px !important;
+    border-bottom-color: #191919  !important;
+    border-left-color: #191919  !important;
+    border-right-color: #f0ad4e !important;
+    border-top-color: #f0ad4e !important;
+}

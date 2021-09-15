@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 
     #shalitha
     #kavinda
+    'ISMS',
     #himasha
     'allowances',
     'deductions',

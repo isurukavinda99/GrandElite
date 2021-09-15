@@ -1,0 +1,90 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% block title %}
+    Released ticket
+{% endblock %}
+
+{% block nav_title %}
+    Released ticket
+{% endblock %}
+
+{% block main_content %}
+    <div class="card mt-3">
+        <div class="card-body">
+
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Ticket id</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.id }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Ticket date</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.released_date }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Item name</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.item.name }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Related category</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.item.category.name }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Released to</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.released_to }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Released quantity</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.released_quantity }}">
+                    </div>
+                </div>
+
+                <div class="row mt-3">
+                    <div class="col-4">
+                        <label for="exampleInputEmail1" class="form-label">Item quantity at that time</label>
+                    </div>
+
+                    <div class="col-8">
+                        <input type="text" disabled class="form-control" value="{{ ticket.current_quantity }}">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

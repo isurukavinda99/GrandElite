@@ -1,0 +1,75 @@
+{% extends 'ISMS/general_layout/general_layout.html' %}
+
+{% block title %}
+    Dashboard
+{% endblock %}
+
+{% block nav_title %}
+    Inventory And Suppler Management System
+{% endblock %}
+
+{% block main_content %}
+
+    <div class="container mt-5">
+
+        <a href="{% url 'item_relase' %}" type="button" class="btn btn-outline-secondary">Release Items <i class="fas fa-code-branch"></i></a>
+        <a href="{% url 'send_email' %}" type="button" class="btn btn-outline-secondary">Send Email <i class="fas fa-at"></i></a>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 mt-3">
+
+{#            category#}
+            <div class="col">
+                <div class="card dashboar_card_odd" >
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Categories</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_category }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            item#}
+            <div class="col">
+                <div class="card dashboar_card_even">
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Items</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_items }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            supplers#}
+            <div class="col">
+                <div class="card dashboar_card_odd">
+                    <div class="card-body">
+                        <h5 class="card-title">My Total Suppliers</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em">
+                            {{ total_supplers }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+{#            getting low#}
+            <div class="col">
+                <div class="card dashboar_card_even">
+                    <div class="card-body">
+                        <h5 class="card-title">Low Quantity Items</h5>
+                        <hr>
+                        <div style="text-align: center; font-size: 2.5em" class="text-danger">
+                            {{ low_quantity }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+{% endblock %}
