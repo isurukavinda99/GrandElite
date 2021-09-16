@@ -409,5 +409,50 @@ def deleteSal(request,pk):
 
 
 
+################Attendance Management System URL ###################################
+
+def inPortal(request):
+
+    valid_employees = EmployeeData.objects.filter(empStatus=1)
+
+    searchKey = request.GET.get('empSearch')
+
+    searchRec = valid_employees.get(id=searchKey)
+
+    empId = request.GET.get('empId')
+    empName = request.GET.get('name')
+    inTime = request.GET.get('inTime')
+
+
+    date = request.GET.get('currentDate')
+
+ #   if 83000 > inTimeComp > 80000:
+  #      empInStat = 'Late'
+
+   # elif  inTimeComp > 83000:
+    #    empInStat = 'Absent'
+
+    #else:
+     #   empInStat = 'On Time'
+
+
+    #IntimeData = Attendance(emp_at_id=empId,emp_at_name=empName,date=date,inTime=inTime,inStatus=empInStat)
+    #IntimeData.save()
+
+    #print(searchKey)
+    print(inTime)
+    print(empName)
+
+
+
+    context = {
+        'validList':valid_employees,
+        'searchDet':searchRec
+    }
+
+
+
+
+    return render(request, 'AMS/In_portal.html', context)
 
 

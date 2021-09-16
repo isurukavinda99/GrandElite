@@ -1,0 +1,81 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %}In Portal{% endblock %}
+
+
+{% block nav_title %}In Portal{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+    <table>
+
+        <thead>
+        <td>ID</td>
+        <td>Employee</td>
+        <td>Status</td>
+        </thead>
+
+
+        {% for rec in validList %}
+
+
+            <tr>
+                <td>{{ rec.id }}</td>
+                <td>{{ rec.firstName }}</td>
+                <td>{{ rec.empStatus }}</td>
+
+            </tr>
+
+        {% endfor %}
+    </table>
+
+
+    <form class="d-flex" method="GET" id="inSearch">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="empSearch" placeholder="Employee Id" aria-label="Search">
+        <button class="btn btn-warning" type="submit" form="inSearch">Search</button>
+    </form>
+
+
+
+
+
+
+    <br><br>
+    <script>
+        var today = new Date();
+        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        document.getElementById("currentTime").value = time;
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

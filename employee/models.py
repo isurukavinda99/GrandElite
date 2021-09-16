@@ -55,3 +55,35 @@ class EmployeeData(models.Model):
 
 
 
+##############models for attendance management system#########################
+
+
+
+
+class Attendance(models.Model):
+
+    InStatus = (
+        ('Absent','Absent'),
+        ('On Time','On Time'),
+        ('Late', 'Late')
+    )
+
+    OutStatus = (
+        ('Still Working', 'Still Working'),
+        ('On Time', 'On Time'),
+        ('Early', 'Early')
+    )
+
+
+
+    emp_at_id = models.IntegerField
+    emp_at_name = models.CharField(max_length=200, null=True)
+    date = models.DateField(null=True)
+    inTime = models.TimeField(null=True)
+    outTime = models.TimeField(null=True)
+    inStatus = models.CharField(choices=InStatus, default='Absent', max_length=20)
+    outStatus = models.CharField(choices=OutStatus, default='Still Working',max_length=20)
+
+    def __str__(self):
+        return self.emp_at_name
+

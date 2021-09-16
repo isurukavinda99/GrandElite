@@ -26,6 +26,12 @@ urlpatterns = [
     path('deleteEmp/<str:pk>/',views.switchEmployee,name="changeEmpStat"),
     path('reallocateEmp/<str:pk>/', views.reallocateEmp, name="realloEmp"),
 
+
+
+    ###############Attendance Management System URL #########################
+    path('inPortal/', views.inPortal, name="inPortal"),
+
+
 ]
 
 
