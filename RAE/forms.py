@@ -54,8 +54,8 @@ class RoomBookingForm(forms.ModelForm):
             # 'customer_name': {'required': 'Must Enter a customer name'},
             # 'customer_phone': {'required': 'Must Enter a customer phone number'},
             # 'customer_email': {'required': 'Must Enter a customer email'},
-            'check_in': {'required': 'Must Select check-in date and time'},
-            'check_out': {'required': 'Must Select check-out date and time'},
+            'check_in': {'required': 'Must Enter check-in date and time'},
+            'check_out': {'required': 'Must Enter check-out date and time'},
         }
 
 
