@@ -36,7 +36,7 @@
                 <!--SEARCH-->
                 <div class="col-md-5">
                     <form action="" method="GET" id="form_search">
-                        <input type="text" placeholder="Search supplier ID" name="search" id="search" class="form-control col xs-3">
+                        <input type="text" placeholder="Search status" name="search" id="search" class="form-control col xs-3">
                     </form>
                 </div>
 
@@ -74,12 +74,12 @@
                 {#table data#}
                 {% for object in  object_list %}
                     <tr>
-
-                        <th scope="row">{{ object.supName}}</th>
-                        <th scope="row">{{ object.supEmail }}</th>
-                        <th scope="row">{{ object.supPhone }}</th>
-                        <th scope="row">{{ object.product }}</th>
-                        <th scope="row">{{ object.amount }}</th>
+{#                        <th scope="row">{{ object.SendMail.suppliers.id}}</th>#}
+{#                        <th scope="row">{{ object.SendMail.suppliers.name}}</th>#}
+{#                        <th scope="row">{{ object.SendMail.suppliers.email }}</th>#}
+{#                        <th scope="row">{{ object.SendMail.suppliers.phone }}</th>#}
+                        <th scope="row">{{ object.emailRequest.items.name }}</th>
+                        <th scope="row">{{ object.offered_price }}</th>
                         <th scope="row">{{ object.status }}</th>
 
 
@@ -87,7 +87,7 @@
 
                                 <!--View button-->
                                 <div>
-                                    <a href="" id="btnExport" class="btn btn-link" style="color: #fdd600">
+                                    <a href="{% url 'supplierPayments:s-payment' object.id %} " id="btnExport" class="btn btn-link" style="color: #fdd600">
                                         <i class="fas fa-eye"></i>
                                     </a>
 

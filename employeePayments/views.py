@@ -180,5 +180,8 @@ def calculate(request):
                           netPay=netPay)
 
         paySlip.save()
+        return HttpResponseRedirect(reverse('employeePayments:e-payments-list'))
 
     return render(request, 'ePayments/ePayments_form.html', context)
+
+
