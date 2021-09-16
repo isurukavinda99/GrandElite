@@ -26,16 +26,16 @@ class RoomForm(forms.ModelForm):
 
 # RoomBooking
 class RoomBookingForm(forms.ModelForm):
-    # reserve_id = forms.CharField(label='Reservation ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Enter Room Reservation ID'}),
-    # required = True, error_messages={'required': 'Must Enter a correct Room Reservation ID'})
+    reserve_id = forms.CharField(label='Reservation ID', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder':'Enter Room Reservation ID'}),
+    required = True, error_messages={'required': 'Must Enter a correct Room Reservation ID'})
     # room_Id = forms.CharField(label='Room ID', chooses=Room.objects.all(),
     # required = True, error_messages={'required': 'Must Enter a correct Room ID'})
-    # customer_name = forms.CharField(label='Customer Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Name'}),
-    # required=True, error_messages={'required': 'Must Enter a customer name'})
-    # customer_phone = forms.CharField(label='Customer Phone', widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Phone Number'}),
-    # required=True, error_messages={'required': 'Must Enter a customer phone number'})
-    # customer_email = forms.EmailField(label='Customer Email', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Email'}),
-    # required=True, error_messages={'required': 'Must Enter a customer email'})
+    customer_name = forms.CharField(label='Customer Name', widget=forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Name'}),
+    required=True, error_messages={'required': 'Must Enter a customer name'})
+    customer_phone = forms.CharField(label='Customer Phone', widget=forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Phone Number'}),
+    required=True, error_messages={'required': 'Must Enter a customer phone number'})
+    customer_email = forms.EmailField(label='Customer Email', widget=forms.EmailInput(attrs={'class': 'form-control', 'placeholder': 'Enter Customer Email'}),
+    required=True, error_messages={'required': 'Must Enter a customer email'})
     # check_in = forms.DateTimeField(label='Check-in', required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
     # error_messages={'required': 'Must Select check-in date and time'})
     # check_out = forms.DateTimeField(label='Check-out', required=True, input_formats=["%Y-%m-%dT%H:%M", "%Y-%m-%dT%H:%M%Z"], widget=forms.DateTimeInput(attrs={'class': 'form-control', 'type': 'datetime-local'}),
@@ -44,13 +44,16 @@ class RoomBookingForm(forms.ModelForm):
     class Meta:
         model = RoomBooking
         fields = '__all__'
-
+        widgets = {
+            'check_in': forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Enter Check-in'}),
+            'check_out': forms.DateTimeInput(attrs={'class': 'form-control', 'placeholder': 'Enter Check-out'}),
+        }
         error_messages = {
-            'reserve_id': {'required': 'Must Enter a correct Room Reservation ID'},
+            # 'reserve_id': {'required': 'Must Enter a correct Room Reservation ID'},
             'room_Id': {'required': 'Must Enter a correct Room ID'},
-            'customer_name': {'required': 'Must Enter a customer name'},
-            'customer_phone': {'required': 'Must Enter a customer phone number'},
-            'customer_email': {'required': 'Must Enter a customer email'},
+            # 'customer_name': {'required': 'Must Enter a customer name'},
+            # 'customer_phone': {'required': 'Must Enter a customer phone number'},
+            # 'customer_email': {'required': 'Must Enter a customer email'},
             'check_in': {'required': 'Must Select check-in date and time'},
             'check_out': {'required': 'Must Select check-out date and time'},
         }
