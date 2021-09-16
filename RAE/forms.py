@@ -76,9 +76,9 @@ class EventBookingForm(forms.ModelForm):
     date = forms.DateField(label='Event Date', input_formats=["%Y-%m-%d", "%Y-%m-%d"], widget=forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
     required=True, error_messages={'required': 'Must Select an event date'})
     time_in = forms.TimeField(label='Time-in', input_formats=["%H:%M", "%H:%M"], widget=forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
-    required=True, error_messages={'required': 'Must Select time-in'})
+    required=False, error_messages={'required': 'Must Select time-in'})
     time_out = forms.TimeField(label='Time-out', input_formats=["%H:%M", "%H:%M"], widget=forms.TimeInput(attrs={'class': 'form-control', 'type': 'time'}),
-    required=True, error_messages={'required': 'Must Select time-out'})
+    required=False, error_messages={'required': 'Must Select time-out'})
 
 
     class Meta:
