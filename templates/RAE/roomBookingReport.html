@@ -1,16 +1,32 @@
-{% extends 'layout/dashboard.html' %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <hr>
 
-{% block title %} room bookings List{% endblock %}
+<h1 style="text-align: center">Grand Elite Hotels (pvt) Ltd  </h1>
 
+<h3 style="text-align: center"> <p>
+    Address:  	No. 33, Canal Row, Fort, Colombo 01,Sri Lanka.
+    <br>
+    Tel:  	+94 (0) 11 5341962-63, +94 (0) 11 5341965-66
+    <br>
+    Fax: 	+94 (0) 11 2432480
+    <br>
+    E-Mail: grandelitecolombo@gmail.com
+</p></h3>
 
-{% block side_nav_menu %}
-
-{% endblock %}
-
-{% block nav_title %}
-    ROOM BOOKINGS LIST
-{% endblock %}
-
+<hr>
+<!--{% block nav_title %}-->
+    <h1 style="background-color:black; color:gold; font-size:19px; text-align: left">ROOM BOOKINGS LIST</h1>
+<!--{% endblock %}-->
+ <style>
+        td{
+            font-weight: bolder;
+            text-align: center;
+        }
+ </style>
+</head>
 {%  block main_content %}
 <br/>
 
@@ -20,9 +36,9 @@
             <div class="col-md-12 mt-0" style="border:1px solid #80808029; margin-left:5%; padding:15px;background-color:#ffffffde;">
 
 
-               <table class="table">
+               <table border="1" cellpadding="10">
                     <thead>
-                        <tr>
+                        <tr style="background-color:gold">
                             <th scope="col">Reservation ID</th>
                             <th scope="col">Room ID</th>
                             <th scope="col">Customer Name</th>
