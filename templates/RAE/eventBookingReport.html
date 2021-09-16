@@ -1,0 +1,77 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} events List{% endblock %}
+
+
+{% block side_nav_menu %}
+    <div class="accordion-body">
+                <div class="list-group" >
+                </div>
+    </div>
+{% endblock %}
+
+{% block nav_title %}
+    EVENTS LIST
+{% endblock %}
+
+{%  block main_content %}
+<br/>
+
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-5 pt-5">
+            <div class="col-md-12 mt-0" style="border:1px solid #80808029; margin-left:5%; padding:15px;background-color:#ffffffde;">
+
+
+               <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Event ID</th>
+                            <th scope="col">Event Type</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Price (Rs.)</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Customer Phone</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time-in</th>
+                            <th scope="col">Time-out</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for data in eventbooking_data %}
+                        <tr>
+                            <td>{{data.event_id}}</td>
+                            <td>{{data.event_type}}</td>
+                            <td>{{data.package}}</td>
+                            <td>{{data.price}}</td>
+                            <td>{{data.customer_name}}</td>
+                            <td>{{data.customer_phone}}</td>
+                            <td>{{data.customer_email}}</td>
+                            <td>{{data.date}}</td>
+                            <td>{{data.time_in}}</td>
+                            <td>{{data.time_out}}</td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not  eventbooking_data %}
+                            <tr>
+                                <td colspan="10" class="text-center">No data available</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

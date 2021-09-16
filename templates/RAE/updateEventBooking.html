@@ -1,0 +1,170 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} update events {% endblock %}
+
+
+{% block side_nav_menu %}
+        <div class="accordion-body">
+            <div class="list-group" >
+                <a href="{% url 'RAE:eventBookingList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Events List</a><br/>
+                <a href="{% url 'RAE:createEventBooking'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i>Add Events</a><br/>
+            </div>
+        </div>
+{% endblock %}
+
+{% block nav_title %}
+    UPDATE EVENTS
+{% endblock %}
+
+{%  block main_content %}
+    <br/>
+
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-1 pt-6">
+            <div class="col-md-9 mt-1" style="border:1px solid #80808029; margin-left:10%; padding:15px;background-color:#ffffffde;">
+
+                <form method="post" style="display:block" novalidate>
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="event_id" class="form-label">{{eventbookingform.event_id.label}}</label>
+                    <input readonly {{eventbookingform.event_id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="event_type" class="form-label">{{eventbookingform.event_type.label}}</label>
+                        {{eventbookingform.event_type}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="package" class="form-label">{{eventbookingform.package.label}}</label>
+                        {% for radio in eventbookingform.package %}
+                            <div class="form-check form-check-inline">
+                                {{radio.tag}}
+                                <label class="form-check-label">{{radio.choice_label}}</label>
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <div class="mb-4">
+                        <label for="price" class="form-label">{{eventbookingform.price.label}}</label>
+                        {{eventbookingform.price}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_name" class="form-label">{{eventbookingform.customer_name.label}}</label>
+                        {{eventbookingform.customer_name}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_phone" class="form-label">{{eventbookingform.customer_phone.label}}</label>
+                        {{eventbookingform.customer_phone}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_email" class="form-label">{{eventbookingform.customer_email.label}}</label>
+                        {{eventbookingform.customer_email}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="date" class="form-label">{{eventbookingform.date.label}}</label>
+                        {{eventbookingform.date}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="time_in" class="form-label">{{eventbookingform.time_in.label}}</label>
+                        {{eventbookingform.time_in}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="time_out" class="form-label">{{eventbookingform.time_out.label}}</label>
+                        {{eventbookingform.time_out}}
+                    </div>
+
+                 <div class="mb-4" style="margin-left:60%">
+                     <button type="submit" class="btn btn-warning">Update</button>
+                     <a class="btn btn-danger" href="{% url 'RAE:eventBookingList' %}" role="button">Cancel</a>
+
+                 </div>
+            </form>
+
+            {% if eventbookingform.errors %}
+                {% for field in eventbookingform %}
+                    {% for error in field.errors %}
+                        <div class="alert alert-danger" role="alert">
+                            {{error}}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+                  <div style="margin-left:20%; margin-top:-20">
+                        <table style="background:gold">
+                                <tr>
+                                    <th>EVENT </th>
+                                    <th>PRICE(RS.)</th>
+                                </tr>
+                                <br/>
+                                <tr><th>Wedding</th></tr>
+                                <tr style="color:grey">
+                                    <td>A-upto 1000 participants Includes all the hall arrangements,food,DJ and 1 room</td>
+                                    <td>800,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>B-upto 500 participants Includes all the hall arrangements,food and 1 room</td>
+                                    <td>600,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>C-upto 300 participants Includes all the hall arrangements,food and 1 room </td>
+                                    <td>500,000.00</td>
+                                </tr><br/>
+                               <br/>
+                                  <tr><th>Birthday</th></tr>
+                                <tr style="color:grey">
+                                    <td>A-upto 150 participants Includes all the hall arrangements,food,DJ and 1 room</td>
+                                    <td>225,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>B-upto 100 participants Includes all the hall arrangements,food and 1 room</td>
+                                    <td>180,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>C-upto 75 participants Includes all the hall arrangements,food and 1 room </td>
+                                    <td>115,000.00</td>
+                                </tr><br/>
+                                <br/>
+                             <tr><th>Gettogether</th></tr>
+                                <tr style="color:grey">
+                                    <td>A-upto 150 participants Includes all the hall arrangements,food,DJ and 1 room</td>
+                                    <td>225,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>B-upto 100 participants Includes all the hall arrangements,food and 1 room</td>
+                                    <td>180,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>C-upto 75 participants Includes all the hall arrangements,food and 1 room </td>
+                                    <td>115,000.00</td>
+                                </tr><br/>
+                                <br/>
+                             <tr><th>Special</th></tr>
+                                <tr style="color:grey">
+                                    <td>A- Pre-Shoot Includes food and 1 room</td>
+                                    <td>150,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>B- Pool Party upto 25 participants Includes food and 1 room</td>
+                                    <td>200,000.00</td>
+                                </tr><br/>
+                                <tr style="color:grey">
+                                    <td>C-Other upto 25 participants Includes food and 1 room</td>
+                                    <td>200,000.00</td>
+                                </tr><br/>
+                                <br/>
+                        </table>
+                  </div>
+
+{% endblock %}
