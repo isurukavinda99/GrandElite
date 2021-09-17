@@ -16,6 +16,8 @@
     Allowances
 {% endblock %}
 
+{% include 'pms/messages.html' %}
+
 {% block main_content %}
 
 
@@ -125,6 +127,14 @@
             document.getElementById("form_search").submit();
             return(true);
         }
+
+
+        setTimeout(function () {
+            if ($('#msg').length > 0) {
+                $('#msg').remove();
+            }
+        },2000)
+
     </script>
 
 

@@ -36,12 +36,12 @@ class AllowancesCreateView(django.views.generic.CreateView):
     form_class = AllowancesForm
 
 
+
 # update view
 class AllowancesUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = Allowances
     template_name = "allowances/allowances_update.html"
     success_url = reverse_lazy('allowances:allowances-list')
-    success_message = "Data were updated successfully"
     form_class = AllowancesForm
 
 
