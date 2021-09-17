@@ -35,6 +35,18 @@
                 <div class="form-group">
                     {{ invoice_form.offered_price | as_crispy_field}}
                 </div>
+                
+                {% for send_email in  send_email_list %}
+                    <div class="form-group suppler_display_none supplers" id="send_email_{{ send_email.id }}">
+                        <label for="exampleInputEmail1" class="form-label">Select suppler to * </label>
+                        <select class="form-select suppler_select" name ="selected_suppler_data" id = 'send_email_select_{{ send_email.id }}'  aria-label="Default select example">
+                            {% for suppler in send_email.suppliers.all %}
+                                <option value="{{ suppler.id }}">{{ suppler.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                {% endfor %}
+
 
                 <div class="form-group mt-3">
                     <button type="submit" class="btn btn-success">Save invoice</button>
@@ -44,4 +56,38 @@
             </form>
         </div>
     </div>
+
+    <script>
+        {#select all suppler elements#}
+
+        var request = document.getElementById('id_emailRequest')
+
+        request.addEventListener('change' , function (){
+            var supplers = document.getElementsByClassName('supplers')
+
+            var suppler_select = document.getElementsByClassName('suppler_select')
+
+            for(select_element of suppler_select){
+                select_element.required = false
+                select_element.disabled = true
+            }
+
+            for(suppler of supplers){
+
+                if(!suppler.classList.contains('suppler_display_none')){
+                    suppler.classList.add('suppler_display_none')
+                }
+
+                if(suppler.id == 'send_email_'+this.value){
+                    suppler.classList.remove('suppler_display_none')
+                    var select_ele = document.getElementById('send_email_select_'+this.value)
+                    select_ele.required = true
+                    select_ele.disabled = false
+                }
+
+            }
+        })
+
+    </script>
+
 {% endblock %}
