@@ -19,19 +19,21 @@
 
 {% block main_content %}
 
+        <!--show messages-->
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+    {% endif %}
 
 
     <div class="card mt-4">
         <div class="card-header">
             <div class="row">
-                <div class="col">
 
-{#                    <!--CSV generate button-->#}
-{#                    <a class="btn btn-warning" href="{% url 'employeePayments:csv' %}">#}
-{#                        <i class="fas fa-print"></i>#}
-{#                    </a>#}
-
-                </div>
 
                 <!--SEARCH-->
                 <div class="col-md-5">
@@ -74,10 +76,10 @@
                 {#table data#}
                 {% for object in  object_list %}
                     <tr>
-{#                        <th scope="row">{{ object.SendMail.suppliers.id}}</th>#}
-{#                        <th scope="row">{{ object.SendMail.suppliers.name}}</th>#}
-{#                        <th scope="row">{{ object.SendMail.suppliers.email }}</th>#}
-{#                        <th scope="row">{{ object.SendMail.suppliers.phone }}</th>#}
+                        <th scope="row">{{ object.invoice_to.id}}</th>
+                        <th scope="row">{{ object.invoice_to.name}}</th>
+                        <th scope="row">{{ object.invoice_to.email }}</th>
+                        <th scope="row">{{ object.invoice_to.phone }}</th>
                         <th scope="row">{{ object.emailRequest.items.name }}</th>
                         <th scope="row">{{ object.offered_price }}</th>
                         <th scope="row">{{ object.status }}</th>

@@ -1,4 +1,5 @@
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 
 from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
@@ -47,18 +48,19 @@ class EPaymentsCreateView(django.views.generic.CreateView):
 
 
 # update view
-class EPaymentsUpdateView(django.views.generic.UpdateView):
+class EPaymentsUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = PaySlip
     template_name = "ePayments/ePayments_update.html"
     success_url = reverse_lazy('employeePayments:e-payments-list')
     form_class = PaymentForm
+    success_message = "Record was updated successfully"
 
 
-# delete view
-class EPaymentsDeleteView(django.views.generic.DeleteView):
-    model = PaySlip
-    template_name = " "
-    success_url = reverse_lazy('employeePayments:e-payments-list')
+# # delete view
+# class EPaymentsDeleteView(django.views.generic.DeleteView):
+#     model = PaySlip
+#     template_name = " "
+#     success_url = reverse_lazy('employeePayments:e-payments-list')
 
 
 # delete records
@@ -166,7 +168,6 @@ def calculate(request):
     }
 
     if request.method == 'POST':
-        # paySlip = PaySlip.objects.create(empID=eID,empName=eName,basicWage=basic, allowance=allo,deduction=ded,netPay=netPay)
 
         allow = Allowances.objects.get(amount=allo)
 
@@ -180,6 +181,7 @@ def calculate(request):
                           netPay=netPay)
 
         paySlip.save()
+        messages.add_message(request, messages.SUCCESS, 'Salary calculated successfully')
         return HttpResponseRedirect(reverse('employeePayments:e-payments-list'))
 
     return render(request, 'ePayments/ePayments_form.html', context)

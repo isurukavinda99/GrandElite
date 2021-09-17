@@ -29,12 +29,12 @@ class AllowancesListView(django.views.generic.ListView):
 
 
 # create view
-class AllowancesCreateView(django.views.generic.CreateView):
+class AllowancesCreateView(SuccessMessageMixin, django.views.generic.CreateView):
     model = Allowances
     template_name = "allowances/allowances_form.html"
     success_url = reverse_lazy('allowances:allowances-list')
     form_class = AllowancesForm
-
+    success_message = "New allowance created successfully"
 
 
 # update view
@@ -43,13 +43,14 @@ class AllowancesUpdateView(SuccessMessageMixin, django.views.generic.UpdateView)
     template_name = "allowances/allowances_update.html"
     success_url = reverse_lazy('allowances:allowances-list')
     form_class = AllowancesForm
+    success_message = "Record was updated successfully"
 
 
-# delete view
-class AllowancesDeleteView(django.views.generic.DeleteView):
-    model = Allowances
-    template_name = "allowances/allowances_list.html"
-    success_url = reverse_lazy('allowances:allowances-list')
+# # delete view
+# class AllowancesDeleteView(django.views.generic.DeleteView):
+#     model = Allowances
+#     template_name = "allowances/allowances_list.html"
+#     success_url = reverse_lazy('allowances:allowances-list')
 
 
 # delete records

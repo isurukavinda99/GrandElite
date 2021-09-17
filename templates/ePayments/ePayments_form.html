@@ -28,8 +28,9 @@
         <div class="mb-3 row">
             <label  class="col-sm-2 col-form-label">Search employee by ID</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" name="empID" id="inputEmpId" >
+                <input type="number" class="form-control" name="empID" id="inputEmpId" >
             </div>
+            <div id="help" class="form-text" style="transform: translateX(17%)">Type the employee ID and press ENTER</div>
 
         </div>
     </form>
@@ -60,7 +61,7 @@
         <div class="mb-3 row">
             <label  class="col-sm-2 col-form-label">Basic Wage</label>
             <div class="col-sm-8">
-                <input type="text" class="form-control" id="inputBasicWage" value="{{ émpBasic }}" name="basic">
+                <input type="number" class="form-control" id="inputBasicWage" value="{{ émpBasic }}" name="basic">
             </div>
 
         </div>
@@ -119,7 +120,7 @@
 
     <!--calculate button-->
         <div class="d-flex align-items-end justify-content-center mt-5">
-            <input type="submit" value="Calculate" style="background-color: #fdd600; border: none; width: 100px; height: 30px">
+            <button class="btn btn-warning" type="submit" value="Calculate" style="background-color: #fdd600; border: none; width: 100px; height: 30px">Calculate</button>
         </div>
 
     </form>
@@ -132,17 +133,6 @@
         var date = today.getFullYear()+'-'+(today.getMonth()+1);
         document.getElementById("currentDate").value = date;
     </script>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

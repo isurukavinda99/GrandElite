@@ -23,11 +23,11 @@
 
     <div class="card mt-4">
 
-
+        <!--payment info-->
         <div class="card-body">
             <div class="container">
                   <div class="row">
-                    <div class="col">
+                    <div class="col-2">
                       <h5 style="font-weight: bold">Supplier ID :</h5>
                         <h5 style="font-weight: bold">Supplier Name :</h5>
                         <h5 style="font-weight: bold">Email :</h5>
@@ -36,24 +36,21 @@
                         <h5 style="font-weight: bold">Amount :</h5>
                     </div>
                     <div class="col">
-{#                      <h5>{{ object.SendMail.suppliers.id }}</h5>#}
-{#                        <h5>{{ object.SendMail.suppliers.name }}</h5>#}
-{#                        <h5>{{ object.SendMail.suppliers.email }}</h5>#}
-{#                        <h5>{{ object.SendMail.suppliers.phone  }}</h5>#}
+                      <h5>{{ object.invoice_to.id}}</h5>
+                        <h5>{{ object.invoice_to.name }}</h5>
+                        <h5>{{ object.invoice_to.email }}</h5>
+                        <h5>{{ object.invoice_to.phone }}</h5>
                         <h5>{{ object.emailRequest.items.name  }}</h5>
                         <h5>{{ object.offered_price }}</h5>
                     </div>
                   </div>
             </div>
 
-            <!--Pay button -->
-{#            <div class="d-flex align-items-end justify-content-right mt-5">#}
-{#            <input type="submit" value="Pay" style="background-color: #fdd600; border: none; width: 100px; height: 30px">#}
-{#        </div>#}
 
+            <!--pay button-->
             <form action="{% url 'supplierPayments:s-change' object.id %}" method="POST">
                 {% csrf_token %}
-                 <button>Pay</button>
+                 <button type="button" class="btn btn-warning" style="float: right">Pay</button>
             </form>
 
 

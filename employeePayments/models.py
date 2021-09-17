@@ -10,9 +10,9 @@ class Employee(models.Model):
 
 
 class PaySlip(models.Model):
-    empID = models.IntegerField(null=True)
-    empName = models.CharField(max_length=100, null=True)
-    basicWage = models.FloatField(null=True)
+    empID = models.IntegerField(null=False)
+    empName = models.CharField(max_length=100, null=False)
+    basicWage = models.FloatField(null=False)
     month = models.CharField(max_length=15, null=True)
     allowance = models.ForeignKey(allowances.models.Allowances, on_delete=models.CASCADE)
     deduction = models.ForeignKey(deductions.models.Deductions, on_delete=models.CASCADE)

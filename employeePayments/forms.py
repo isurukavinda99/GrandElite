@@ -11,4 +11,4 @@ class EmployeeForm(ModelForm):
 class PaymentForm(ModelForm):
     class Meta:
         model = PaySlip
-        fields = ['month','allowance', 'deduction']
+        fields = ['month', 'allowance', 'deduction']

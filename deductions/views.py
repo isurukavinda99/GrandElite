@@ -1,5 +1,6 @@
 import django.views.generic
 from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -12,9 +13,10 @@ from deductions.models import Deductions
 # Create your views here.
 
 
-class DeductionsListView(django.views.generic.ListView):
+class DeductionsListView(SuccessMessageMixin, django.views.generic.ListView):
     model = Deductions
     template_name = "deductions/deductions_list.html"
+    success_message = "New deduction created successfully"
 
     # search
     def get_queryset(self):
@@ -27,24 +29,26 @@ class DeductionsListView(django.views.generic.ListView):
             return objects_list
 
 
-class DeductionsCreateView(django.views.generic.CreateView):
+class DeductionsCreateView(SuccessMessageMixin, django.views.generic.CreateView):
     model = Deductions
     template_name = "deductions/deductions_form.html"
     success_url = reverse_lazy('deductions:deductions-create')
     form_class = DeductionsForm
+    success_message = "New deduction created successfully"
 
 
-class DeductionsUpdateView(django.views.generic.UpdateView):
+class DeductionsUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = Deductions
     template_name = "deductions/deductions_update.html"
     success_url = reverse_lazy('deductions:deductions-list')
     form_class = DeductionsForm
+    success_message = "Record was updated successfully"
 
-
-class DeductionsDeleteView(django.views.generic.DeleteView):
-    model = Deductions
-    template_name = "deductions/deductions_list.html"
-    success_url = reverse_lazy('deductions:deductions-list')
+#
+# class DeductionsDeleteView(django.views.generic.DeleteView):
+#     model = Deductions
+#     template_name = "deductions/deductions_list.html"
+#     success_url = reverse_lazy('deductions:deductions-list')
 
 
 # delete records

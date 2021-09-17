@@ -1,12 +1,13 @@
 import django
+from django.contrib import messages
 from django.db.models import Q
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django .urls import reverse
-
+from django.urls import reverse
 
 import ISMS.models
 import supplierPayments.models
+
 
 # Create your views here.
 
@@ -16,7 +17,7 @@ class SPaymentsListView(django.views.generic.ListView):
     model = ISMS.models.ConfirmedInvoice.objects.filter(status='pending').all()
     template_name = "sPayments/sPayments_list.html"
 
-    print(model)
+    # print(model)
 
     # search
     def get_queryset(self):
@@ -30,12 +31,11 @@ class SPaymentsListView(django.views.generic.ListView):
 
 
 # view payment (one record)
-def view_payment(request,  sk):
-    # payment = ISMS.models.ConfirmedInvoice.objects.get(id=rk)
-    pendingAll = ISMS.models.ConfirmedInvoice.objects.get(id=sk)
-    # single = pendingAll.get(id=sk)
+def view_payment(request, sk):
 
-    print(sk)
+    pendingAll = ISMS.models.ConfirmedInvoice.objects.get(id=sk)
+
+    # print(sk)
 
     context = {
         'object': pendingAll
@@ -44,9 +44,11 @@ def view_payment(request,  sk):
     return render(request, 'sPayments/sPayments_view.html', context)
 
 
+# change payment status
 def change_status(request, sk):
     payment = ISMS.models.ConfirmedInvoice.objects.get(id=sk)
     payment.status = 'Paid'
     payment.save()
+    messages.success(request, 'Payment done successfully')
 
     return HttpResponseRedirect(reverse('supplierPayments:s-payments-list'))
