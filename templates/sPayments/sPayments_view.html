@@ -48,9 +48,12 @@
 
 
             <!--pay button-->
-            <form action="{% url 'supplierPayments:s-change' object.id %}" method="POST">
+            <form action="{% url 'supplierPayments:s-change' object.id %}" method="POST" id="test">
                 {% csrf_token %}
-                 <button type="button" class="btn btn-warning" style="float: right">Pay</button>
+
+                 <button  type="submit" class="btn btn-warning" style="float: right">Pay</button>
+{#                <input type="submit" value="submit">#}
+
             </form>
 
 

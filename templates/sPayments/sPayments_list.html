@@ -38,12 +38,12 @@
                 <!--SEARCH-->
                 <div class="col-md-5">
                     <form action="" method="GET" id="form_search">
-                        <input type="text" placeholder="Search status" name="search" id="search" class="form-control col xs-3">
+                        <input type="text" placeholder="Search pending status" name="search" id="search" class="form-control col xs-3">
                     </form>
                 </div>
 
                 <div class="col-md-1">
-                    <button value="Submit" id="btnSearch" onclick="Search();" class="btn btn-link-warning"><i class="fas fa-search"></i> </button>
+                    <button value="Submit" id="btnSearch" onclick="Search();" class="btn btn-warning"><i class="fas fa-search"></i> </button>
                 </div>
 
             </div>
@@ -82,7 +82,7 @@
                         <th scope="row">{{ object.invoice_to.phone }}</th>
                         <th scope="row">{{ object.emailRequest.items.name }}</th>
                         <th scope="row">{{ object.offered_price }}</th>
-                        <th scope="row">{{ object.status }}</th>
+                        <th scope="row" style="color: gray">{{ object.status }}</th>
 
 
                         <td>

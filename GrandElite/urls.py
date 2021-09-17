@@ -16,11 +16,10 @@ urlpatterns = [
     # kavinda
     # himasha
     path('pms/', include('employeePayments.urls')),
-
     path('allowances/', include('allowances.urls')),
     path('deductions', include('deductions.urls')),
     path('sp', include('supplierPayments.urls')),
-    # path('employeePayments', include('employeePayments.urls')),
+
 
     # mihara
 
