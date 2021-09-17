@@ -37,3 +37,7 @@
     border-right-color: #f0ad4e !important;
     border-top-color: #f0ad4e !important;
 }
+
+.suppler_display_none{
+    display: none !important;
+}

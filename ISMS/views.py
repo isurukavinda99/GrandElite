@@ -319,26 +319,31 @@ def view_release_item_ticket(request , id):
 
 def generate_invoice(request):
 
+
     invoice_form = GenerateInvoice()
     invoice_form.fields['emailRequest'].label = "Requested email"
+    send_email_list = SendMail.objects.filter(status="requested")
 
     context = {
-        'invoice_form' : invoice_form
+        'invoice_form' : invoice_form,
+        'send_email_list' : send_email_list
     }
 
     if request.method == 'POST':
 
         invoice_form_request = GenerateInvoice(request.POST)
         invoice_form_request.fields['emailRequest'].label = "Requested email"
-
         print(request.POST)
         if invoice_form_request.is_valid():
             try:
                 with transaction.atomic():
                     send_email = invoice_form_request.cleaned_data.get('emailRequest')
-                    invoice_form_request.save()
+                    selected_suppler = Supplier.objects.get(id=request.POST.get('selected_suppler_data'))
+                    invoice_data = invoice_form_request.save(commit=False)
+                    invoice_data.invoice_to = selected_suppler
                     email = SendMail.objects.filter(id=send_email.id).get()
                     email.status = "suppler_confirmed"
+                    invoice_data.save()
                     email.save()
                     messages.success(request, 'Invoice was generated !')
             except:
