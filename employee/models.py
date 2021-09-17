@@ -76,7 +76,7 @@ class Attendance(models.Model):
 
 
 
-    emp_at_id = models.IntegerField
+    emp_at_id = models.IntegerField(null=True)
     emp_at_name = models.CharField(max_length=200, null=True)
     date = models.DateField(null=True)
     inTime = models.TimeField(null=True)

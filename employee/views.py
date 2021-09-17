@@ -50,10 +50,10 @@ def render_pdf_view(request):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
 
@@ -78,10 +78,10 @@ def user_render_pdf_view(request,pk):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
 def userList_render_pdf_view(request):
@@ -105,10 +105,10 @@ def userList_render_pdf_view(request):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
 
@@ -415,39 +415,76 @@ def inPortal(request):
 
     valid_employees = EmployeeData.objects.filter(empStatus=1)
 
-    searchKey = request.GET.get('empSearch')
-
-    searchRec = valid_employees.get(id=searchKey)
-
-    empId = request.GET.get('empId')
-    empName = request.GET.get('name')
-    inTime = request.GET.get('inTime')
+    searchKey = (request.GET.get('empSearch'))
 
 
-    date = request.GET.get('currentDate')
 
- #   if 83000 > inTimeComp > 80000:
-  #      empInStat = 'Late'
+    searchedEmployee = valid_employees.filter(id=searchKey).first()
 
-   # elif  inTimeComp > 83000:
-    #    empInStat = 'Absent'
-
-    #else:
-     #   empInStat = 'On Time'
+    #print(searchedEmployee.firstName)
 
 
-    #IntimeData = Attendance(emp_at_id=empId,emp_at_name=empName,date=date,inTime=inTime,inStatus=empInStat)
-    #IntimeData.save()
 
-    #print(searchKey)
-    print(inTime)
-    print(empName)
+
+
+
+    if request.method == 'POST':
+
+
+
+        empId = request.POST.get('empId')
+
+        print(empId)
+
+        empName = request.POST.get('empName')
+        print(empName)
+
+        inTime = request.POST.get('empInTime')
+        print(inTime)
+
+        date = request.POST.get('tDate')
+        print(date)
+
+        convertedTime = int(inTime.replace(':', ''))
+        print(convertedTime)
+
+        if 830 > convertedTime > 800 :
+            status = 'late'
+            print(status)
+
+        elif convertedTime > 830:
+            status = 'Absent'
+            print(status)
+
+        else:
+            status = 'On Time'
+
+
+        IntimeData = Attendance(emp_at_id=empId, emp_at_name=empName, date=date, inTime=inTime, inStatus=status)
+
+        IntimeData.save()
+
+        return HttpResponseRedirect(reverse('inPortal'))
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
     context = {
         'validList':valid_employees,
-        'searchDet':searchRec
+        'results':searchedEmployee
+
     }
 
 

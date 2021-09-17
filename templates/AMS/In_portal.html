@@ -43,34 +43,100 @@
 
 
 
+    <br>
+
+    <div class="card mb-3" ">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="{{results.profile_pic.url}}"  alt="..." width="300px">
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+
+                    <form method="POST" id="InTimeMarker">
+                        {% csrf_token %}
+
+                        <!--Emp id-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Employee Id</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" name="empId" value="{{ results.id }}" readonly>
+
+                        </div>
+
+                        <!--emp Name-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Name</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" name="empName" value="{{ results.firstName }} {{ results.lastName }}" readonly>
+
+                        </div>
+
+                        <!--emp In Time-->
+                        <div >
+                            <label for="exampleInputEmail1" class="form-label">In Time</label>
+                            <input type="time" class="form-control" id="currentTime" aria-describedby="emailHelp" name="empInTime" readonly>
+
+                        </div>
+
+                        <!--att Date-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Date</label>
+                            <input type="text" class="form-control" id="currentDate" aria-describedby="emailHelp" name="tDate" readonly>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" form="InTimeMarker">Mark Attendance</button>
+                    </form>
 
 
-    <br><br>
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
+
         var today = new Date();
-        var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        document.getElementById("currentDate").value = date;
+
+
+
+
+        var time = today.getHours() + ":" + today.getMinutes() ;
         document.getElementById("currentTime").value = time;
     </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
