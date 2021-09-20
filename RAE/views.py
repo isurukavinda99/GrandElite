@@ -2,7 +2,7 @@ from django.shortcuts import render, HttpResponse, get_object_or_404, redirect
 from django.contrib import messages
 from django.views.generic import ListView, FormView
 from .models import Room, RoomBooking, EventBooking
-from .forms import RoomForm, RoomBookingForm, EventBookingForm
+from .forms import RoomForm, RoomBookingForm, EventBookingForm, RoomBookingUpdateForm
 
 from django.template.loader import get_template
 from xhtml2pdf import pisa
@@ -79,9 +79,10 @@ def roomBookingList(request):
 #update RoomBooking
 def updateRoomBooking(request, reserve_id):
     get_roombooking_data = get_object_or_404(RoomBooking, reserve_id=reserve_id)
-    roombookingform = RoomBookingForm(instance=get_roombooking_data)
+    # roombookingform = RoomBookingForm(instance=get_roombooking_data)
+    roombookingform = RoomBookingUpdateForm(instance=get_roombooking_data)
     if request.method == 'POST':
-        roombookingform = RoomBookingForm(request.POST, instance=get_roombooking_data)
+        roombookingform = RoomBookingUpdateForm(request.POST, instance=get_roombooking_data)
         if roombookingform.is_valid():
             roombookingform.save()
             messages.success(request, 'Room Reservation Updated')
