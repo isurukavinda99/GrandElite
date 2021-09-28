@@ -150,8 +150,140 @@
                 <div class="card " style="background-color: #191919">
                     <div class="card-header"><h3 style="text-align: center; color: gold"><i class="fas fa-fingerprint"></i> <br> Attendance Management</h3></div>
                     <div class="card-body">
-                        <h5 class="card-title">Primary card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+
+
+                        <div class="card" style="background-color: gold">
+                            <div class="card-header"><h3 style="text-align: center"><i class="fas fa-user-check"></i> Present Employees</h3></div>
+                            <div class="card-body">
+                                <br>
+                                <h1 style="text-align: center">{{ attendandAllemp }}</h1>
+
+
+
+                                <hr>
+
+
+                                <ul class="list-group">
+
+                                    <h3 style="color: gold;text-align: center;background-color: black"><i class="fas fa-user-tie"></i> Job Roles</h3>
+
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                        Hotel Receptionists
+                                        <span class="badge rounded-pill bg-warning text-dark" >{{ AtFoa }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                        Store Keepers
+                                        <span class="badge rounded-pill bg-warning text-dark">{{ Atsk}}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                        Chef
+                                        <span class="badge rounded-pill bg-warning text-dark">{{ Atec }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                        Maid
+                                        <span class="badge rounded-pill bg-warning text-dark">{{ AtMaid }}</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center" style="background-color: black; color: gold">
+                                        Waiter/Waitress
+                                        <span class="badge rounded-pill bg-warning text-dark">{{ AtWait }}</span>
+                                    </li>
+                                </ul>
+
+                                <!-- useful Links-->
+
+                                <br>
+
+                                <a href="{% url 'inPortal' %}">
+
+                                    <button type="button" class="btn btn-dark" style="width: 100%"><i class="far fa-calendar-plus"></i>  Mark in time
+
+
+                                        <i class="fas fa-arrow-circle-right" style="float: right"></i>
+                                    </button>
+
+
+                                </a>
+
+                                <br>
+                                <br>
+
+                                <a href="{% url 'outPortal' %}">
+
+                                    <button type="button" class="btn btn-dark" style="width: 100%"><i class="far fa-calendar-times"></i>  Mark out time
+
+
+                                        <i class="fas fa-arrow-circle-right" style="float: right"></i>
+                                    </button>
+
+
+                                </a>
+
+                                <br>
+                                <br>
+
+                                 <a href="{% url 'viewRec' %}">
+
+                                    <button type="button" class="btn btn-dark" style="width: 100%"><i class="fas fa-clipboard-list"></i>  Attendance List
+
+
+                                        <i class="fas fa-arrow-circle-right" style="float: right"></i>
+                                    </button>
+
+
+                                </a>
+
+                                <br>
+                                <br>
+
+                                 <a href="{% url 'attendanceList' %}">
+
+                                    <button type="button" class="btn btn-dark" style="width: 100%"><i class="fas fa-user-check"></i>  Present List
+
+
+                                        <i class="fas fa-arrow-circle-right" style="float: right"></i>
+                                    </button>
+
+
+                                </a>
+
+                                <br>
+                                <br>
+
+                                <a href="{% url 'viewRec' %}">
+
+                                    <button type="button" class="btn btn-dark" style="width: 100%"><i class="fas fa-user-check"></i>  Attendance Report
+
+
+                                        <i class="fas fa-arrow-circle-right" style="float: right"></i>
+                                    </button>
+
+
+                                </a>
+
+                                <br>
+                                <br>
+                                <br>
+
+
+
+
+
+
+
+
+                                <!-- /useful Links-->
+
+
+
+                            </div>
+
+
+
+
+                        </div>
+
+
                     </div>
                 </div>
             </div>

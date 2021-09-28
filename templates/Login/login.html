@@ -1,0 +1,94 @@
+{% extends 'layout/base.html' %}
+{% load static %}
+
+{% block body %}
+
+    <style>
+        body{
+            background-color: black;
+        }
+
+
+
+    </style>
+
+
+
+
+
+    <div class="card-group" style="height:600px;margin-top: 50px">
+        <div class="card" style="width: 600px;">
+
+            <div class="card-body " style="background-image: url({% static 'images/logo.png' %});background-attachment: fixed;background-repeat: no-repeat">
+                <h2 class="card-title" style="color: gold; font-weight: bolder;font-family: 'Arial Rounded MT Bold';text-align: center">Welcome to GrandElite</h2>
+
+                <h1 style="text-align: center"><img src="{% static 'images/logo.png' %}" width="500px"></h1>
+
+
+
+            </div>
+        </div>
+        <div class="card">
+
+            <div class="card-body">
+
+
+    {% for msg in messages %}
+
+        {% if msg.tags == 'error' %}
+            <div class="alert alert-danger" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+        {% else %}
+            <div class="alert alert-{{ msg.tags }}" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+
+        {% endif %}
+
+
+
+
+
+
+
+    {% endfor %}
+
+
+                <h2 style="text-align: center;font-weight: bolder;margin-top: 50px">Sign in to continue</h2>
+
+                <br><br>
+
+                <form method="POST">
+
+                    {% csrf_token %}
+                    <div class="mb-3">
+                        <label for="exampleInputEmail1" class="form-label">Username</label>
+                        <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="username" placeholder="Username">
+
+                    </div>
+                    <div class="mb-3">
+                        <label for="exampleInputPassword1" class="form-label">Password</label>
+                        <input type="password" class="form-control" id="exampleInputPassword1" name="password">
+                    </div>
+
+                    <h1 style="text-align: center"><button type="submit" class="btn btn-warning" style="border-radius: 20px;width: 200px">Login</button></h1>
+
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+   <script type="text/javascript">
+        setTimeout(function () {
+
+            // Closing the alert
+            $('#alert').alert('close');
+        }, 5000);
+    </script>
+
+{% endblock %}
+

@@ -18,3 +18,17 @@ class FilterSalary(django_filters.FilterSet):
         model = SalaryGroup
         fields = ['grpCode']
         exclude =['grpCode']
+
+
+class FilterAttRecs(django_filters.FilterSet):
+
+    class Meta:
+        model = EmployeeData
+        fields = ['id']
+
+class FilterInOutStat(django_filters.FilterSet):
+
+    class Meta:
+        model = Attendance
+        fields = ['inStatus','outStatus']
+

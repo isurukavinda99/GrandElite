@@ -51,12 +51,16 @@
 
         <div class="list-group">
             <!--In time-->
-            <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+            <a href="{% url 'inPortal' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
                 <i class="fas fa-sign-in-alt"></i> Mark in time</li>
             </a>
 
+            <a href="{% url 'outPortal' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+                <i class="fas fa-sign-in-alt"></i> Mark Out time</li>
+            </a>
+
             <!--attendance list-->
-            <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
+            <a href="{% url 'viewRec' %}" class="list-group-item list-group-item-action active" aria-current="true" style="color: #191919; background-color: gold" >
                 <i class="far fa-file-alt"></i> Attendance List</li>
             </a>
 

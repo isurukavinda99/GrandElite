@@ -1,0 +1,267 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %}Attendance List{% endblock %}
+
+
+{% block nav_title %}Attendance List{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+    {% for msg in messages %}
+
+        {% if msg.tags == 'error' %}
+            <div class="alert alert-danger" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+        {% else %}
+            <div class="alert alert-{{ msg.tags }}" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+
+        {% endif %}
+
+
+
+
+
+
+
+    {% endfor %}
+
+
+
+    <br>
+
+    {% comment %}    <table class="table" >
+        <thead style="background-color: black;color: white">
+        <tr>
+
+            <th scope="col">Employee Id</th>
+            <th scope="col">Employee Name</th>
+
+            <th scope="col">Date</th>
+            <th scope="col">In Time</th>
+            <th scope="col">In Time Status</th>
+            <th scope="col">Out Time</th>
+            <th scope="col">Out Time Status</th>
+            <th scope="col">O Status</th>
+
+
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for emp in allEmpData %}
+
+
+            <tr>
+
+                <td>{{ emp.id}}</td>
+                <td>{{ emp.firstName }} {{ emp.lastName }}</td>
+
+                {% for atrec in emp.attendanaceData.all %}
+                    <td>{{ atrec.date }}</td>
+
+
+                    <td>{{ atrec.inTime }}</td>
+                    <td>
+
+                        {% if emp.attendanaceData.inStatus == "Late" %}
+
+                            <span class="badge rounded-pill bg-danger" style="width: 100px">Late</span>
+
+                        {% else %}
+
+                            <span class="badge rounded-pill bg-success" style="width: 100px">On Time</span>
+
+                        {% endif %}
+
+                    </td>
+                    <td>{{ atrec.outTime }}</td>
+                    <td>{{ atrec.outStatus }}</td>
+                    <td>{{ atrec.overallStatus }}</td>
+
+
+
+
+
+                    </tr>
+
+                {% endfor %}
+
+        {% endfor %}
+
+
+        </tbody>
+    </table>{% endcomment %}
+
+
+    <!-- #####################################-->
+
+
+
+    <form method="GET">
+        {{ filtering.form }}
+    </form>
+
+    {#    <form method="GET">#}
+    {#    {{ stat.form }}#}
+    {#    <input type="submit" value="submit">#}
+    {#    </form>#}
+
+
+
+
+
+
+
+    <div class="container">
+        <div class="row">
+
+
+            <div class="col">
+                <form class="d-flex" method="POST" id="atRep" action="{% url 'attendListPdf' %}">
+                    {% csrf_token %}
+
+                    <input type="month" id="bdaymonth" name="reportDat">
+
+                    <button class="btn btn-danger" type="submit"><i class="fas fa-file-pdf"></i>Attendance Report</button>
+
+                </form>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <br>
+
+
+
+
+
+
+    <form class="d-flex" method="POST">
+        {% csrf_token %}
+        <input class="form-control me-2" type="date" placeholder="Search" aria-label="Search" name="searchDate">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+
+    <br>
+
+
+
+
+
+
+
+    <table class="table">
+        <thead style="background-color: black;color: white">
+
+        <th scope="col">Employee ID</th>
+        <th scope="col">Employee Name</th>
+        <th scope="col" style="text-align: center">Records</th>
+
+        </thead>
+
+
+        {% for a in dateEmp %}
+            <tr>
+                <td>{{ a.e.id}}</td>
+                <td>{{ a.e.firstName }}  {{ a.e.lastName }}</td>
+                <td>
+                    <table class="table">
+                        <thead >
+
+                        <th scope="col">Date</th>
+                        <th scope="col">In Time</th>
+                        <th scope="col">In Time Status</th>
+                        <th scope="col">Out Time</th>
+                        <th scope="col">Out Time Status</th>
+                        <th>Overall Status</th>
+
+
+                        </thead>
+
+
+                        {% for b in a.a %}
+                            <tr scope="col">
+                                <td>{{ b.date }}</td>
+
+
+                                <td>{{ b.inTime }}</td>
+                                <td>
+
+                                    {% if b.inStatus == "Late" %}
+
+                                        <span class="badge rounded-pill bg-danger" style="width: 100px">Late</span>
+
+
+
+                                    {% else %}
+
+                                        <span class="badge rounded-pill bg-success" style="width: 100px">On Time</span>
+
+                                    {% endif %}
+
+                                </td>
+                                <td>{{ b.outTime }}</td>
+                                <td>
+
+
+                                    {% if b.outStatus == "Early" %}
+
+                                        <span class="badge rounded-pill bg-danger" style="width: 100px">Early</span>
+
+                                    {% elif b.outStatus == "Leaved"%}
+                                        <span class="badge rounded-pill bg-success" style="width: 100px">On Time</span>
+
+                                    {% else %}
+
+                                        <span class="badge rounded-pill bg-warning text-dark" style="width: 100px">Still Working</span>
+
+                                    {% endif %}
+
+
+
+
+
+
+                                </td>
+                                <td>{{ b.overallStatus }}</td>
+
+
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+    <script type="text/javascript">
+        setTimeout(function () {
+
+            // Closing the alert
+            $('#alert').alert('close');
+        }, 5000);
+    </script>
+
+
+{% endblock %}

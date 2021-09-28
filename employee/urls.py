@@ -26,6 +26,18 @@ urlpatterns = [
     path('deleteEmp/<str:pk>/',views.switchEmployee,name="changeEmpStat"),
     path('reallocateEmp/<str:pk>/', views.reallocateEmp, name="realloEmp"),
 
+
+
+    ###############Attendance Management System URL #########################
+    path('inPortal/', views.inPortal, name="inPortal"),
+    path('AttendanceList/', views.AttendanceList, name="attendanceList"),
+    path('outPortal/', views.MarkOutTime, name="outPortal"),
+    path('viewRec/', views.SearchEmpByStatus, name="viewRec"),
+    path('AttendanceListpdf/', views.attendancelist_render_pdf_view, name="attendListPdf"),
+
+
+
+
 ]
 
 

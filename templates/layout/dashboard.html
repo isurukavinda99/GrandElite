@@ -28,6 +28,24 @@
 
                 <nav class="navbar  bg-dark text-warning title-menu mt-2 text-warning" style="background-color: #191919 !important;">
                     <h3 class="navbar-brand" >{% block nav_title %}{% endblock %}</h3>
+
+                    <span style="margin-right: 30px">
+                    <h5 style="color: white">Hello {{ request.user }}</h5>
+                        <h5><img src="{% static 'images/avatar.png' %}" width="50px"><a href="{% url 'logout' %}" style="color: white;font-weight: bold;text-decoration: none">Logout</a></h5>
+
+
+                </span>
+
+
+
+
+
+
+
+
+
+
+
                 </nav>
 
                 {% block main_content %}

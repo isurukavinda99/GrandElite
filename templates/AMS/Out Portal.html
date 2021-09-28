@@ -1,0 +1,140 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %}Out Portal{% endblock %}
+
+
+{% block nav_title %}Out Portal{% endblock %}
+
+{% block side_nav_menu %}
+    {% include 'EMS/eams-navbar.html' %}
+{% endblock %}
+
+{% block main_content %}
+
+
+        {% for msg in messages %}
+
+        {% if msg.tags == 'error' %}
+            <div class="alert alert-danger" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+        {% else %}
+            <div class="alert alert-{{ msg.tags }}" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+
+        {% endif %}
+
+
+
+
+
+
+
+    {% endfor %}
+
+
+    <br>
+
+    <form class="d-flex" method="GET" id="OutSearch">
+        {% csrf_token %}
+        <input class="form-control me-2" type="search" name="empOutSearch" placeholder="Employee Id" aria-label="Search">
+        <button class="btn btn-warning" type="submit" form="OutSearch">Search</button>
+    </form>
+
+
+
+
+    <br>
+
+
+
+    <div class="card mb-3" >
+        <div class="row g-0">
+
+            <div class="col-md-4">
+
+                {% if attData.overallStatus == completed %}
+
+
+
+{#                    <img src="{{ settings.STATIC_URL.logo.png }}"  alt="..." width="300px">#}
+
+
+                {% else %}
+
+                <img src="{{image.profile_pic.url}}"  alt="..." width="300px">
+
+                {% endif %}
+
+            </div>
+
+            <div class="col-md-8">
+                <div class="card-body">
+
+                    <form method="POST" id="OutTimeMarker">
+                        {% csrf_token %}
+
+                        <!--Emp id-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Employee Id</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" name="empId" value="{{ attData.emp_at_id  }}" readonly>
+
+                        </div>
+
+                        <!--emp Name-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Name</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" name="empName" value="{{ attData.emp_at_name }} {{ results.lastName }}" readonly>
+
+                        </div>
+
+                        <!--emp In Time-->
+                        <div >
+                            <label for="exampleInputEmail1" class="form-label">In Time</label>
+                            <input type="text" class="form-control"  aria-describedby="emailHelp" name="empInTime" value="{{ attData.inTime }}" readonly>
+
+                        </div>
+
+                        <!--att Date-->
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label">Date</label>
+                            <input type="text" class="form-control" id="currentDate" aria-describedby="emailHelp" name="tDate" readonly>
+
+                        </div>
+
+                        <!--emp out Time-->
+                        <div >
+                            <label for="exampleInputEmail1" class="form-label">Out Time</label>
+                            <input type="text" class="form-control" id="currentTime" aria-describedby="emailHelp" name="empOutTime" readonly>
+
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" form="OutTimeMarker">Mark Out Time</button>
+                    </form>
+
+
+
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+   <script>
+
+        var today = new Date();
+        var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        document.getElementById("currentDate").value = date;
+
+        var time = today.getHours() + ":" + today.getMinutes() ;
+        document.getElementById("currentTime").value = time;
+    </script>
+
+
+
+{% endblock %}
