@@ -241,14 +241,13 @@ def generate_item_pdf(request):
 
     template = get_template('ISMS/inventory/item_report.html')
     item_list = Item.objects.all()
-    today = today = date.today()
+    today = date.today()
 
     context = {
         'items' : item_list,
         'today' : today
     }
 
-    # html = template.render(context)
     pdf = render_to_pdf('ISMS/inventory/item_report.html' , context)
     return HttpResponse(pdf , content_type='application/pdf')
 
