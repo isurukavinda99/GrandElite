@@ -11,27 +11,35 @@
 
 {% block main_content %}
 
-    <table>
 
-        <thead>
-        <td>ID</td>
-        <td>Employee</td>
-        <td>Status</td>
-        </thead>
+        {% for msg in messages %}
+
+        {% if msg.tags == 'error' %}
+            <div class="alert alert-danger" id="alert" role="alert">
+                {{ msg }}
+            </div>
+
+        {% else %}
+            <div class="alert alert-{{ msg.tags }}" id="alert" role="alert">
+                {{ msg }}
+            </div>
 
 
-        {% for rec in validList %}
+        {% endif %}
 
 
-            <tr>
-                <td>{{ rec.id }}</td>
-                <td>{{ rec.firstName }}</td>
-                <td>{{ rec.empStatus }}</td>
 
-            </tr>
 
-        {% endfor %}
-    </table>
+
+
+
+    {% endfor %}
+
+
+
+
+
+<br>
 
 
     <form class="d-flex" method="GET" id="inSearch">
@@ -45,7 +53,7 @@
 
     <br>
 
-    <div class="card mb-3" ">
+    <div class="card mb-3" >
         <div class="row g-0">
             <div class="col-md-4">
                 <img src="{{results.profile_pic.url}}"  alt="..." width="300px">
@@ -73,7 +81,7 @@
                         <!--emp In Time-->
                         <div >
                             <label for="exampleInputEmail1" class="form-label">In Time</label>
-                            <input type="time" class="form-control" id="currentTime" aria-describedby="emailHelp" name="empInTime" readonly>
+                            <input type="text" class="form-control" id="currentTime" aria-describedby="emailHelp" name="empInTime" readonly>
 
                         </div>
 
@@ -98,33 +106,6 @@
     </div>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     <script>
 
         var today = new Date();
@@ -139,6 +120,13 @@
     </script>
 
 
+       <script type="text/javascript">
+        setTimeout(function () {
+
+            // Closing the alert
+            $('#alert').alert('close');
+        }, 5000);
+    </script>
 
 
 

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Attendance List</title>
+
+    <style>
+
+        .table{
+            border: solid 1px black;
+
+            text-align: center;
+        }
+
+        .mainth{
+
+            background-color:  #282C35;
+            color: white;
+
+        }
+
+        .subth{
+
+            background-color:  #0c4160;
+            color: white;
+
+
+        }
+
+
+    </style>
+
+
+
+</head>
+<body>
+
+<hr>
+
+<h1 style="text-align: center">Grand Elite Hotels (pvt) Ltd  </h1>
+
+
+
+<h3 style="text-align: center"> <p>
+    Address:  	No. 33, Canal Row, Fort, Colombo 01,Sri Lanka.
+    <br>
+    Tel:  	+94 (0) 11 5341962-63, +94 (0) 11 5341965-66
+    <br>
+    Fax: 	+94 (0) 11 2432480
+    <br>
+    E-Mail: grandelitecolombo@gmail.com
+</p></h3>
+
+
+
+<hr>
+
+<h1 style="text-align: center">Grand Elite Employee Attendance List</h1>
+
+
+
+
+<h1>Year:{{ Year }} Month:{{ Month }}</h1>
+
+
+
+
+
+    <table class="table" style="padding: 1px 2px;">
+        <thead style="background-color: black;color: white" id="thed">
+
+        <th scope="col" class="mainth" style="width:10%">Employee ID</th>
+        <th scope="col" class="mainth" style="width: 30%">Employee Name</th>
+        <th scope="col" class="mainth" style="text-align: center; width: 60%">Records</th>
+
+        </thead>
+
+
+        {% for a in attData %}
+            <tr>
+                <td>{{ a.e.id}}</td>
+                <td>{{ a.e.firstName }}  {{ a.e.lastName }}</td>
+                <td>
+                    <table class="table">
+                        <thead >
+
+                        <th scope="col" class="subth">Date</th>
+                        <th scope="col" class="subth">In Time</th>
+                        <th scope="col" class="subth">In Time Status</th>
+                        <th scope="col" class="subth">Out Time</th>
+                        <th scope="col" class="subth">Out Time Status</th>
+                        <th class="subth">Overall Status</th>
+
+
+                        </thead>
+
+
+                        {% for b in a.a %}
+                            <tr scope="col">
+                                <td>{{ b.date }}</td>
+
+
+                                <td>{{ b.inTime }}</td>
+
+
+                                    {% if b.inStatus == "Late" %}
+
+
+                                        <td style="background-color:#FF7F7F">Late</td>
+
+
+
+
+
+                                    {% else %}
+
+
+                                        <td style="background-color: greenyellow">On Time</td>
+
+                                    {% endif %}
+
+
+                                <td>{{ b.outTime }}</td>
+                                <td>
+
+
+                                    {% if b.outStatus == "Early" %}
+
+                                        <span class="badge rounded-pill bg-danger" style="width: 100px">Early</span>
+
+                                    {% elif b.outStatus == "Leaved"%}
+                                        <span class="badge rounded-pill bg-success" style="width: 100px">On Time</span>
+
+                                    {% else %}
+
+                                        <span class="badge rounded-pill bg-warning text-dark" style="width: 100px">Still Working</span>
+
+                                    {% endif %}
+
+
+
+
+
+
+                                </td>
+                                <td>{{ b.overallStatus }}</td>
+
+
+                            </tr>
+                        {% endfor %}
+
+                    </table>
+                </td>
+            </tr>
+        {% endfor %}
+
+    </table>
+
+
+
+
+</body>
+</html>

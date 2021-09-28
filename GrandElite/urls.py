@@ -10,6 +10,13 @@ from django.conf import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
 
+
+    #login
+
+    path('',include('CAS.urls')),
+
+
+
     #shalitha
     path('emp/', include('employee.urls')),
 

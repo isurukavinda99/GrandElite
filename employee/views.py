@@ -1,3 +1,5 @@
+import datetime
+
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -5,8 +7,9 @@ import csv
 from .models import *
 from .forms import *
 from django.contrib import messages
-from .filters import FilterEmployee, FilterSalary
-
+from .filters import FilterEmployee, FilterSalary, FilterAttRecs, FilterInOutStat
+from django.contrib.auth.decorators import login_required
+from CAS.decorators import *
 
 #xhtml2 views imports
 
@@ -118,6 +121,8 @@ def userList_render_pdf_view(request):
 # Create your views here.
 
 #views for emp dashboard
+
+#@allowed_users(allowed_roles=['Attendance_And_Employee'])
 def dashboard(request):
     empActiveCountTot = EmployeeData.objects.filter(empStatus=True)
 
@@ -141,13 +146,48 @@ def dashboard(request):
     #waiter
     waiter = empActiveCountTot.filter(position=5).count()
 
+
+
+    #filtering Attendance Records and render to template
+
+    currentDate = datetime.date.today();
+    totAttendedEmp = Attendance.objects.filter(date=currentDate).count()
+
+    todayEmp = EmployeeData.objects.filter(attendanaceData__date=currentDate);
+
+    atFoa = todayEmp.filter(position=1).count()
+
+    atSk = todayEmp.filter(position=2).count()
+
+    atEc = todayEmp.filter(position=3).count()
+
+    atMaid = todayEmp.filter(position=4).count()
+
+    atWait = todayEmp.filter(position=5).count()
+
+
+
+
+
+
+
+
+
+
+
     context = {
         'activeEmpCount':empActiveCount,
         'foa':foa,
         'stk':sk,
         'chef':ec,
         'maid':maid,
-        'waiter':waiter
+        'waiter':waiter,
+        'attendandAllemp':totAttendedEmp,
+        'AtFoa':atFoa,
+        'Atsk':atSk,
+        'Atec':atEc,
+        'AtMaid':atMaid,
+        'AtWait':atMaid
 
     }
 
@@ -157,6 +197,8 @@ def dashboard(request):
     return render(request,'EMS/emp-dashboard.html',context)
 
 #views for employee salary groups
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['Attendance_And_Employee'])
 def salary_grp_list(request):
 
 
@@ -448,12 +490,8 @@ def inPortal(request):
         convertedTime = int(inTime.replace(':', ''))
         print(convertedTime)
 
-        if 830 > convertedTime > 800 :
+        if convertedTime > 800:
             status = 'late'
-            print(status)
-
-        elif convertedTime > 830:
-            status = 'Absent'
             print(status)
 
         else:
@@ -463,6 +501,15 @@ def inPortal(request):
         IntimeData = Attendance(emp_at_id=empId, emp_at_name=empName, date=date, inTime=inTime, inStatus=status)
 
         IntimeData.save()
+        messages.success(request,'In time Marked')
+
+        # empinTimeData = EmployeeData(attendanaceData=IntimeData)
+        # empinTimeData.
+
+        #searchedEmployee.attendanaceData = IntimeData
+        searchedEmployee.attendanaceData.add(IntimeData)
+        searchedEmployee.save()
+
 
         return HttpResponseRedirect(reverse('inPortal'))
 
@@ -493,3 +540,224 @@ def inPortal(request):
     return render(request, 'AMS/In_portal.html', context)
 
 
+def AttendanceList(request):
+
+
+    #attendanceData = Attendance.objects.all()
+
+    empAll = EmployeeData.objects.filter(empStatus=1)
+
+    attFilter = FilterAttRecs(request.GET,queryset=empAll)
+    empAll = attFilter.qs
+
+    # attAll = Attendance.objects.all()
+    #
+    # statFilt = FilterInOutStat(request.GET,queryset=attAll)
+    # attAll = statFilt.qs
+
+
+
+
+
+    context = {
+        #'attendanceRecord':attendanceData,
+        'allEmpData':empAll,
+        'filtering':attFilter,
+        # 'stat':statFilt
+    }
+
+
+
+    return render(request,'AMS/Attendance_List.html',context)
+
+def MarkOutTime(request):
+
+
+    searchId = request.GET.get('empOutSearch')
+
+    #onlyOnTime = .filter(inStatus='Late' or 'On Time')
+
+    onlyPending = Attendance.objects.filter(overallStatus='pending')
+
+    empData = onlyPending.filter(emp_at_id=searchId).first()
+
+
+
+
+
+    empImageRes = EmployeeData.objects.filter(id=searchId).first()
+
+    if request.method == 'POST':
+
+        empId = request.POST.get('empId')
+
+        print(empId)
+
+        empName = request.POST.get('empName')
+        print(empName)
+
+        inTime = request.POST.get('empInTime')
+        print(inTime)
+
+        date = request.POST.get('tDate')
+        print(date)
+
+        empOutTime = request.POST.get('empOutTime')
+
+        convertedOutTime = int(empOutTime.replace(':', ''))
+
+        if convertedOutTime < 1700:
+            oStatus = 'Early'
+
+        elif 1700 < convertedOutTime < 1730:
+            oStatus = 'Leaved'
+
+        else:
+            oStatus = 'Still Working'
+
+
+        print(convertedOutTime)
+        print(oStatus)
+
+
+
+
+        empData.overallStatus = 'completed'
+        empData.outTime = empOutTime
+        empData.outStatus = oStatus
+
+
+        #outtimeData = Attendance(emp_at_id=empId, emp_at_name=empName, date=date, inTime=inTime, inStatus='on Time',outTime=empOutTime, outStatus=oStatus,overallStatus='Completed')
+        #outtimeData.save()
+
+        empData.save()
+
+        #empImageRes.attendanaceData.outTime = empOutTime
+
+
+        #empImageRes.attendanaceData.outStatus = oStatus
+
+
+        #empImageRes.attendanaceData.overallStatus = 'completed'
+
+
+        #empImageRes.attendanaceData.save()
+
+
+        messages.success(request,'Out time Marked Successfully')
+
+        return HttpResponseRedirect(reverse('viewRec'))
+
+
+
+    context = {
+        'attData':empData,
+        'image':empImageRes
+    }
+
+
+
+    return render(request,'AMS/Out Portal.html',context)
+
+
+
+# def displayAttRec(request,pk):
+#     attendanceData = Attendance.objects.filter(emp_at_id=pk).first()
+#
+#     print(attendanceData.date)
+#     print(attendanceData.inTime)
+#
+#
+#     context = {
+#         'relatedData':attendanceData
+#     }
+#
+#     return render(request,'AMS/Attendance_List.html',context)
+
+def SearchEmpByStatus(request):
+
+    searchDate = request.POST.get('searchDate')
+
+    print()
+
+    #searchAllByDate = Attendance.objects.filter(date=searchDate)
+    emp=[]
+
+    for e in EmployeeData.objects.all():
+        emp.append({"e":e,"a":Attendance.objects.filter(date=searchDate,emp_at_id=e.id).all()})
+
+
+
+    #searchDateRec = Attendance.objects.filter(date=searchDate)
+
+    #print({searchDateRec})
+    #print(searchDateRec.first().emp_at_name)
+
+
+
+    # print({searchAll})
+
+
+
+
+
+
+
+
+
+
+
+    context = {
+        'dateEmp':emp,
+
+
+    }
+
+
+    return render(request,'AMS/Attendance_List_date.html',context)
+
+
+
+
+
+def attendancelist_render_pdf_view(request):
+
+    my = request.POST.get('reportDat')
+
+    totDate = datetime.datetime.strptime(my,"%Y-%m")
+
+    year = totDate.year
+
+    month = totDate.month
+
+
+
+
+    #attendanceRep = EmployeeData.objects.filter(attendanaceData__date__month=atMonth, attendanaceData__date__year=atYear)
+
+    rec = []
+    for e in EmployeeData.objects.all():
+        rec.append({"e":e,"a":Attendance.objects.filter(date__month=month, date__year=year,emp_at_id=e.id).all()})
+
+    template_path = 'AMS/attendance_repot_pdf.html'
+    context = {'attData': rec,'Year':year,'Month':month}
+    # Create a Django response object, and specify content_type as pdf
+    response = HttpResponse(content_type='application/pdf')
+
+    #if user dont need to view pdf then use below response
+    #response['Content-Disposition'] = 'attachment; filename="report.pdf"'
+
+    #if user need to view and download pdf
+    response['Content-Disposition'] = 'filename="report.pdf"'
+
+    # find the template and render it.
+    template = get_template(template_path)
+    html = template.render(context)
+
+    # create a pdf
+    pisa_status = pisa.CreatePDF(
+        html, dest=response)
+    # if error then show some funy view
+    if pisa_status.err:
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
+    return response
