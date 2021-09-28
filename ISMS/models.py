@@ -86,8 +86,9 @@ class ConfirmedInvoice(models.Model):
 
     emailRequest = models.OneToOneField(SendMail , on_delete=models.CASCADE , null=False)
     offered_price = models.FloatField(null=False)
-    status = models.CharField(null=True , blank=True , choices=status_choices , default="pending" , max_length=200)
+    status = models.CharField(null=True , blank=True , choices=status_choices , default="Pending" , max_length=200)
     invoice_to = models.ForeignKey(Supplier , on_delete=models.CASCADE , null=True , blank=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+

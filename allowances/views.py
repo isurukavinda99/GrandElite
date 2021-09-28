@@ -1,4 +1,5 @@
 import django.views.generic
+from django.contrib import messages
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -28,11 +29,12 @@ class AllowancesListView(django.views.generic.ListView):
 
 
 # create view
-class AllowancesCreateView(django.views.generic.CreateView):
+class AllowancesCreateView(SuccessMessageMixin, django.views.generic.CreateView):
     model = Allowances
     template_name = "allowances/allowances_form.html"
     success_url = reverse_lazy('allowances:allowances-list')
     form_class = AllowancesForm
+    success_message = "New allowance created successfully"
 
 
 # update view
@@ -40,15 +42,15 @@ class AllowancesUpdateView(SuccessMessageMixin, django.views.generic.UpdateView)
     model = Allowances
     template_name = "allowances/allowances_update.html"
     success_url = reverse_lazy('allowances:allowances-list')
-    success_message = "Data were updated successfully"
     form_class = AllowancesForm
+    success_message = "Record was updated successfully"
 
 
-# delete view
-class AllowancesDeleteView(django.views.generic.DeleteView):
-    model = Allowances
-    template_name = "allowances/allowances_list.html"
-    success_url = reverse_lazy('allowances:allowances-list')
+# # delete view
+# class AllowancesDeleteView(django.views.generic.DeleteView):
+#     model = Allowances
+#     template_name = "allowances/allowances_list.html"
+#     success_url = reverse_lazy('allowances:allowances-list')
 
 
 # delete records
@@ -57,6 +59,7 @@ def delete_record(request, pk):
 
     if request.method == 'POST':
         record.delete()
+        messages.warning(request, 'Record deleted')
 
         return HttpResponseRedirect("/allowances/")
 

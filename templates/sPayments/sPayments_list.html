@@ -1,10 +1,128 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends 'layout/dashboard.html' %}
 
-</body>
-</html>
+<!--Title-->
+{% block title %}
+    Supplier Payments
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+    {% include 'pms/nav_bar.html' %}
+
+{% endblock %}
+
+<!-- nav title-->
+{% block nav_title %}
+    Supplier Payments
+{% endblock %}
+
+{% block main_content %}
+
+        <!--show messages-->
+    {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+            {% endfor %}
+    {% endif %}
+
+
+    <div class="card mt-4">
+        <div class="card-header">
+            <div class="row">
+
+
+                <!--SEARCH-->
+                <div class="col-md-5">
+                    <form action="" method="GET" id="form_search">
+                        <input type="text" placeholder="Search pending status" name="search" id="search" class="form-control col xs-3">
+                    </form>
+                </div>
+
+                <div class="col-md-1">
+                    <button value="Submit" id="btnSearch" onclick="Search();" class="btn btn-warning"><i class="fas fa-search"></i> </button>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="card-body">
+
+            <!-- LIST VIEW -->
+
+            {#table heads#}
+            <table class="table table-sm">
+                <thead>
+                <tr>
+
+                    <th scope="col">Sup ID</th>
+                    <th scope="col">Sup Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Phone</th>
+                    <th scope="col">Product</th>
+                    <th scope="col">Pay Amount</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Tools</th>
+
+                </tr>
+                </thead>
+
+                <tbody>
+
+                {#table data#}
+                {% for object in  object_list %}
+                    <tr>
+                        <th scope="row">{{ object.invoice_to.id}}</th>
+                        <th scope="row">{{ object.invoice_to.name}}</th>
+                        <th scope="row">{{ object.invoice_to.email }}</th>
+                        <th scope="row">{{ object.invoice_to.phone }}</th>
+                        <th scope="row">{{ object.emailRequest.items.name }}</th>
+                        <th scope="row">{{ object.offered_price }}</th>
+                        <th scope="row" style="color: gray">{{ object.status }}</th>
+
+
+                        <td>
+
+                                <!--View button-->
+                                <div>
+                                    <a href="{% url 'supplierPayments:s-payment' object.id %} " id="btnExport" class="btn btn-link" style="color: #fdd600">
+                                        <i class="fas fa-eye"></i>
+                                    </a>
+
+                                </div>
+
+
+                            </div>
+                        </td>
+                    </tr>
+
+                {% endfor %}
+
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+
+
+
+    <script>
+        function Search(){
+            var val = document.getElementById('search').value;
+
+            document.getElementById("form_search").submit();
+            return(true);
+        }
+    </script>
+
+
+{% endblock %}

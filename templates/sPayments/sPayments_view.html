@@ -1,0 +1,71 @@
+{% extends 'layout/dashboard.html' %}
+
+<!--Title-->
+{% block title %}
+    View Payment
+{% endblock %}
+
+<!--Side Nav-->
+{% block side_nav_menu %}
+    <br>
+    {% include 'pms/nav_bar.html' %}
+
+{% endblock %}
+
+<!-- nav title-->
+{% block nav_title %}
+    View Payment
+{% endblock %}
+
+{% block main_content %}
+
+
+
+    <div class="card mt-4">
+
+        <!--payment info-->
+        <div class="card-body">
+            <div class="container">
+                  <div class="row">
+                    <div class="col-2">
+                      <h5 style="font-weight: bold">Supplier ID :</h5>
+                        <h5 style="font-weight: bold">Supplier Name :</h5>
+                        <h5 style="font-weight: bold">Email :</h5>
+                        <h5 style="font-weight: bold">Phone :</h5>
+                        <h5 style="font-weight: bold">Product :</h5>
+                        <h5 style="font-weight: bold">Amount :</h5>
+                    </div>
+                    <div class="col">
+                      <h5>{{ object.invoice_to.id}}</h5>
+                        <h5>{{ object.invoice_to.name }}</h5>
+                        <h5>{{ object.invoice_to.email }}</h5>
+                        <h5>{{ object.invoice_to.phone }}</h5>
+                        <h5>{{ object.emailRequest.items.name  }}</h5>
+                        <h5>{{ object.offered_price }}</h5>
+                    </div>
+                  </div>
+            </div>
+
+
+            <!--pay button-->
+            <form action="{% url 'supplierPayments:s-change' object.id %}" method="POST" id="test">
+                {% csrf_token %}
+
+                 <button  type="submit" class="btn btn-warning" style="float: right">Pay</button>
+{#                <input type="submit" value="submit">#}
+
+            </form>
+
+
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+{% endblock %}

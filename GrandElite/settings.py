@@ -61,6 +61,7 @@ INSTALLED_APPS = [
     'allowances',
     'deductions',
     'employeePayments',
+    'supplierPayments',
     #mihara
     'RAE',
     'RAE.RBooking_functions',

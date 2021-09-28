@@ -1,8 +1,10 @@
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
+
 from django.core.exceptions import MultipleObjectsReturned
 from django.db.models import Q
 import django.views.generic
 from django.http import HttpResponseRedirect, HttpResponse
-
 
 from django.urls import reverse_lazy, reverse
 import csv
@@ -13,8 +15,6 @@ from allowances.models import Allowances
 from deductions.models import Deductions
 from employeePayments.forms import PaymentForm
 from employeePayments.models import *
-
-
 
 from django.http import HttpResponse
 from django.template.loader import get_template
@@ -48,18 +48,19 @@ class EPaymentsCreateView(django.views.generic.CreateView):
 
 
 # update view
-class EPaymentsUpdateView(django.views.generic.UpdateView):
+class EPaymentsUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = PaySlip
     template_name = "ePayments/ePayments_update.html"
     success_url = reverse_lazy('employeePayments:e-payments-list')
     form_class = PaymentForm
+    success_message = "Record was updated successfully"
 
 
-# delete view
-class EPaymentsDeleteView(django.views.generic.DeleteView):
-    model = PaySlip
-    template_name = " "
-    success_url = reverse_lazy('employeePayments:e-payments-list')
+# # delete view
+# class EPaymentsDeleteView(django.views.generic.DeleteView):
+#     model = PaySlip
+#     template_name = " "
+#     success_url = reverse_lazy('employeePayments:e-payments-list')
 
 
 # delete records
@@ -68,6 +69,7 @@ def delete_record(request, pk):
 
     if request.method == 'POST':
         record.delete()
+        messages.warning(request, 'Record deleted')
 
         return HttpResponseRedirect("/pms/")
 
@@ -77,10 +79,10 @@ def delete_record(request, pk):
 #####################################################################################################################
 
 # pdf generation
-def render_pdf_view(request,pk):
+def render_pdf_view(request, pk):
     payslipData = PaySlip.objects.get(id=pk)
     template_path = 'ePayments/paySlip.html'
-    context = {'ps':payslipData}
+    context = {'ps': payslipData}
     # Create a Django response object, and specify content_type as pdf
     response = HttpResponse(content_type='application/pdf')
     response['Content-Disposition'] = 'attachment; filename="paySlip.pdf"'
@@ -90,11 +92,12 @@ def render_pdf_view(request,pk):
 
     # create a pdf
     pisa_status = pisa.CreatePDF(
-       html, dest=response)
+        html, dest=response)
     # if error then show some funy view
     if pisa_status.err:
-       return HttpResponse('We had some errors <pre>' + html + '</pre>')
+        return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
+
 
 #########################################################################################################
 
@@ -165,7 +168,6 @@ def calculate(request):
     }
 
     if request.method == 'POST':
-        # paySlip = PaySlip.objects.create(empID=eID,empName=eName,basicWage=basic, allowance=allo,deduction=ded,netPay=netPay)
 
         allow = Allowances.objects.get(amount=allo)
 
@@ -179,5 +181,9 @@ def calculate(request):
                           netPay=netPay)
 
         paySlip.save()
+        messages.add_message(request, messages.SUCCESS, 'Salary calculated successfully')
+        return HttpResponseRedirect(reverse('employeePayments:e-payments-list'))
 
     return render(request, 'ePayments/ePayments_form.html', context)
+
+
