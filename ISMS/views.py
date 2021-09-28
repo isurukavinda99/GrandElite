@@ -241,16 +241,117 @@ def generate_item_pdf(request):
 
     template = get_template('ISMS/inventory/item_report.html')
     item_list = Item.objects.all()
-    today = today = date.today()
+    today = date.today()
 
     context = {
         'items' : item_list,
         'today' : today
     }
 
-    # html = template.render(context)
     pdf = render_to_pdf('ISMS/inventory/item_report.html' , context)
     return HttpResponse(pdf , content_type='application/pdf')
+
+# this function related to sprint 2 in inventory section
+def release_items(request):
+
+    release_item_form = ReleaseItemForm()
+    context = {
+        'form' : release_item_form
+    }
+
+    # post request
+    if request.method == 'POST':
+        release_item_form = ReleaseItemForm(request.POST)
+
+        if release_item_form.is_valid():
+
+            item = release_item_form.cleaned_data.get('item')
+            requested_qty = release_item_form.cleaned_data.get('released_quantity')
+            # check if can release item quantity
+            if requested_qty <= item.quantity:
+
+                try:
+                    with transaction.atomic():
+
+                        ticket = release_item_form.save(commit=False)
+                        item_obj = Item.objects.get(id=item.id)
+                        ticket.current_quantity =item_obj.quantity
+                        ticket.save()
+
+                        item_obj.quantity = item_obj.quantity - requested_qty
+                        item_obj.save()
+
+                        messages.success(request, 'Item release ticket is generated ')
+                except:
+                    transaction.rollback()
+                    messages.warning(request, 'Item request is denied !')
+
+            else:
+                messages.warning(request, 'Requested item quantity is grater than current quantity!')
+
+        else:
+            release_item_form.errors
+            context['form'] = release_item_form
+
+
+    return render(request , 'ISMS/inventory/item_relase_form.html' , context)
+
+def release_items_list(request):
+
+    item_release = ItemReleaseTicket.objects.all().order_by('released_date')
+
+    context = {
+        'item_list' : item_release
+    }
+
+    return render(request , template_name='ISMS/inventory/relesed_item_list.html' , context=context)
+
+def view_release_item_ticket(request , id):
+
+    ticket = ItemReleaseTicket.objects.get(id=id)
+
+    context = {
+        'ticket' : ticket
+    }
+
+    return render(request , template_name='ISMS/inventory/view_released_ticket.html' , context=context)
+
+def generate_invoice(request):
+
+
+    invoice_form = GenerateInvoice()
+    invoice_form.fields['emailRequest'].label = "Requested email"
+    send_email_list = SendMail.objects.filter(status="requested")
+
+    context = {
+        'invoice_form' : invoice_form,
+        'send_email_list' : send_email_list
+    }
+
+    if request.method == 'POST':
+
+        invoice_form_request = GenerateInvoice(request.POST)
+        invoice_form_request.fields['emailRequest'].label = "Requested email"
+        print(request.POST)
+        if invoice_form_request.is_valid():
+            try:
+                with transaction.atomic():
+                    send_email = invoice_form_request.cleaned_data.get('emailRequest')
+                    selected_suppler = Supplier.objects.get(id=request.POST.get('selected_suppler_data'))
+                    invoice_data = invoice_form_request.save(commit=False)
+                    invoice_data.invoice_to = selected_suppler
+                    email = SendMail.objects.filter(id=send_email.id).get()
+                    email.status = "suppler_confirmed"
+                    invoice_data.save()
+                    email.save()
+                    messages.success(request, 'Invoice was generated !')
+            except:
+                transaction.rollback()
+                messages.warning(request , 'Invoice generation failed')
+        else:
+            context['invoice_form'] = invoice_form_request
+
+    return render(request , 'ISMS/inventory/generate_invoice.html' , context)
 
 
 # sprint 02 suppler management
@@ -339,3 +440,60 @@ def delete_suppler(request , id):
 
     messages.success(request, 'Delete success !')
     return redirect('suppler_list')
+
+def send_email_to_suppler(request):
+
+    send_email_form = SendEmailForm(prefix='send_email')
+
+
+
+    if request.method == 'POST':
+        send_email_form = SendEmailForm(request.POST , prefix='send_email')
+
+        if send_email_form.is_valid():
+
+           send_email_form.save()
+           messages.success(request, 'Email send success !')
+        else:
+            send_email_form.errors
+
+    context = {
+        'form': send_email_form
+    }
+    return render(request, template_name= 'ISMS/suppler/send_email_to_suppler.html' , context=context)
+
+def sent_email_list(request):
+
+    email_list = SendMail.objects.all().order_by('request_date')
+    context = {
+        'email_list' : email_list
+    }
+    return render(request , 'ISMS/suppler/send_email_list.html' , context)
+
+
+def view_sent_email(request , id):
+    context = {
+
+    }
+
+    try:
+        sent_email = SendMail.objects.get(id=id)
+        sent_mail_form = SendEmailForm(instance=sent_email)
+        for field in sent_mail_form.fields:
+            sent_mail_form.fields[field].disabled = True
+
+        context['form'] = sent_mail_form
+    except:
+        messages.warning(request, 'Email not found !')
+
+    return render(request , 'ISMS/suppler/view_send_email_to_suppler.html' , context)
+
+def generate_suppler_report(request):
+
+    supplers = Supplier.objects.all()
+
+    context = {
+        'supplers' : supplers
+    }
+
+    return render(request , 'ISMS/suppler/suppler_report.html' , context)

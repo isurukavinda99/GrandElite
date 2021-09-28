@@ -49,8 +49,45 @@ class Item(models.Model):
 
 class SendMail(models.Model):
 
+    status_choices = [
+        ('requested' , 'Requested'),
+        ('suppler_confirmed' , 'Suppler confirmed')
+    ]
+
     email_body = models.TextField()
-    items = models.ManyToManyField(Item , related_name="ordered_items")
+    items = models.ForeignKey(Item , related_name="ordered_items" , on_delete=models.DO_NOTHING , null=False , blank=False)
     suppliers = models.ManyToManyField(Supplier , related_name="request_suppliers")
-    quantity = models.ImageField()
+    quantity = models.IntegerField()
     request_date = models.DateTimeField(auto_now_add=True)
+    status = models.CharField(max_length=200 ,null=True , blank=True , default="requested" ,choices=status_choices)
+
+    def __str__(self):
+        return  str(self.id) + ' - ' + self.status + ' - ' + self.items.name
+
+class ItemReleaseTicket(models.Model):
+
+    item = models.ForeignKey(Item , related_name='release_item' , on_delete=models.DO_NOTHING , null=False)
+    released_to = models.CharField(max_length=100 , null=False , blank=False)
+    released_quantity = models.IntegerField(null=False , blank=False)
+    current_quantity = models.IntegerField(null=False , blank=False)
+    released_date = models.DateTimeField(auto_now_add=True)
+    comment = models.TextField()
+
+    def __str__(self):
+        return self.item.name + ' - ' + self.released_to + ' - ' + str(self.released_quantity) + ' - ' + str(self.released_date)
+
+
+class ConfirmedInvoice(models.Model):
+
+    status_choices = [
+        ('pending' , 'Pending'),
+        ('payment_done' , 'Payment done')
+    ]
+
+    emailRequest = models.OneToOneField(SendMail , on_delete=models.CASCADE , null=False)
+    offered_price = models.FloatField(null=False)
+    status = models.CharField(null=True , blank=True , choices=status_choices , default="pending" , max_length=200)
+    invoice_to = models.ForeignKey(Supplier , on_delete=models.CASCADE , null=True , blank=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
