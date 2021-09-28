@@ -18,7 +18,7 @@
 
 <hr>
 <!--{% block nav_title %}-->
-    <h1 style="background-color:black; color:gold; font-size:19px; text-align: left">ROOM BOOKINGS LIST</h1>
+    <h1 style="background-color:black; color:gold; font-size:19px; text-align: left">EVENTS LIST</h1>
 <!--{% endblock %}-->
  <style>
         td{
@@ -39,30 +39,36 @@
                <table border="1" cellpadding="10">
                     <thead>
                         <tr style="background-color:gold">
-                            <th scope="col">Reservation ID</th>
-                            <th scope="col">Room ID</th>
+                            <th scope="col">Event ID</th>
+                            <th scope="col">Event Type</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Price (Rs.)</th>
                             <th scope="col">Customer Name</th>
                             <th scope="col">Customer Phone</th>
                             <th scope="col">Customer Email</th>
-                            <th scope="col">Check-in</th>
-                            <th scope="col">Check-out</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time-in</th>
+                            <th scope="col">Time-out</th>
                         </tr>
                     </thead>
                     <tbody>
 
-                        {% for data in roombooking_data %}
+                        {% for data in eventbooking_data %}
                         <tr>
-                            <td>{{data.reserve_id}}</td>
-                            <td>{{data.room_Id.room_id}}</td>
+                            <td>{{data.event_id}}</td>
+                            <td>{{data.event_type}}</td>
+                            <td>{{data.package}}</td>
+                            <td>{{data.price}}</td>
                             <td>{{data.customer_name}}</td>
                             <td>{{data.customer_phone}}</td>
                             <td>{{data.customer_email}}</td>
-                            <td>{{data.check_in}}</td>
-                            <td>{{data.check_out}}</td>
+                            <td>{{data.date}}</td>
+                            <td>{{data.time_in}}</td>
+                            <td>{{data.time_out}}</td>
                         </tr>
                         {% endfor %}
 
-                        {% if not  roombooking_data %}
+                        {% if not  eventbooking_data %}
                             <tr>
                                 <td colspan="10" class="text-center">No data available</td>
                             </tr>
@@ -80,7 +86,5 @@
 
             </div>
         </div>
-    </div>
-
+    </div></html>
 {% endblock %}
-

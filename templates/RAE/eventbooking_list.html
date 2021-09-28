@@ -1,0 +1,94 @@
+{% extends 'layout/dashboard.html' %}
+
+{% block title %} events List{% endblock %}
+
+
+{% block side_nav_menu %}
+    <div class="accordion-body">
+                <div class="list-group" >
+                    <a href="{% url 'RAE:eventBookingList'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-list"></i>Events List</a><br/>
+                    <a href="{% url 'RAE:createEventBooking'%}" class="list-group-item text-warning list-group-item-action nav-block" style="background:black"><i class="fas fa-plus-circle"></i>Add Events</a><br/>
+                </div>
+    </div>
+{% endblock %}
+
+{% block nav_title %}
+    EVENTS LIST
+{% endblock %}
+
+{%  block main_content %}
+<br/>
+    <form action="{% url 'RAE:searchEventBooking' %}" method="get">
+        {% csrf_token %}
+        <input type="text" name="searchEventBooking" placeholder="Enter Event Type" style="margin-left:73%">
+        <button class="btn btn-warning"  type="submit" ><i class="fas fa-search"></i></button>
+    </form>
+    <form action="" method="">
+        {% csrf_token %}
+        <a class="btn btn-outline-dark"  role="button" type="submit" href="{% url 'RAE:eventBookingPDF'%}" style="margin-left:73%">Generate Report <i class="far fa-file-pdf" style="color:red"></i></a>
+    </form>
+    <div class="container-fluid">
+    <!-- Content here -->
+        <div class="row gx-5 pt-5">
+            <div class="col-md-12 mt-0" style="border:1px solid #80808029; margin-left:5%; padding:15px;background-color:#ffffffde;">
+
+
+               <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">Event ID</th>
+                            <th scope="col">Event Type</th>
+                            <th scope="col">Package</th>
+                            <th scope="col">Price (Rs.)</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Customer Phone</th>
+                            <th scope="col">Customer Email</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Time-in</th>
+                            <th scope="col">Time-out</th>
+                            <th scope="col">Tools</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for data in eventbooking_data %}
+                        <tr>
+                            <td>{{data.event_id}}</td>
+                            <td>{{data.event_type}}</td>
+                            <td>{{data.package}}</td>
+                            <td>{{data.price}}</td>
+                            <td>{{data.customer_name}}</td>
+                            <td>{{data.customer_phone}}</td>
+                            <td>{{data.customer_email}}</td>
+                            <td>{{data.date}}</td>
+                            <td>{{data.time_in}}</td>
+                            <td>{{data.time_out}}</td>
+                            <td style="color:green;"></td>
+                            <td>
+                                <a class="btn btn-warning" href="{% url 'RAE:updateEventBooking' event_id=data.event_id %}" style="margin-left:-115%"><i class="fas fa-edit"></i></a>
+                                <a class="btn btn-danger" href="{% url 'RAE:deleteEventBooking' event_id=data.event_id %}" onclick="return confirm('Are you sure?')" style="margin-right:-20%"><i class="fas fa-trash-alt"></i></a>
+
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                        {% if not  eventbooking_data %}
+                            <tr>
+                                <td colspan="10" class="text-center">No data available</td>
+                            </tr>
+                        {% endif %}
+                    </tbody>
+                </table>
+
+            {% if messages %}
+                {% for message in  messages %}
+                    <div class="alert alert-{{message.tags}}" role="alert">
+                        {{message}}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            </div>
+        </div>
+    </div>
+{% endblock %}

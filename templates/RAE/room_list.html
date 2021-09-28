@@ -50,12 +50,11 @@
                             <td>{{data.type}}</td>
                             <td>{{data.price}}</td>
                             <td>{{data.description}}
-<!--                            {%if data.status%}-->
-<!--                            <td> <span class="label label-primary">Available</span></td>-->
-<!--                            {% else %}-->
-<!--                            <td> <span class="label label-success">Reserved</span></td>-->
-<!--                            {% endif %}-->
-                            <td><span class="btn btn-success">{{data.status}}</span></td>
+                            {%if data.status == 'AVAILABLE'%}
+                            <td><span class="btn btn-success"> Available</span></td>
+                            {% else %}
+                            <td><span class="btn btn-danger">Reserved</span></td>
+                            {% endif %}
                             <td>
                                 <a class="btn btn-warning" href="{% url 'RAE:updateRoom' room_id=data.room_id %}"><i class="fas fa-edit"></i></a>
 

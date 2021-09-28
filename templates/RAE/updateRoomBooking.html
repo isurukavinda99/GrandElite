@@ -1,5 +1,5 @@
 {% extends 'layout/dashboard.html' %}
-{% load crispy_forms_tags %}
+<!--{% load crispy_forms_tags %}-->
 {% block title %} update room bookings {% endblock %}
 
 
@@ -28,35 +28,35 @@
 
                 <form method="post" style="display:block" novalidate>
                     {% csrf_token %}
-                    {{roombookingform|crispy }}
-<!--                    <div class="mb-4">-->
-<!--                        <label for="reserve_id" class="form-label">{{roombookingform.reserve_id.label}}</label>-->
-<!--                    {{roombookingform.reserve_id}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="room_Id" class="form-label">{{roombookingform.room_Id.label}}</label>-->
-<!--                    {{roombookingform.room_Id}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="customer_name" class="form-label">{{roombookingform.customer_name.label}}</label>-->
-<!--                        {{roombookingform.customer_name}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="customer_phone" class="form-label">{{roombookingform.customer_phone.label}}</label>-->
-<!--                        {{roombookingform.customer_phone}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="customer_email" class="form-label">{{roombookingform.customer_email.label}}</label>-->
-<!--                        {{roombookingform.customer_email}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="check_in" class="form-label">{{roombookingform.check_in.label}}</label>-->
-<!--                        {{roombookingform.check_in}}-->
-<!--                    </div>-->
-<!--                    <div class="mb-4">-->
-<!--                        <label for="check_out" class="form-label">{{roombookingform.check_out.label}}</label>-->
-<!--                        {{roombookingform.check_out}}-->
-<!--                    </div>-->
+<!--                    {{roombookingform|crispy }}-->
+                    <div class="mb-4">
+                        <label for="reserve_id" class="form-label">{{roombookingform.reserve_id.label}}</label>
+                    <input readonly {{roombookingform.reserve_id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="room_Id" class="form-label">{{roombookingform.room_Id.label}}</label>
+                    {{roombookingform.room_Id}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_name" class="form-label">{{roombookingform.customer_name.label}}</label>
+                        {{roombookingform.customer_name}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_phone" class="form-label">{{roombookingform.customer_phone.label}}</label>
+                        {{roombookingform.customer_phone}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="customer_email" class="form-label">{{roombookingform.customer_email.label}}</label>
+                        {{roombookingform.customer_email}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="check_in" class="form-label">{{roombookingform.check_in.label}}</label>
+                        {{roombookingform.check_in}}
+                    </div>
+                    <div class="mb-4">
+                        <label for="check_out" class="form-label">{{roombookingform.check_out.label}}</label>
+                        {{roombookingform.check_out}}
+                    </div>
                 <br/>
                  <div class="mb-4" style="margin-left:60%">
                      <button type="submit" class="btn btn-warning">Update</button>
