@@ -4,14 +4,20 @@ from django.db.models import Q
 from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+from django.utils.decorators import method_decorator
 
 import ISMS.models
+
+from CAS.decorators import *
+from django.contrib.auth.decorators import login_required
+decorators = [login_required(login_url='login')  , allowed_users(allowed_roles=['PMS'])]
 
 
 # Create your views here.
 
 
 # view supplier payments list
+@method_decorator(decorators , name='dispatch')
 class SPaymentsListView(django.views.generic.ListView):
     model = ISMS.models.ConfirmedInvoice.objects.filter(status='pending').all()
     template_name = "sPayments/sPayments_list.html"
@@ -30,6 +36,7 @@ class SPaymentsListView(django.views.generic.ListView):
 
 
 # view payment (one record)
+@method_decorator(decorators , name='dispatch')
 def view_payment(request, sk):
     pendingAll = ISMS.models.ConfirmedInvoice.objects.get(id=sk)
 
@@ -43,6 +50,7 @@ def view_payment(request, sk):
 
 
 # change payment status
+@method_decorator(decorators , name='dispatch')
 def change_status(request, pk):
     # if request.method == 'POST':
 

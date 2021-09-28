@@ -20,10 +20,16 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
+from django.utils.decorators import method_decorator
 
+from CAS.decorators import *
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
+decorators = [login_required(login_url='login')  , allowed_users(allowed_roles=['PMS'])]
+
 # list view
+@method_decorator(decorators , name='dispatch')
 class EPaymentsListView(django.views.generic.ListView):
     model = PaySlip
     template_name = "ePayments/ePayments_list.html"
@@ -40,6 +46,7 @@ class EPaymentsListView(django.views.generic.ListView):
 
 
 # create view
+@method_decorator(decorators , name='dispatch')
 class EPaymentsCreateView(django.views.generic.CreateView):
     model = PaySlip
     template_name = "ePayments/ePayments_form.html"
@@ -48,6 +55,7 @@ class EPaymentsCreateView(django.views.generic.CreateView):
 
 
 # update view
+@method_decorator(decorators , name='dispatch')
 class EPaymentsUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = PaySlip
     template_name = "ePayments/ePayments_update.html"
@@ -64,6 +72,7 @@ class EPaymentsUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
 
 
 # delete records
+@method_decorator(decorators , name='dispatch')
 def delete_record(request, pk):
     record = PaySlip.objects.get(id=pk)
 
@@ -79,6 +88,7 @@ def delete_record(request, pk):
 #####################################################################################################################
 
 # pdf generation
+@method_decorator(decorators , name='dispatch')
 def render_pdf_view(request, pk):
     payslipData = PaySlip.objects.get(id=pk)
     template_path = 'ePayments/paySlip.html'
@@ -103,6 +113,7 @@ def render_pdf_view(request, pk):
 
 
 # csv generation
+@method_decorator(decorators , name='dispatch')
 def export_csv(request):
     response = HttpResponse(content_type='text/csv')
 
@@ -121,6 +132,7 @@ def export_csv(request):
 
 
 # find employee
+@method_decorator(decorators , name='dispatch')
 def employee_find(request):
     empDataKey = request.POST.get('empID')
 
@@ -147,6 +159,7 @@ def employee_find(request):
 
 
 # calculate salary
+@method_decorator(decorators , name='dispatch')
 def calculate(request):
     eID = request.POST.get('eID')
     eName = request.POST.get('eName')

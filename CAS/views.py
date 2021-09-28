@@ -19,11 +19,15 @@ def LoginPage(requst):
             group = requst.user.groups.filter(user=requst.user)[0]
 
 
-            if group.name == 'Attendance_And_Employee':
+            if group.name == 'EMS':
                 return redirect('eams-dashboard')
 
-            elif group.name == 'Payroll':
-                return redirect('attendanceList')
+            elif group.name == 'PMS':
+                return redirect('/pms')
+            elif group.name == 'ISMS':
+                return  redirect('/isms')
+            elif group.name == 'RAE':
+                return redirect('/rae/room_list/')
 
 
 

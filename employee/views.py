@@ -18,7 +18,8 @@ from django.http import HttpResponse
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def exportAsCsv(request):
 
     result = HttpResponse(content_type='text/csv')
@@ -34,7 +35,8 @@ def exportAsCsv(request):
 
     return result
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def render_pdf_view(request):
     template_path = 'EMS/user-profile-pdf.html'
     context = {'myvar': 'this is your template context'}
@@ -59,7 +61,8 @@ def render_pdf_view(request):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def user_render_pdf_view(request,pk):
 
     userData = EmployeeData.objects.get(id=pk)
@@ -87,6 +90,8 @@ def user_render_pdf_view(request,pk):
         return HttpResponse('We had some errors <pre>' + html + '</pre>')
     return response
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def userList_render_pdf_view(request):
 
     userList= EmployeeData.objects.all()
@@ -122,7 +127,8 @@ def userList_render_pdf_view(request):
 
 #views for emp dashboard
 
-#@allowed_users(allowed_roles=['Attendance_And_Employee'])
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def dashboard(request):
     empActiveCountTot = EmployeeData.objects.filter(empStatus=True)
 
@@ -198,7 +204,7 @@ def dashboard(request):
 
 #views for employee salary groups
 @login_required(login_url='login')
-@allowed_users(allowed_roles=['Attendance_And_Employee'])
+@allowed_users(allowed_roles=['EMS'])
 def salary_grp_list(request):
 
 
@@ -215,7 +221,8 @@ def salary_grp_list(request):
 
     return render(request,'EMS/eams-salary-group-list.html',context)
 
-
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def addSalaryGroup(request):
 
     addSalForm = SalaryAddForm()
@@ -237,7 +244,9 @@ def addSalaryGroup(request):
     return render(request,'EMS/salary-inup.html',context)
 
 
-#views for employee list
+# views for employee list
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['EMS'])
 def employee_list(request):
 
     allEmployeeData = EmployeeData.objects.all()

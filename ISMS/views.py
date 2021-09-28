@@ -4,12 +4,16 @@ from django.shortcuts import render , Http404 , redirect , get_object_or_404 , H
 from  django.db import transaction
 from django.template.loader import get_template
 from datetime import date
+from CAS.decorators import *
+from django.contrib.auth.decorators import login_required
 
 from . forms import *
 from .util import render_to_pdf
 from django.views.generic import View
 # Create your views here.
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def home(request):
 
     context = {}
@@ -29,6 +33,8 @@ def home(request):
     return render(request , 'ISMS/isms_dashboard.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def category_dashboard(request):
 
     category_list = Category.objects.all()
@@ -60,6 +66,8 @@ def category_dashboard(request):
     return render(request , 'ISMS/inventory/category_dashboard.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def new_category(request):
 
     createForm = CategoryForm()
@@ -82,6 +90,8 @@ def new_category(request):
     return render(request , 'ISMS/inventory/add_new_category.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def view_category(request , id):
 
     context = {}
@@ -95,6 +105,8 @@ def view_category(request , id):
     return render(request , 'ISMS/inventory/view_category.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def update_category(request , id):
 
     context = {}
@@ -126,6 +138,8 @@ def update_category(request , id):
     return render(request , 'ISMS/inventory/update_category.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def item_dashboard(request):
 
     items = Item.objects.all()
@@ -136,6 +150,8 @@ def item_dashboard(request):
 
     return render(request , 'ISMS/inventory/item_dashboard.html' , context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def new_item(request):
 
     item_form = ItemForm(prefix='itemForm');
@@ -165,6 +181,8 @@ def new_item(request):
     return render(request , 'ISMS/inventory/new_item.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def view_item(request , id):
 
     context = {}
@@ -182,6 +200,8 @@ def view_item(request , id):
 
     return render(request , 'ISMS/inventory/view_item.html' ,context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def update_item(request , id):
     context = {}
     try:
@@ -229,6 +249,8 @@ def update_item(request , id):
     return render(request , 'ISMS/inventory/update_item.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def delete_item(request , id):
 
     item = Item.objects.filter(id=id)
@@ -237,6 +259,8 @@ def delete_item(request , id):
 
     return redirect('item_dashboard')
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def generate_item_pdf(request):
 
     template = get_template('ISMS/inventory/item_report.html')
@@ -252,6 +276,8 @@ def generate_item_pdf(request):
     return HttpResponse(pdf , content_type='application/pdf')
 
 # this function related to sprint 2 in inventory section
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def release_items(request):
 
     release_item_form = ReleaseItemForm()
@@ -296,6 +322,8 @@ def release_items(request):
 
     return render(request , 'ISMS/inventory/item_relase_form.html' , context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def release_items_list(request):
 
     item_release = ItemReleaseTicket.objects.all().order_by('released_date')
@@ -306,6 +334,8 @@ def release_items_list(request):
 
     return render(request , template_name='ISMS/inventory/relesed_item_list.html' , context=context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def view_release_item_ticket(request , id):
 
     ticket = ItemReleaseTicket.objects.get(id=id)
@@ -316,6 +346,8 @@ def view_release_item_ticket(request , id):
 
     return render(request , template_name='ISMS/inventory/view_released_ticket.html' , context=context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def generate_invoice(request):
 
 
@@ -356,6 +388,8 @@ def generate_invoice(request):
 
 # sprint 02 suppler management
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def suppler_list(request):
 
 
@@ -367,6 +401,8 @@ def suppler_list(request):
 
     return render(request , 'ISMS/suppler/suppler_list.html' , context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def new_suppler(request):
 
     suppler_form = SupplerForm()
@@ -387,6 +423,8 @@ def new_suppler(request):
 
     return render(request , 'ISMS/suppler/new_suppler.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def view_suppler(request , id):
 
     context = {}
@@ -405,6 +443,8 @@ def view_suppler(request , id):
 
     return  render(request , 'ISMS/suppler/view_suppler.html', context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def update_suppler(request, id):
 
 
@@ -431,6 +471,8 @@ def update_suppler(request, id):
 
     return  render(request , 'ISMS/suppler/update_suppler.html' , context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def delete_suppler(request , id):
     try:
         suppler = Supplier.objects.get(id=id)
@@ -441,6 +483,8 @@ def delete_suppler(request , id):
     messages.success(request, 'Delete success !')
     return redirect('suppler_list')
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def send_email_to_suppler(request):
 
     send_email_form = SendEmailForm(prefix='send_email')
@@ -462,6 +506,8 @@ def send_email_to_suppler(request):
     }
     return render(request, template_name= 'ISMS/suppler/send_email_to_suppler.html' , context=context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def sent_email_list(request):
 
     email_list = SendMail.objects.all().order_by('request_date')
@@ -471,6 +517,8 @@ def sent_email_list(request):
     return render(request , 'ISMS/suppler/send_email_list.html' , context)
 
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def view_sent_email(request , id):
     context = {
 
@@ -488,6 +536,8 @@ def view_sent_email(request , id):
 
     return render(request , 'ISMS/suppler/view_send_email_to_suppler.html' , context)
 
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['ISMS'])
 def generate_suppler_report(request):
 
     supplers = Supplier.objects.all()

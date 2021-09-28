@@ -5,14 +5,19 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.contrib.messages.views import SuccessMessageMixin
+from django.utils.decorators import method_decorator
 
 from .forms import AllowancesForm
 from .models import Allowances
+from CAS.decorators import *
+from django.contrib.auth.decorators import login_required
+decorators = [login_required(login_url='login')  , allowed_users(allowed_roles=['PMS'])]
 
 
 # Create your views here.
 
 # list view
+@method_decorator(decorators , name='dispatch')
 class AllowancesListView(django.views.generic.ListView):
     model = Allowances
     template_name = "allowances/allowances_list.html"
@@ -29,6 +34,7 @@ class AllowancesListView(django.views.generic.ListView):
 
 
 # create view
+@method_decorator(decorators , name='dispatch')
 class AllowancesCreateView(SuccessMessageMixin, django.views.generic.CreateView):
     model = Allowances
     template_name = "allowances/allowances_form.html"
@@ -38,6 +44,7 @@ class AllowancesCreateView(SuccessMessageMixin, django.views.generic.CreateView)
 
 
 # update view
+@method_decorator(decorators , name='dispatch')
 class AllowancesUpdateView(SuccessMessageMixin, django.views.generic.UpdateView):
     model = Allowances
     template_name = "allowances/allowances_update.html"
@@ -54,6 +61,7 @@ class AllowancesUpdateView(SuccessMessageMixin, django.views.generic.UpdateView)
 
 
 # delete records
+@method_decorator(decorators , name='dispatch')
 def delete_record(request, pk):
     record = Allowances.objects.get(id=pk)
 

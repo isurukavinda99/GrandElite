@@ -7,12 +7,17 @@ from .forms import RoomForm, RoomBookingForm, EventBookingForm, RoomBookingUpdat
 from django.template.loader import get_template
 from xhtml2pdf import pisa
 
+from CAS.decorators import *
+from django.contrib.auth.decorators import login_required
+
 # from .forms import AvailabilityForm
 # from RAE.RBooking_functions.availability import check_availability
 
 # Create your views here.
 
 #create Room
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def createRoom(request):
     roomform = RoomForm()
     if request.method == 'POST':
@@ -26,12 +31,16 @@ def createRoom(request):
     return render(request, 'RAE/createRoom.html', context)
 
 #retrieve Room
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def roomList(request):
     room_data = Room.objects.all()
     context = {'room_data': room_data}
     return render(request, 'RAE/room_list.html', context)
 
 #update Room
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def updateRoom(request, room_id):
     get_room_data = get_object_or_404(Room, room_id=room_id)
     roomform = RoomForm(instance=get_room_data)
@@ -45,6 +54,8 @@ def updateRoom(request, room_id):
     return render(request, 'RAE/updateRoom.html', context)
 
 #search Room
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def searchRoom(request):
     if 'searchRoom' in request.GET:
         searchRoom = request.GET['searchRoom']
@@ -58,6 +69,8 @@ def searchRoom(request):
 ###########################################################
 
 #create RoomBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def createRoomBooking(request):
     roombookingform = RoomBookingForm()
     if request.method == 'POST':
@@ -71,12 +84,16 @@ def createRoomBooking(request):
     return render(request, 'RAE/createRoomBooking.html', context)
 
 #retrieve RoomBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def roomBookingList(request):
     roombooking_data = RoomBooking.objects.all()
     context = {'roombooking_data': roombooking_data}
     return render(request, 'RAE/roombooking_list.html', context)
 
 #update RoomBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def updateRoomBooking(request, reserve_id):
     get_roombooking_data = get_object_or_404(RoomBooking, reserve_id=reserve_id)
     # roombookingform = RoomBookingForm(instance=get_roombooking_data)
@@ -91,6 +108,8 @@ def updateRoomBooking(request, reserve_id):
     return render(request, 'RAE/updateRoomBooking.html', context)
 
 #delete RoomBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def deleteRoomBooking(request, reserve_id):
     get_roombooking = get_object_or_404(RoomBooking, reserve_id=reserve_id)
     get_roombooking.delete()
@@ -98,6 +117,8 @@ def deleteRoomBooking(request, reserve_id):
     return redirect('RAE:roomBookingList')
 
 #search roomBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def searchRoomBooking(request):
     if 'searchRoomBooking' in request.GET:
         searchRoomBooking = request.GET['searchRoomBooking']
@@ -108,6 +129,8 @@ def searchRoomBooking(request):
     return render(request, 'RAE/roombooking_list.html', context)
 
 #Generate Report
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def roomBookingPDF(request):
     roombooking_data = RoomBooking.objects.all()
     template_path = 'RAE/roomBookingReport.html'
@@ -130,6 +153,8 @@ def roomBookingPDF(request):
 ###########################################################
 
 #create EventBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def createEventBooking(request):
     eventbookingform = EventBookingForm()
     if request.method == 'POST':
@@ -143,12 +168,16 @@ def createEventBooking(request):
     return render(request, 'RAE/createEventBooking.html', context)
 
 #retrieve EventBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def eventBookingList(request):
     eventbooking_data = EventBooking.objects.all()
     context = {'eventbooking_data': eventbooking_data}
     return render(request, 'RAE/eventbooking_list.html', context)
 
 #update EventBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def updateEventBooking(request, event_id):
     get_eventbooking_data = get_object_or_404(EventBooking, event_id=event_id)
     eventbookingform = EventBookingForm(instance=get_eventbooking_data)
@@ -162,6 +191,8 @@ def updateEventBooking(request, event_id):
     return render(request, 'RAE/updateEventBooking.html', context)
 
 #delete EventBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def deleteEventBooking(request, event_id):
     get_eventbooking = get_object_or_404(EventBooking, event_id=event_id)
     get_eventbooking.delete()
@@ -169,6 +200,8 @@ def deleteEventBooking(request, event_id):
     return redirect('RAE:eventBookingList')
 
 #search EventBooking
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def searchEventBooking(request):
     if 'searchEventBooking' in request.GET:
         searchEventBooking = request.GET['searchEventBooking']
@@ -179,6 +212,8 @@ def searchEventBooking(request):
     return render(request, 'RAE/eventbooking_list.html', context)
 
 #Generate Report
+@login_required(login_url='login')
+@allowed_users(allowed_roles=['RAE'])
 def eventBookingPDF(request):
     eventbooking_data = EventBooking.objects.all()
     template_path = 'RAE/eventBookingReport.html'
